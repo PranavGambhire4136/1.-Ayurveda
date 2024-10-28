@@ -66,7 +66,7 @@ const plant = [
         Availability: "Indian subcontinent, particularly in tropical and subtropical areas.",
     },{
         Name: "Brahmi (Bacopa monnieri)",
-        Image: "https://en.wikipedia.org/wiki/File:Starr_010818-0007_Bacopa_monnieri.jpg",
+        Image: "https://upload.wikimedia.org/wikipedia/commons/5/56/Starr_010818-0007_Bacopa_monnieri.jpg",
         Info: "It is known by the common names water hyssop, waterhyssop, brahmi, thyme-leafed gratiola, herb of grace, and Indian pennywort. Bacopa monnieri is used in Ayurveda. In 2019, the US Food and Drug Administration (FDA) warned manufacturers of dietary supplement products containing Bacopa monnieri against making illegal and unproven claims that the herb can treat various diseases",
         Tags: ["Brahmi", "Bacopa monnieri", "Water"],
         Diseases: ["Memory loss", "cognitive decline", "ADHD", "anxiety", "depression", "insomnia"],
