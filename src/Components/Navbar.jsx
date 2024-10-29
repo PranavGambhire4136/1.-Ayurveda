@@ -7,7 +7,7 @@ function Navbar() {
 
     return (
         <div className='flex justify-between items-center bg-black text-white h-[10vh] px-5 md:px-10'>
-            <div className='h-[10vh] w-[5vw] mt-6 ml-[5vw] md:ml-0 hover:scale-150'>
+            <div className='h-[10vh] w-[5vw] mt-6 ml-[5vw] md:ml-0 mb-3 flex flex-col justify-center'>
                 <NavLink to="/">
                     <img src={logo} alt="Logo of ayurlens" width={50} height={50} />
                 </NavLink>

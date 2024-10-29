@@ -41,13 +41,13 @@ function PlantInformation() {
       <form className='h-[10vh] p-6 bg-slate-500 flex justify-center font-sans' onSubmit={submitHandler}>
         <input 
           type='text' 
-          className='border-2 border-black rounded-xl font-light' 
+          className='border-2 border-black rounded-xl font-light h-6' 
           value={search} 
           onFocus={handleFocus} 
           onBlur={handleBlur} 
           onChange={changeHandler} 
         />
-        <button className='bg-green-500 ml-3 rounded-xl px-4 border-2 border-black'>Search</button>
+        <button className='bg-green-500 ml-3 rounded-xl px-4 border-2 border-black h-6'>Search</button>
       </form>
 
       <div className='flex justify-center items-center min-h-screen mx-16'>

@@ -14,6 +14,18 @@
   place-items: center ;
 }
 
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.background-images {
+  background-image: url("../Assects/Home_background.jpg");
+  background-size: cover;
+
+  background-repeat: no-repeat;
+}
+
 /* :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
