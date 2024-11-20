@@ -1,15 +1,34 @@
 const { generateOTP, sendMail } = require("../Utility/OTPAndSendMail");
 const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require("bcrypt");
+const User = require("../../Models/User");
+
 
 exports.SignUp = async (req, res) => {
     try {
+        
         const { name, userName, password, confirmPassword, email, profile = "", type } = req.body;
 
         if (!name || !userName || !password || !confirmPassword || !email || !type) {
             return res.status(400).json({
                 success: false,
                 message: "All field are required", 
+            })
+        }
+
+        const UserEmail = await User.findOne({email});
+        if (UserEmail) {
+            return res.status(400).json({
+                success: false,
+                message: "email already exits", 
+            })
+        }
+
+        const UserName = await User.findOne({userName});
+        if (UserName) {
+            return res.status(400).json({
+                success: false,
+                message: "UserName already exits, try another one", 
             })
         }
 

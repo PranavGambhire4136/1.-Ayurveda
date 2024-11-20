@@ -1,7 +1,7 @@
 const User = require("../../Models/User");
 const bcrypt = require('bcrypt');
-const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const session = require("express-session");
 
 exports.Login = async (req, res) => {
 
@@ -31,27 +31,48 @@ exports.Login = async (req, res) => {
             });
         }
         
-        let UserDetails = {
-            userId: UserDetail._id,
-            email: UserDetail.email,
-        }
 
-        const token = jwt.sign(UserDetails, process.env.PRIVATE_KEY, { algorithm: 'HS256', expiresIn: '1h' });
+        let user = UserDetail.toObject();
+        user.password = undefined;
+        req.session.user = user;
 
-        return res.status(200).cookie('token', token, {
-            httpOnly: true,
-            secure: true,
-            sameSite: 'strict',
-        }).json({
-            success: true, 
-            message: "User Logged in Successfully", 
+        return res.status(200).json({
+            success: true,
+            message: "User Logged in successfully", 
         })
+
+
     } catch (err) {
         return res.status(500).json({
             success: false,
             message: "Something went wrong", 
         })
     }
-
-    
 }
+
+exports.logout = (req, res) => {
+    try {
+        req.session.destroy(err => {
+            if (err) {
+                console.error("Error destroying session:", err);
+                return res.status(500).json({
+                    success: false,
+                    message: "Could not log out. Please try again.",
+                });
+            }
+
+            res.clearCookie("connect.sid", { path: "/" });
+
+            return res.status(200).json({
+                success: true,
+                message: "Logged out successfully",
+            });
+        });
+    } catch (err) {
+        console.error("Error during logout:", err);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong. Please try again.",
+        });
+    }
+};

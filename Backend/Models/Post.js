@@ -15,7 +15,7 @@ const PostSchema = new mongoose.Schema({
     },
     postImage: {
         type: String,
-        required: true,
+        // required: true,
     },
     comments: {
         type: [mongoose.Schema.Types.ObjectId],

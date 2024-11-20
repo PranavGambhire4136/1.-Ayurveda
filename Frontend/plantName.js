@@ -94,7 +94,8 @@ const plant = [
         SideEffects: ["Mild digestive discomfort", "lower blood sugar levels excessively"],
         Exceptions: ["autoimmune diseases", "Sugar Patients"],
         Availability: "Indian subcontinent, found primarily in forests and tropical regions.",
-    },{
+    },
+    {
         Name: "Moringa (Moringa oleifera)",
         Image: "https://upload.wikimedia.org/wikipedia/commons/2/2e/DrumstickFlower.jpg",
         Info: "M. oleifera is a fast-growing, deciduous tree that can reach a height of 10 to 12 m (33 to 39 ft) and trunk diameter of 46 cm (18 in). The bark has a whitish-gray color and is surrounded by thick cork. Young shoots have purplish or greenish-white, hairy bark. The tree has an open crown of drooping, fragile branches, and the leaves build up a feathery foliage of tripinnate leaves.",

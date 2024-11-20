@@ -27,6 +27,10 @@ const UserSchema = new mongoose.Schema({
     additionalDetail: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'AdditionalDetail',
+    },
+    post: {
+        type: [mongoose.Schema.Types.ObjectId],
+        ref: "Post", 
     }
 })
 
