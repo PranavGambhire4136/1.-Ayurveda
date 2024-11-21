@@ -2,7 +2,7 @@ require("dotenv").config();
 
 exports.isAdmin = async (req, res, next) => {
     try {
-        console.log(req.session);
+        // console.log(req.session);
 
         if (req.session.user && req.session.user.type == "Admin") {
             next();
@@ -23,7 +23,7 @@ exports.isAdmin = async (req, res, next) => {
 
 exports.isUser = async (req, res, next) => {
     try {
-        console.log(req.session.user.type);
+        // console.log(req.session.user.type);
 
         if (req.session.user && req.session.user.type == "User") {
             next();

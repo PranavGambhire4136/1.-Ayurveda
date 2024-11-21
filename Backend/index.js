@@ -5,10 +5,15 @@ const {connectDB} = require("./config/DBconnect");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const user = require("./Routes/Blog");
 const session = require("express-session");
+const fileupload = require("express-fileupload");
 
 const app = express();
 const port = process.env.PORT;
 
+app.use(fileupload({
+    useTempFiles : true,
+    tempFileDir : '/tmp/'
+})); 
 app.use(express.json());
 app.use(cookieParser());
 app.use(session({
@@ -24,12 +29,6 @@ app.use(session({
 connectDB();
 cloudinaryConnect();
 
-const fileupload = require("express-fileupload");
-const { addPost } = require("./Controllers/Post/Post");
-app.use(fileupload({
-    useTempFiles : true,
-    tempFileDir : '/tmp/'
-}));  //uploads the data on the server and then cloudinary uploads the data on cloudinary
 
 app.use("/api/v1", user);
 

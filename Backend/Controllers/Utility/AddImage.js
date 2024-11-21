@@ -1,11 +1,20 @@
-exports.uploadFilePlant = async (file) => {
+const cloudinary = require("cloudinary");
+
+async function uploadToCloud(file, folders) {
+    // console.log("uploadTocloud", name)
+    const options = {
+        folder: "Home/" + folders,
+    }
+    // console.log(options);
+    return await cloudinary.uploader.upload(file.tempFilePath, options);
+}
+
+
+exports.uploadFilePlant = async (file, name) => {
     try {
-        const upload = await uploadToCloud(file, 'Plants').catch((err) => {
+        // console.log("upload file",name);
+        const upload = await uploadToCloud(file, 'Plants', name).catch((err) => {
             console.error(err);
-            res.status(400).json({
-                success: false,
-                message: 'cloudinary upload failed',
-            })
         });
         return upload.secure_url;
     } catch (err) {
@@ -13,14 +22,11 @@ exports.uploadFilePlant = async (file) => {
     }
 }
 
-exports.uploadPost = async (file) => {
+exports.uploadPost = async (file, name) => {
     try {
+        // console.log("upload file",name);
         const upload = await uploadToCloud(file, 'Post').catch((err) => {
             console.error(err);
-            res.status(400).json({
-                success: false,
-                message: 'cloudinary upload failed',
-            })
         });
         return upload.secure_url;
     } catch (err) {

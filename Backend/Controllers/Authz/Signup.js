@@ -7,9 +7,9 @@ const User = require("../../Models/User");
 exports.SignUp = async (req, res) => {
     try {
         
-        const { name, userName, password, confirmPassword, email, profile = "", type } = req.body;
+        const { name, userName, password, confirmPassword, email, profile = "", type, passkey} = req.body;
 
-        if (!name || !userName || !password || !confirmPassword || !email || !type) {
+        if (!name || !userName || !password || !confirmPassword || !email || !type || (type == "Admin" && !passkey)) {
             return res.status(400).json({
                 success: false,
                 message: "All field are required", 
@@ -46,6 +46,17 @@ exports.SignUp = async (req, res) => {
                 message: 'otp already sent',
             })
         }
+
+        if (type === "Admin") {
+            const passkeyDB = await AdminSettings.findOne();
+            if (!bcrypt.compare(passkey, passkeyDB.value)) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Inavalid passkey", 
+                })
+            }
+        }
+
         const otpGenerated = await generateOTP();
         sendMail(otpGenerated, email);
         

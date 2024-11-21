@@ -1,13 +1,15 @@
 const PlantInfo = require("../Models/PlantInfo");
+const { uploadFilePlant } = require("./Utility/AddImage");
 
 exports.addPlant = async (req, res) => {
     try {
-        const {Name, Image, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability} = req.body;
+        const {Name, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability} = req.body;
+        const Image = req.files.PlantImage;
 
         if (!Name || !Image || !Info) {
             return res.status(400).json({
                 success: false,
-                message: "Please filed all the required fields", 
+                message: "all filed are required", 
             })
         }
 
@@ -19,8 +21,11 @@ exports.addPlant = async (req, res) => {
             })
         }
 
+        const imageUrl = await uploadFilePlant(Image, Name);
+        // console.log(imageUrl);
+
         const plant = {
-            Name, Image, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability
+            Name, Image: imageUrl, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability
         }
 
         const plantInformation = await PlantInfo.create(plant);

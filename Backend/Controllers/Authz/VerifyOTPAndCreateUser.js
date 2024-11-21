@@ -1,10 +1,18 @@
 const User = require("../../Models/User");
 const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require('bcrypt');
+const AdminSettings = require("../models/AdminSettings");
 
 exports.verifyOtpAndCreateUser = async (req, res) => {
     try {
-        const { email, otp } = req.body;
+        const { email, otp} = req.body;
+
+        if (!email || !otp) {
+            return res.status(400).json({
+                success: false,
+                message: "Something went wrong", 
+            })
+        }
 
         const tempUser = await UserVerification.findOne({ email, otp });
         if (!tempUser) {
