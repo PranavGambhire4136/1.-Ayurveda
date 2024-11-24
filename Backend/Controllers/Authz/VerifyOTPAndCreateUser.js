@@ -1,7 +1,6 @@
 const User = require("../../Models/User");
 const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require('bcrypt');
-const AdminSettings = require("../models/AdminSettings");
 
 exports.verifyOtpAndCreateUser = async (req, res) => {
     try {

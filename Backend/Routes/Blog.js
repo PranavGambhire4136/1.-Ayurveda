@@ -9,7 +9,8 @@ const { addPlant } = require("../Controllers/AddPlant");
 const {addPost, deletePost} = require("../Controllers/Post/Post");
 const { addLike, removeLike } = require("../Controllers/Post/Like");
 const { addComment, deleteComment } = require("../Controllers/Post/Comment");
-const {isAdmin, isThere} = require("../Middleware/auth");
+const {isAdmin, isThere, isOwner} = require("../Middleware/auth");
+const { changePasskey } = require("../Controllers/changePasskey");
 
 router.get("/", (req, res) => {
     res.send("Hello World");
@@ -28,5 +29,8 @@ router.post("/removeLike", removeLike);
 router.post("/addComment", addComment);
 router.post("/removeComment", deleteComment);
 router.get("/logOut", isThere, logout);
+
+router.post("/changePasskey", isOwner, changePasskey);
+
 
 module.exports = router;

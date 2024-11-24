@@ -42,6 +42,27 @@ exports.isUser = async (req, res, next) => {
     }
 }
 
+exports.isOwner = async (req, res, next) => {
+    try {
+        // console.log(req.session.user.type);
+
+        if (req.session.user && (req.session.user.type == "Admin" && req.session.user.email == "pranavgambhire9890@gmail.com")) {
+            next();
+        }else {
+            return res.status(400).json({
+                success: false,
+                message: "This route is only for Owners", 
+            })
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong", 
+        })
+    }
+}
+
 exports.isThere = async(req, res, next) => {
     try {
         if (req.session.user) {

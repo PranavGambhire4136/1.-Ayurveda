@@ -2,75 +2,103 @@ const { generateOTP, sendMail } = require("../Utility/OTPAndSendMail");
 const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require("bcrypt");
 const User = require("../../Models/User");
-
+const AdminSettings = require("../../Models/adminSetting");
+const mongoose = require('mongoose');
 
 exports.SignUp = async (req, res) => {
     try {
-        
-        const { name, userName, password, confirmPassword, email, profile = "", type, passkey} = req.body;
+        const {
+            name,
+            userName,
+            password,
+            confirmPassword,
+            email,
+            profile = "",
+            type,
+            passkey,
+        } = req.body;
 
-        if (!name || !userName || !password || !confirmPassword || !email || !type || (type == "Admin" && !passkey)) {
+        // Validate required fields
+        if (!name || !userName || !password || !confirmPassword || !email || !type || (type === "Admin" && !passkey)) {
             return res.status(400).json({
                 success: false,
-                message: "All field are required", 
-            })
+                message: "All fields are required",
+            });
         }
 
-        const UserEmail = await User.findOne({email});
-        if (UserEmail) {
+        // Check if email or username already exists
+        const existingUser = await User.findOne({
+            $or: [{ email }, { userName }],
+        });
+        if (existingUser) {
             return res.status(400).json({
                 success: false,
-                message: "email already exits", 
-            })
+                message: existingUser.email === email
+                    ? "Email already exists"
+                    : "Username already exists. Try another one",
+            });
         }
 
-        const UserName = await User.findOne({userName});
-        if (UserName) {
+        // Check password match
+        if (password !== confirmPassword) {
             return res.status(400).json({
                 success: false,
-                message: "UserName already exits, try another one", 
-            })
+                message: "Password and Confirm Password do not match",
+            });
         }
 
-        if (password != confirmPassword) {
-            return res.status(400).json({
-                success: false,
-                message: "Password and confirm Password doesn't match", 
-            })
-        }
-
-        const userVer = await UserVerification.findOne({email}) || await UserVerification.findOne({userName});
-        if (userVer) {
+        // Check for ongoing OTP verification
+        const userVerification = await UserVerification.findOne({
+            $or: [{ email }, { userName }],
+        });
+        if (userVerification) {
             return res.status(400).json({
                 success: true,
-                message: 'otp already sent',
-            })
+                message: "OTP already sent",
+            });
         }
 
+        // Validate Admin passkey
         if (type === "Admin") {
-            const passkeyDB = await AdminSettings.findOne();
-            if (!bcrypt.compare(passkey, passkeyDB.value)) {
+            const passkeyDB = await AdminSettings.findOne({});
+            if (!passkeyDB) {
                 return res.status(400).json({
                     success: false,
-                    message: "Inavalid passkey", 
-                })
+                    message: "Admin passkey settings not found",
+                });
+            }
+            const isMatch = await bcrypt.compare(passkey, passkeyDB.passkey); // Match schema field name
+            if (!isMatch) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid passkey",
+                });
             }
         }
 
+        // Generate OTP and send email
         const otpGenerated = await generateOTP();
-        sendMail(otpGenerated, email);
-        
-        const hasshedPassword = await bcrypt.hash(password, 10);
+        const mailSent = await sendMail(otpGenerated, email);
+        if (!mailSent) {
+            return res.status(500).json({
+                success: false,
+                message: "Failed to send OTP. Please try again later.",
+            });
+        }
 
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Save user verification data
         await UserVerification.create({
-            name, 
+            name,
             userName,
-            password: hasshedPassword,
+            password: hashedPassword,
             email,
             profile,
             type,
             otp: otpGenerated,
-            otpExpiresAt: Date.now() + 5 * 60 * 1000, //5minites
+            otpExpiresAt: Date.now() + 5 * 60 * 1000, // 5 minutes
         });
 
         return res.status(200).json({
@@ -78,10 +106,10 @@ exports.SignUp = async (req, res) => {
             message: "Signup initiated. Please verify OTP sent to your email.",
         });
     } catch (err) {
-        console.error(err);
+        console.error("Signup Error:", err);
         return res.status(500).json({
             success: false,
-            message: 'Internal server error',
+            message: "Internal server error",
         });
     }
 };
