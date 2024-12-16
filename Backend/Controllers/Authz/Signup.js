@@ -7,6 +7,7 @@ const mongoose = require('mongoose');
 
 exports.SignUp = async (req, res) => {
     try {
+        // console.log("Started");
         const {
             name,
             userName,

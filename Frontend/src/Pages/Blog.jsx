@@ -1,9 +1,12 @@
-import React from 'react'
+import React from "react";
+import BlogList from "../Components/BlogList";
 
-function Blog() {
-  return (
-    <div>Blog</div>
-  )
+function App() {
+    return (
+        <div className="bg-gray-100 min-h-screen">
+            <BlogList />
+        </div>
+    );
 }
 
-export default Blog
+export default App;

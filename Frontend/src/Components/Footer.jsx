@@ -11,13 +11,13 @@ function Footer() {
             <div className='h-[2px] bg-black w-full'></div>
 
             <div className='flex flex-col items-center'>
-                <div className='flex text-lg md:text-xl'>
-                    <div>
-                        Design and Developed by
+                <div className='md:text-xl text-xs'>
+                    <div className='flex'>
+                        Design and Developed by <div className='md:ml-1 text-green-700 underline font-bold px-1'> {import.meta.env.VITE_NAME} </div> 
                     </div>
-                    <div className='ml-1 text-green-700 underline font-bold'>
+                    {/* <div className='ml-1 text-green-700 underline font-bold'>
                         {import.meta.env.VITE_NAME}
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className='flex justify-center flex-wrap mt-4'>

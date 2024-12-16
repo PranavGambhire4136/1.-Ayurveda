@@ -25,7 +25,7 @@ function Home() {
   useEffect(() => TakeRandomPlants(), []);
 
   return (
-    <div>
+    <>
       <div style={{
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: 'cover',
@@ -36,7 +36,9 @@ function Home() {
         className=''
       >
 
-        <div className='font-extrabold text-blue-600 text-6xl flex justify-center'>This is the information about the Ayurveda</div>
+        <div className='font-extrabold text-blue-600 text-6xl flex justify-center'>This is the information about the Ayurveda my name is pranv
+          
+        </div>
         <div className='font-bold text-blue-600 flex justify-center mt-5 text-3xl'>Sub information about the Ayurveda</div>
 
       </div>
@@ -67,7 +69,7 @@ function Home() {
 
 
 
-    </div>
+    </>
   );
 }
 

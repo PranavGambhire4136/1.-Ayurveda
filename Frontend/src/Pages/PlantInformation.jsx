@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import plant from "../../plantName";
 import PlantInfo from '../Components/PlantInfo';
-import { IoMdAdd } from "react-icons/io";
+import { IoMdAddCircle  } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
 
 function PlantInformation() {
@@ -44,17 +44,17 @@ function PlantInformation() {
   }
 
   return (
-    <div className='mt-3'>
-      <form className='h-[10vh] p-6 bg-slate-500 flex justify-center font-sans' onSubmit={submitHandler}>
+    <div>
+      <form className='h-[10vh] p-6 bg-blue-300 flex justify-center font-sans' onSubmit={submitHandler}>
         <input
           type='text'
-          className='border-2 border-black rounded-xl font-light h-6'
+          className='border-2 border-black rounded-xl font-light h-7 px-2'
           value={search}
           onFocus={handleFocus}
           onBlur={handleBlur}
           onChange={changeHandler}
         />
-        <button className='bg-green-500 ml-3 rounded-xl px-4 border-2 border-black h-6'>Search</button>
+        <button className='bg-green-500 ml-3 rounded-xl px-2 border-2 border-black h-7'>Search</button>
       </form>
 
       <div className='flex justify-center items-center min-h-screen mx-16'>
@@ -67,8 +67,8 @@ function PlantInformation() {
         </div>
       </div>
 
-      <div className='bg-green-600 w-[2vw] p-2 rounded-full text-white font-extrabold hover:scale-125' onClick={handleNavigation}>
-        <IoMdAdd />
+      <div className='w-full flex relative'>
+          <IoMdAddCircle  className='bg-[#964B00] md:w-[4vw] md:h-[4vw] md:p-2 rounded-full text-white font-extrabold  hover:scale-125  fixed bottom-10 right-10 w-[10vw] h-[10vw]' onClick={handleNavigation}/>
       </div>
     </div>
   );

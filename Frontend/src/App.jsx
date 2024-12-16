@@ -12,19 +12,21 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div>
+    <div className='bg-[#97afba]'>
       <Navbar />
-      <Routes>
-        <Route path='/' element = {<Home />} /> 
-        <Route path = "/plantInformation" element = {<PlantInformation />} />
-        <Route path='/plantInformation/:id' element = {<DetailPlantInfo />} />
-        <Route path = "/newPlant" element = {<NewPlant />} />
-        <Route path = "/blog" element = {<Blog />} />
-        <Route path='/newBlog' element = {<NewBlog />} />
-        <Route path = "/signup" element = {<SignUp/>} />
-        <Route path = '/login' element = {<Login />} />
-      </Routes>
-      <Footer />
+      <div className='border-t-4'>
+        <Routes>
+          <Route path='/' element = {<Home />} /> 
+          <Route path = "/plantInformation" element = {<PlantInformation />} />
+          <Route path='/plantInformation/:id' element = {<DetailPlantInfo />} />
+          <Route path = "/newPlant" element = {<NewPlant />} />
+          <Route path = "/blog" element = {<Blog />} />
+          <Route path='/newBlog' element = {<NewBlog />} />
+          <Route path = "/signup" element = {<SignUp/>} />
+          <Route path = '/login' element = {<Login />} />
+        </Routes>
+        <Footer />
+      </div>
     </div>
 
   )

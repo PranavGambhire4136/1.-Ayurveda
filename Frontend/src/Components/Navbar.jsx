@@ -11,10 +11,10 @@ function Navbar() {
     // }
 
     return (
-        <div className='flex justify-between items-center bg-black text-white h-[10vh] px-5 md:px-10'>
-            <div className='h-[10vh] w-[5vw] mt-6 ml-[5vw] md:ml-0 mb-3 flex flex-col justify-center'>
+        <div className='flex justify-between items-center bg-[#1b8e53] text-white h-[10vh] w-[100vw] px-5 md:px-10'>
+            <div className=' h-[40vh] w-[10vw]  md:h-[10vh] md:w-[2vw] mt-6 ml-[5vw] md:ml-0 mb-3 flex flex-col justify-center'>
                 <NavLink to="/">
-                    <img src={logo} alt="Logo of ayurlens" width={50} height={50} />
+                    <img src={logo} alt="Logo of ayurlens"/>
                 </NavLink>
             </div>
 
