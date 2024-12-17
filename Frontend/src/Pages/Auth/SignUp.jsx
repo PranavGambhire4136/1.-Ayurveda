@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import image from "../../Assects/Chiapas_Rainforest_crop.jpg";
+import axios from 'axios';
+
 
 function SignUp() {
   const [selectAdmin, setSelectAdmin] = useState(false);
@@ -8,6 +10,7 @@ function SignUp() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    userName: '',
     password: '',
     confirmPassword: '',
     isAdmin: false,
@@ -23,6 +26,20 @@ function SignUp() {
         setOptSend(false);
         setReOtp(true);
       }, 5 * 60 * 1000);
+
+      let type;
+      if (formData.isAdmin) {
+        type = "Admin";
+      } else {
+        type = "User"
+      }
+
+      axios.post('http://localhost:4000/api/v1/SignUpInit', {name: formData.name, userName: formData.userName, password: formData.password, confirmPassword: formData.confirmPassword, email: formData.email, profile: formData.profile, type: type, passkey: formData.passkey })
+        .then((response) => {
+        console.log("OTP send successfully");
+      }).catch(error => {
+        console.log("error while sending opt: ", error);
+      })
     } else {
       console.log("OTP has already been sent.");
     }
@@ -45,9 +62,18 @@ function SignUp() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
+    console.log("payload: ", JSON.stringify({
+      name: formData.name,
+      email: formData.email,
+      password: formData.password,
+      isAdmin: formData.isAdmin,
+      accessCode: formData.accessCode,
+      confirmPassword: formData.confirmPassword,
+      otp: formData.otp 
+    }));
   };
 
   return (
@@ -74,6 +100,17 @@ function SignUp() {
                   type="email"
                   name="email"
                   value={formData.email}
+                  onChange={handleChange}
+                  className="border-2 border-black rounded-md p-2"
+                />
+              </label>
+
+              <label className="flex flex-col">
+                <span>Chose UserName</span>
+                <input
+                  type="text"
+                  name="userName"
+                  value={formData.userName }
                   onChange={handleChange}
                   className="border-2 border-black rounded-md p-2"
                 />

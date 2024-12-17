@@ -7,7 +7,8 @@ const mongoose = require('mongoose');
 
 exports.SignUp = async (req, res) => {
     try {
-        // console.log("Started");
+        console.log("Started");
+        console.log("body: ", req.body);
         const {
             name,
             userName,
@@ -20,6 +21,7 @@ exports.SignUp = async (req, res) => {
         } = req.body;
 
         // Validate required fields
+        console.log('Validation 1')
         if (!name || !userName || !password || !confirmPassword || !email || !type || (type === "Admin" && !passkey)) {
             return res.status(400).json({
                 success: false,
