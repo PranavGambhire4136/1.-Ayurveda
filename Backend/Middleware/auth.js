@@ -2,9 +2,10 @@ require("dotenv").config();
 
 exports.isAdmin = async (req, res, next) => {
     try {
-        // console.log(req.session);
+        console.log("admin Checking",req.session);
 
         if (req.session.user && req.session.user.type == "Admin") {
+            console.log('admin');
             next();
         }else {
             return res.status(400).json({
@@ -65,7 +66,10 @@ exports.isOwner = async (req, res, next) => {
 
 exports.isThere = async(req, res, next) => {
     try {
-        if (req.session.user) {
+        const user = req.cookies?.token;
+        console.log('cookie: ', req.cookies);
+        req.user = user;
+        if (user) {
             next();
         } else {
             return res.status(400).json({

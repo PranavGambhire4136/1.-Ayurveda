@@ -21,7 +21,7 @@ exports.SignUp = async (req, res) => {
         } = req.body;
 
         // Validate required fields
-        console.log('Validation 1')
+        // console.log('Validation 1')
         if (!name || !userName || !password || !confirmPassword || !email || !type || (type === "Admin" && !passkey)) {
             return res.status(400).json({
                 success: false,

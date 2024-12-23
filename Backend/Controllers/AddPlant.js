@@ -3,42 +3,54 @@ const { uploadFilePlant } = require("./Utility/AddImage");
 
 exports.addPlant = async (req, res) => {
     try {
-        const {Name, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability} = req.body;
-        const Image = req.files.PlantImage;
+        console.log("Received data:", req.body);
+        const { Name, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability } = req.body;
+        const Image = req.files ? req.files.PlantImage : null;
 
-        if (!Name || !Image || !Info) {
+        if (!Name || !Info || !Image) {
             return res.status(400).json({
                 success: false,
-                message: "all filed are required", 
-            })
+                message: "Name, Image, and Info are required fields.",
+            });
         }
 
-        const isPlantExits = await PlantInfo.findOne({Name});
-        if (isPlantExits) {
+        // Check if the plant already exists
+        const isPlantExists = await PlantInfo.findOne({ Name });
+        if (isPlantExists) {
             return res.status(400).json({
                 success: false,
-                message: "Plant already exits", 
-            })
+                message: "Plant already exists.",
+            });
         }
 
+        // Upload the plant image using cloudinary or any other method
         const imageUrl = await uploadFilePlant(Image, Name);
-        // console.log(imageUrl);
 
+        // Create the new plant document
         const plant = {
-            Name, Image: imageUrl, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability
-        }
+            Name, 
+            Image: imageUrl, 
+            Info, 
+            Tags, 
+            Disease, 
+            HowItWorks, 
+            SideEffects, 
+            Exception, 
+            Availability
+        };
 
-        const plantInformation = await PlantInfo.create(plant);
+        // Save the plant to the database
+        await PlantInfo.create(plant);
 
         return res.status(200).json({
             success: true,
-            message: "Plant Added Successfully", 
-        })
-    } catch(err) {
-        console.log(err.message);
+            message: "Plant added successfully.",
+        });
+    } catch (err) {
+        console.error("Error:", err.message);
         return res.status(500).json({
             success: false,
-            message: "Something went wrong", 
-        })
+            message: "Something went wrong.",
+        });
     }
-}
+};

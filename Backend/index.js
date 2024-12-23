@@ -13,7 +13,11 @@ const path = require("path");
 const app = express();
 const port = process.env.PORT || 4000;
 
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));  // Increase as necessary
+
+app.use(express.urlencoded({ limit: '100mb', extended: true }));
+
+app.use(cookieParser());
 
 // CORS configuration
 const allowedOrigins = ["http://localhost:5137", "http://localhost:5173"];
@@ -34,34 +38,39 @@ if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir);
 }
 
-app.use((req, res, next) => {
-    console.log(`Incoming Request: ${req.method} ${req.url}`);
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body);
-    next();
-});
 
+// Increase the limit for JSON body size
 // File upload middleware
 app.use(fileupload({
     useTempFiles: true,
     tempFileDir: tempDir
 }));
 
-app.use(cookieParser());
+
 
 // Session setup
 app.use(session({
-    secret: process.env.PRIVATE_KEY || "default_secret", // Fallback if PRIVATE_KEY is undefined
-    resave: false,
-    saveUninitialized: true,
+    secret: process.env.PRIVATE_KEY,
+    resave: true,
+    saveUninitialized: false,
     cookie: {
+        secure: false, // Set to true for HTTPS
         maxAge: 1000 * 60 * 60 * 24, // 1 day
-        secure: false // Set to true for HTTPS
     }
 }));
 
+
+// Your other routes and middleware...
 connectDB();
 cloudinaryConnect();
+
+
+app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url}`);
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    next();
+});
 
 // API Routes
 app.use("/api/v1", user);

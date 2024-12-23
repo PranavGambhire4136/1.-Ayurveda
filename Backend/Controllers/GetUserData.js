@@ -2,15 +2,18 @@ const User = require("../Models/User");
 
 exports.getUser = async (req, res) => {
     try {
-        const {userId} = req.body;
-        if (!userId) {
+        const {email} = req.query;
+        // const {email} = req.body;
+        if (!email) {
             return res.status(400).json({
                 success: false,
                 message: "Your are not loged in", 
             })
         }
 
-        const UserDetail = await User.findById(userId);
+        console.log(email);
+        
+        const UserDetail = await User.findOne({email});
 
         if (!UserDetail) {
             return res.status(400).json({
@@ -19,7 +22,14 @@ exports.getUser = async (req, res) => {
             })
         }
 
-        return UserDetail;
+        const user = UserDetail.toObject();
+        user.password = undefined;
+
+        return res.status(200).json({    
+            success: true,
+            message: "User found",
+            data: user,
+        })
     } catch(err) {
         console.error(err);
         return res.status(500).json({
