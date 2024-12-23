@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import image from "../../Assects/Chiapas_Rainforest_crop.jpg";
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 function SignUp() {
   const [selectAdmin, setSelectAdmin] = useState(false);
   const [otpSend, setOptSend] = useState(false);
   const [reotp, setReOtp] = useState(false);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -65,15 +68,19 @@ function SignUp() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(formData);
-    console.log("payload: ", JSON.stringify({
-      name: formData.name,
-      email: formData.email,
-      password: formData.password,
-      isAdmin: formData.isAdmin,
-      accessCode: formData.accessCode,
-      confirmPassword: formData.confirmPassword,
-      otp: formData.otp 
-    }));
+    //email and otp
+
+    if (otpSend) {
+      axios.post('http://localhost:4000/api/v1/SignUpComplete', { otp: formData.otp, email: formData.email })
+        .then((response) => {
+        console.log("OTP verified successfully");
+        navigate("/login");
+      }).catch(error => {
+        console.log("error while registering user: ", error);
+      })
+    } else {
+      console.log("Enter otp first");
+    }
   };
 
   return (
@@ -220,6 +227,8 @@ function SignUp() {
                 </div>
               )}
             </form>
+
+            <button className="border-2 border-black rounded-md p-2 bg-blue-300 hover:scale-105 mt-3 w-full" onClick={() => navigate("/login")}>Already have an account?</button>
           </div>
         </div>
 

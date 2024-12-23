@@ -15,6 +15,7 @@ function Home() {
       selectPlants[i] = plant[index];
     }
     console.log("Random Plants:", RandomPlant);
+    console.log("access Token", localStorage.getItem('token'));
     setRandomPlant(selectPlants);
   }
 

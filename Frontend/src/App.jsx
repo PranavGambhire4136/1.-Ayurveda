@@ -7,6 +7,7 @@ import SignUp from './Pages/Auth/SignUp';
 import Login from './Pages/Auth/Login';
 import DetailPlantInfo from './Pages/DetailPlantInfo';
 import Footer from './Components/Footer';
+import Profile from './Pages/Auth/Profile';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -24,6 +25,7 @@ function App() {
           <Route path='/newBlog' element = {<NewBlog />} />
           <Route path = "/signup" element = {<SignUp/>} />
           <Route path = '/login' element = {<Login />} />
+          <Route path = '/viewProfile' element = {<Profile />} />
         </Routes>
         <Footer />
       </div>

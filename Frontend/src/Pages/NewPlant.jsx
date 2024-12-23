@@ -1,49 +1,200 @@
-import React from 'react';
+import React, { useState } from 'react'; 
+import axios from 'axios';
 
-function NewPlant() {
+function AddPlant() {
+  const [plantData, setPlantData] = useState({
+    name: "",
+    image: "",
+    info: "",
+    tags: "",
+    diseases: "",
+    howItWorks: "",
+    sideEffects: "",
+    exceptions: "",
+    availability: "",
+  });
+
+  // Handle input field changes
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPlantData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  // Handle file input change (store file directly in state)
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setPlantData((prevData) => ({
+        ...prevData,
+        image: file, // Store the file directly
+      }));
+    }
+  };
+
+  // Submit the form data to the backend
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    // Prepare data to send as JSON
+    const dataToSend = {
+      name: plantData.name,
+      image: plantData.image, // base64 encoded string
+      info: plantData.info,
+      tags: plantData.tags,
+      diseases: plantData.diseases,
+      howItWorks: plantData.howItWorks,
+      sideEffects: plantData.sideEffects,
+      exceptions: plantData.exceptions,
+      availability: plantData.availability,
+    };
+  
+    // Log the data being sent for debugging
+    console.log("Data to send:", dataToSend);
+  
+    try {
+      const response = await axios.post('http://localhost:4000/api/v1/addPlant', dataToSend, {
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      // Handle successful response
+      if (response.data.success) {
+        alert("Plant added successfully!");
+      }
+    } catch (error) {
+      console.error("Error while adding plant:", error);
+      alert("Error while adding plant. Please try again.");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center m-4 gap-4 p-4 justify-center bg-white rounded-lg shadow-lg md:p-10">
       <h1 className="text-3xl font-bold text-green-500 mb-4 text-center">Add New Plant</h1>
-      <form className="bg-white p-3 md:p-10 flex flex-col gap-4 ml-0 mr-0">
+      <form className="bg-white p-3 md:p-10 flex flex-col gap-4 ml-0 mr-0" onSubmit={handleSubmit}>
+
+        {/* Plant Name Input */}
         <label className="flex flex-col gap-2">
           <div className="text-lg font-bold text-gray-600">Plant Name</div>
-          <input type="text" required className="p-2 border border-gray-300 rounded-lg w-full" />
+          <input
+            type="text"
+            required
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="name"
+            value={plantData.name}
+            onChange={handleInputChange}
+          />
         </label>
 
+        {/* Plant Image Upload */}
         <label className="flex flex-col gap-2">
           <div className="text-lg font-bold text-gray-600">Plant Image</div>
-          <input type="file" accept="image/*" required className="p-2 border border-gray-300 rounded-lg w-full" />
+          <input
+            type="file"
+            accept="image/*"
+            required
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            onChange={handleFileChange}
+          />
         </label>
 
+        {/* Plant Information Input */}
         <label className="flex flex-col gap-2">
           <div className="text-lg font-bold text-gray-600">Plant Information</div>
-          <input type="text" required className="p-2 border border-gray-300 rounded-lg w-full" />
+          <input
+            type="text"
+            required
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="info"
+            value={plantData.info}
+            onChange={handleInputChange}
+          />
         </label>
 
+        {/* Tags Input */}
         <label className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-gray-600">Disease can cured</div>
-          <input type="text" className="p-2 border border-gray-300 rounded-lg w-full" />
+          <div className="text-lg font-bold text-gray-600">Tags (e.g., medicinal, decorative)</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="tags"
+            value={plantData.tags}
+            onChange={handleInputChange}
+          />
         </label>
 
+        {/* Diseases Input */}
+        <label className="flex flex-col gap-2">
+          <div className="text-lg font-bold text-gray-600">Diseases Cured</div>
+          <div className='text-sm text-red-500'>Enter values separated by commas</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="diseases"
+            value={plantData.diseases}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* How It Works Input */}
+        <label className="flex flex-col gap-2">
+          <div className="text-lg font-bold text-gray-600">How It Works</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="howItWorks"
+            value={plantData.howItWorks}
+            onChange={handleInputChange}
+          />
+        </label>
+
+        {/* Side Effects Input */}
         <label className="flex flex-col gap-2">
           <div className="text-lg font-bold text-gray-600">Side Effects</div>
-          <input type="text" className="p-2 border border-gray-300 rounded-lg w-full" />
+          <div className='text-sm text-red-500'>Enter values separated by commas</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="sideEffects"
+            value={plantData.sideEffects}
+            onChange={handleInputChange}
+          />
         </label>
 
+        {/* Exceptions Input */}
         <label className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-gray-600">Conditions where not to use</div>
-          <input type="text" className="p-2 border border-gray-300 rounded-lg w-full" />
+          <div className="text-lg font-bold text-gray-600">Exceptions</div>
+          <div className='text-sm text-red-500'>Enter values separated by commas</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="exceptions"
+            value={plantData.exceptions}
+            onChange={handleInputChange}
+          />
         </label>
 
+        {/* Availability Input */}
         <label className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-gray-600">Where does this plant grow</div>
-          <input type="text" className="p-2 border border-gray-300 rounded-lg w-full" />
+          <div className="text-lg font-bold text-gray-600">Availability</div>
+          <div className='text-sm text-red-500'>Enter values separated by commas</div>
+          <input
+            type="text"
+            className="p-2 border border-gray-300 rounded-lg w-full"
+            name="availability"
+            value={plantData.availability}
+            onChange={handleInputChange}
+          />
         </label>
 
-        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-full mt-4">Submit</button>
+        {/* Submit Button */}
+        <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-full mt-4">
+          Submit
+        </button>
       </form>
     </div>
   );
 }
 
-export default NewPlant;
+export default AddPlant;

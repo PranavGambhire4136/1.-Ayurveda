@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
 
 function Login() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,9 +20,31 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
+
+
+
+    const setToken = (key, token, expiryTimeInSeconds) => {
+      const expiryTime = Date.now() + expiryTimeInSeconds * 1000;
+      const tokenData = { token, expiry: expiryTime };
+      localStorage.setItem(key, JSON.stringify(tokenData));
+      console.log("The token will expire in time", new Date(expiryTime));
+    };
+
     e.preventDefault();
-    console.log(formData);
-    // Add your login logic here
+    axios.get('http://localhost:4000/api/v1/login', { params: { email: formData.email, password: formData.password }, withCredentials: true  })
+      .then((response) => {
+        console.log(response.data);
+        console.log('Login successful');
+        console.log(response.data.token);
+        setToken('token', response.data.token, ((60 * 60 * 24) - (1.5 * 60)) );
+
+        console.log(localStorage);
+        navigate('/');
+      })
+      .catch((error) => {
+        console.error(error);
+        console.log('Login failed');
+      })
   };
 
   return (
@@ -53,6 +80,7 @@ function Login() {
             Login
           </button>
         </form>
+        <button className='bg-blue-600 w-full text-white rounded-md p-2 hover:bg-blue-700 mt-3' onClick={() => navigate('/signUp')}>Register User</button>
       </div>
     </div>
   );
