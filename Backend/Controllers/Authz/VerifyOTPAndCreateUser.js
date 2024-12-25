@@ -11,7 +11,7 @@ exports.verifyOtpAndCreateUser = async (req, res) => {
         if (!email || !otp) {
             return res.status(400).json({
                 success: false,
-                message: "Something went wrong", 
+                message: "Email and OTP are required", 
             })
         }
 
@@ -40,7 +40,7 @@ exports.verifyOtpAndCreateUser = async (req, res) => {
 
         return res.status(200).json({
             success: true,
-            message: "User verified and registered successfully.",
+            message: "User registered successfully.",
         });
     } catch (err) {
         console.error(err);

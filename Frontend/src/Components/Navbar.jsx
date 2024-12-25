@@ -4,6 +4,7 @@ import logo from "../Assects/Logo.png";
 import { jwtDecode } from "jwt-decode";
 import Avatar from './Avatar';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 function Navbar() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -38,24 +39,28 @@ function Navbar() {
         return () => {
             if (id) clearInterval(id);
         };
-    }, [location]); 
+    }, [location]);
 
 
     const logout = () => {
 
-        // axios.post('http://localhost:4000/api/v1/logout')
-        // .then ((response) => {
-        //     console.log(response.data);
-        //     localStorage.removeItem('token');
-        //     setIsLogin(false);
-        //     setIsMobileMenuOpen(false);
-        // })
-        // .catch((error) => {
-        //     console.log(error);
-        // })
-            localStorage.removeItem('token');
-            setIsLogin(false);
-            setIsMobileMenuOpen(false);
+        // console.log(document.cookie);
+        // const change = " ";
+        // document.cookie = `token=${change}; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+
+        axios.get('http://localhost:4000/api/v1/logout', { withCredentials: true })
+            .then(res => {
+                console.log(res.data);
+                toast.success(res.data.message);
+            })
+            .catch(err => {
+                console.log(err);
+                toast.error(err.response.data.message);
+            })
+
+        localStorage.removeItem('token');
+        setIsLogin(false);
+        setIsMobileMenuOpen(false);
 
     };
 

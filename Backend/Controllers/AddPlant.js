@@ -3,9 +3,14 @@ const { uploadFilePlant } = require("./Utility/AddImage");
 
 exports.addPlant = async (req, res) => {
     try {
-        console.log("Received data:", req.body);
+        // console.log("Received data:", req.body);
         const { Name, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability } = req.body;
-        const Image = req.files ? req.files.PlantImage : null;
+        const Image = req.files?.Image;
+
+        // console.log("Name:", Name);
+        // console.log("Info:", Info);
+        // console.log("Image:", Image);
+
 
         if (!Name || !Info || !Image) {
             return res.status(400).json({
@@ -22,20 +27,26 @@ exports.addPlant = async (req, res) => {
                 message: "Plant already exists.",
             });
         }
+        
+        const tagArray = Tags?.toString().split(",") || [];
+        const diseaseArray = Disease?.toString().split(",") || [];
+        const sideEffectsArray = SideEffects?.toString().split(",") || [];
+        const exceptionArray = Exception?.toString().split(",") || [];
 
-        // Upload the plant image using cloudinary or any other method
+        
         const imageUrl = await uploadFilePlant(Image, Name);
+
 
         // Create the new plant document
         const plant = {
             Name, 
             Image: imageUrl, 
             Info, 
-            Tags, 
-            Disease, 
+            Tags: tagArray, 
+            Disease: diseaseArray, 
             HowItWorks, 
-            SideEffects, 
-            Exception, 
+            SideEffects: sideEffectsArray, 
+            Exceptions: exceptionArray, 
             Availability
         };
 

@@ -1,7 +1,12 @@
 import React, { useState } from 'react'; 
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 function AddPlant() {
+
+  const navigate = useNavigate();
+
   const [plantData, setPlantData] = useState({
     name: "",
     image: "",
@@ -40,15 +45,15 @@ function AddPlant() {
   
     // Prepare data to send as JSON
     const dataToSend = {
-      name: plantData.name,
-      image: plantData.image, // base64 encoded string
-      info: plantData.info,
-      tags: plantData.tags,
-      diseases: plantData.diseases,
-      howItWorks: plantData.howItWorks,
-      sideEffects: plantData.sideEffects,
-      exceptions: plantData.exceptions,
-      availability: plantData.availability,
+      Name: plantData.name,
+      Image: plantData.image, // base64 encoded string
+      Info: plantData.info,
+      Tags: plantData.tags,
+      Disease: plantData.diseases,
+      HowItWorks: plantData.howItWorks,
+      SideEffects: plantData.sideEffects,
+      Exception: plantData.exceptions,
+      Availability: plantData.availability,
     };
   
     // Log the data being sent for debugging
@@ -56,16 +61,18 @@ function AddPlant() {
   
     try {
       const response = await axios.post('http://localhost:4000/api/v1/addPlant', dataToSend, {
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true
       });
   
       // Handle successful response
       if (response.data.success) {
-        alert("Plant added successfully!");
+        toast.success(response.data.message);
+        navigate('/');
+      } else {
+        toast.error(response.data.message);
       }
     } catch (error) {
-      console.error("Error while adding plant:", error);
-      alert("Error while adding plant. Please try again.");
+      toast.error("Error while adding plant. Please try again.");
     }
   };
 

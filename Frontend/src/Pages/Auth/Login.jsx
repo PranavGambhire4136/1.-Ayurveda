@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import toast from 'react-hot-toast';
 
 
 function Login() {
@@ -11,6 +12,14 @@ function Login() {
   });
 
 
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      toast.error('You are already logged in');
+      navigate('/');
+    }
+  }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -20,8 +29,6 @@ function Login() {
   };
 
   const handleSubmit = (e) => {
-
-
 
     const setToken = (key, token, expiryTimeInSeconds) => {
       const expiryTime = Date.now() + expiryTimeInSeconds * 1000;
@@ -38,11 +45,13 @@ function Login() {
         console.log(response.data.token);
         setToken('token', response.data.token, ((60 * 60 * 24) - (1.5 * 60)) );
 
+        toast.success('Login successful');
         console.log(localStorage);
         navigate('/');
       })
       .catch((error) => {
-        console.error(error);
+        console.log(error.response.data);
+        toast.error(error.response.data.message);
         console.log('Login failed');
       })
   };

@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 exports.Login = async (req, res) => {
     try {
-        console.log("body", req.body);
+        // console.log("body", req.body);
         // const { email, password } = req.body;
         const { email, password } = req.query;
 
@@ -39,6 +39,7 @@ exports.Login = async (req, res) => {
                 email: UserDetail.email,
                 userName: UserDetail.userName,
                 name: UserDetail.name,
+                type: UserDetail.type,
             },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' } // Token expiration time
@@ -46,7 +47,7 @@ exports.Login = async (req, res) => {
 
         res.cookie('token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, sameSite: 'lax' });
 
-        console.log("cookie", res.getHeader('Set-Cookie'));
+        // console.log("cookie", res.getHeader('Set-Cookie'));
 
         return res.status(200).json({
             success: true,
@@ -64,25 +65,11 @@ exports.Login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        const authHeader = req.headers['authorization'];
-        if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return res.status(401).json({
-                success: false,
-                message: "Unauthorized: No token provided",
-            });
-        }
-
-        const token = authHeader.split(' ')[1];
-
-
-        const blacklistedTokens = new Set();
-
-        // Add the token to the in-memory blacklist
-        blacklistedTokens.add(token);
+        res.clearCookie('token', { path: '/' })
 
         return res.status(200).json({
             success: true,
-            message: "Logged out successfully. Token is blacklisted.",
+            message: "Logged out successfully",
         });
     } catch (err) {
         console.error("Error during logout:", err);

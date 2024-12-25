@@ -24,7 +24,7 @@ router.get("/getUser", isThere, getUser);
 
 router.get("/getAllPlant", getAllPlants);
 router.post("/addPlant", isAdmin, addPlant);  // Route for adding a plant
-router.post("/addPost", addPost);
+router.post("/addPost", isThere, addPost);
 router.post("/removePost", deletePost);
 router.post("/giveLike", addLike);
 router.post("/removeLike", removeLike);

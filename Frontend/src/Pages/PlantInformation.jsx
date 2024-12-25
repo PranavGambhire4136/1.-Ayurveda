@@ -1,13 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import plant from "../../plantName";
 import PlantInfo from '../Components/PlantInfo';
-import { IoMdAddCircle  } from "react-icons/io";
+import { IoMdAddCircle } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import { jwtDecode } from "jwt-decode";
 
 function PlantInformation() {
   const [search, setSearch] = useState("Search a plant");
   const [filteredData, setFilteredData] = useState(plant);
   const navigate = useNavigate();
+  const [user, setUser] = useState({});
+
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setUser(decodedToken);
+      console.log(user);
+    }
+  }, []);
 
   function handleFocus() {
     if (search === "Search a plant") {
@@ -67,9 +79,12 @@ function PlantInformation() {
         </div>
       </div>
 
-      <div className='w-full flex relative'>
-          <IoMdAddCircle  className='bg-[#964B00] md:w-[4vw] md:h-[4vw] md:p-2 rounded-full text-white font-extrabold  hover:scale-125  fixed bottom-10 right-10 w-[10vw] h-[10vw]' onClick={handleNavigation}/>
-      </div>
+      {
+        (user.type === "Admin") &&
+        <div className='w-full flex relative'>
+          <IoMdAddCircle className='bg-[#964B00] md:w-[4vw] md:h-[4vw] md:p-2 rounded-full text-white font-extrabold  hover:scale-125  fixed bottom-10 right-10 w-[10vw] h-[10vw]' onClick={handleNavigation} />
+        </div>
+      }
     </div>
   );
 }

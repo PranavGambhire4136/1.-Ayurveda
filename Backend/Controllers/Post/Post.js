@@ -6,11 +6,13 @@ const { uploadPost } = require('../Utility/AddImage');
 
 exports.addPost = async(req, res) => {
     try {
-        // console.log("Checking", req.session.user);
+        // console.log("Checking", req.user);
         const {postHeading, postContent} = req.body;
-         const postImage = req.files?.postimage;
+        console.log("PostHeading and content",postHeading, postContent);
+        console.log("files: ", req.files);
+         const postImage = req.files?.postImage;
         //  console.log(req.files);
-        //  console.log(postImage);
+         console.log("PostImage: ", postImage);
 
         
         if (!postContent || !postHeading || !postImage) {
@@ -20,8 +22,8 @@ exports.addPost = async(req, res) => {
             })
         }
         
-        // console.log("controller", req.session.user);
-        const user = req.session.user;
+        // console.log("controller", req.user);
+        const user = req.user;
         // console.log("user", user);
         if (!user) {
             return res.status(400).json({
@@ -75,7 +77,7 @@ exports.deletePost = async(req, res) => {
             })
         }
 
-        const user = req.session.user;
+        const user = req.user;
         if (!user) {
             return res.status(400).json({
                 success: true,

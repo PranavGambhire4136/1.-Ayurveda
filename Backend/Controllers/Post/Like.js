@@ -12,7 +12,7 @@ exports.addLike = async (req, res) => {
             });
         }
 
-        const user = req.session.user;
+        const user = req.user;
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -80,7 +80,7 @@ exports.removeLike = async (req, res) => {
             });
         }
 
-        const user = req.session.user;
+        const user = req.user;
         if (!user) {
             return res.status(400).json({
                 success: false,

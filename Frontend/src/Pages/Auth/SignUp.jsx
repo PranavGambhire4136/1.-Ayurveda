@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import image from "../../Assects/Chiapas_Rainforest_crop.jpg";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 
 function SignUp() {
@@ -9,6 +10,7 @@ function SignUp() {
   const [otpSend, setOptSend] = useState(false);
   const [reotp, setReOtp] = useState(false);
   const navigate = useNavigate();
+
 
   const [formData, setFormData] = useState({
     name: '',
@@ -23,12 +25,6 @@ function SignUp() {
 
   function sendOtp() {
     if (!otpSend) {
-      setOptSend(true);
-      setReOtp(false); 
-      setTimeout(() => {
-        setOptSend(false);
-        setReOtp(true);
-      }, 5 * 60 * 1000);
 
       let type;
       if (formData.isAdmin) {
@@ -37,14 +33,20 @@ function SignUp() {
         type = "User"
       }
 
-      axios.post('http://localhost:4000/api/v1/SignUpInit', {name: formData.name, userName: formData.userName, password: formData.password, confirmPassword: formData.confirmPassword, email: formData.email, profile: formData.profile, type: type, passkey: formData.passkey })
+      axios.post('http://localhost:4000/api/v1/SignUpInit', { name: formData.name, userName: formData.userName, password: formData.password, confirmPassword: formData.confirmPassword, email: formData.email, profile: formData.profile, type: type, passkey: formData.passkey })
         .then((response) => {
-        console.log("OTP send successfully");
-      }).catch(error => {
-        console.log("error while sending opt: ", error);
-      })
+          setOptSend(true);
+          setReOtp(false);
+          setTimeout(() => {
+            setOptSend(false);
+            setReOtp(true);
+          }, 5 * 60 * 1000);
+          toast.success("OTP Send successfully");
+        }).catch(error => {
+          toast.error(error.response.data.message);
+        })
     } else {
-      console.log("OTP has already been sent.");
+      toast.error("OTP has already been sent.");
     }
   }
 
@@ -73,13 +75,13 @@ function SignUp() {
     if (otpSend) {
       axios.post('http://localhost:4000/api/v1/SignUpComplete', { otp: formData.otp, email: formData.email })
         .then((response) => {
-        console.log("OTP verified successfully");
-        navigate("/login");
-      }).catch(error => {
-        console.log("error while registering user: ", error);
-      })
+          toast.success(response.data.message);
+          navigate("/login");
+        }).catch(error => {
+          toast.error(error.response.data.message);
+        })
     } else {
-      console.log("Enter otp first");
+      toast.error("Enter otp first");
     }
   };
 
@@ -117,7 +119,7 @@ function SignUp() {
                 <input
                   type="text"
                   name="userName"
-                  value={formData.userName }
+                  value={formData.userName}
                   onChange={handleChange}
                   className="border-2 border-black rounded-md p-2"
                 />

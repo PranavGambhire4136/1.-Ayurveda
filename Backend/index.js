@@ -17,6 +17,13 @@ app.use(express.json({ limit: '50mb' }));  // Increase as necessary
 
 app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
+const tempDir = path.join(__dirname, "tmp");
+app.use(fileupload({
+    useTempFiles: true,
+    tempFileDir: tempDir
+}));
+
+
 app.use(cookieParser());
 
 // CORS configuration
@@ -33,18 +40,9 @@ app.use(cors({
 }));
 
 // Ensure the temporary file upload directory exists
-const tempDir = path.join(__dirname, "tmp");
 if (!fs.existsSync(tempDir)) {
     fs.mkdirSync(tempDir);
 }
-
-
-// Increase the limit for JSON body size
-// File upload middleware
-app.use(fileupload({
-    useTempFiles: true,
-    tempFileDir: tempDir
-}));
 
 
 
@@ -65,12 +63,12 @@ connectDB();
 cloudinaryConnect();
 
 
-app.use((req, res, next) => {
-    console.log(`Incoming Request: ${req.method} ${req.url}`);
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(`Incoming Request: ${req.method} ${req.url}`);
+//     console.log("Headers:", req.headers);
+//     console.log("Body:", req.body);
+//     next();
+// });
 
 // API Routes
 app.use("/api/v1", user);

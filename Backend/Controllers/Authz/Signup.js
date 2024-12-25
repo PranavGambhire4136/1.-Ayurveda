@@ -3,7 +3,6 @@ const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require("bcrypt");
 const User = require("../../Models/User");
 const AdminSettings = require("../../Models/adminSetting");
-const mongoose = require('mongoose');
 
 exports.SignUp = async (req, res) => {
     try {
