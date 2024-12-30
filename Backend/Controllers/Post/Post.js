@@ -1,8 +1,8 @@
 const Post = require('../../Models/Post');
 const User = require("../../Models/User");
-const Comment = require("../../Models/Comment");
 const Like = require("../../Models/Likes");
 const { uploadPost } = require('../Utility/AddImage');
+const DisLike = require('../../Models/DisLike');
 
 exports.addPost = async(req, res) => {
     try {
@@ -97,7 +97,7 @@ exports.deletePost = async(req, res) => {
         const deletePost = await Post.findByIdAndDelete(postId);
         console.log("delete", deletePost);
 
-        await Comment.deleteMany({ post: postId }, { session });
+        await DisLike.deleteMany({ post: postId }, { session });
 
         await Like.deleteMany({ post: postId }, { session });
 
@@ -115,6 +115,41 @@ exports.deletePost = async(req, res) => {
         return res.status(500).json({
             success: false,
             message: "Something went wrong", 
+        })
+    }
+}
+
+
+/*************  ✨ Codeium Command ⭐  *************/
+/**
+ * Retrieves all posts from the database, populates the user field in each post,
+ * and removes the password field from the user object before sending a response.
+ * 
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {void} - Sends a JSON response with the list of posts or an error message.
+ */
+
+/******  7fbff035-86b2-4811-85ab-ebb4e730b41d  *******/
+exports.getAllPost = async (req, res) => {
+    try {
+        const data = await Post.find({}).populate('user');
+        
+        data.forEach(post => {
+            if (post.user) {
+                post.user.password = undefined;
+            }
+        });
+
+        return res.status(200).json({
+            success: true,
+            message: "Post data fetched successfully",
+            data: data,
+        })
+    } catch(err) {
+        return res.status(500).json({
+            success: false,
+            message: "something went wrong",
         })
     }
 }
