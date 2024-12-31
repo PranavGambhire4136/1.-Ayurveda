@@ -17,9 +17,9 @@ const PostSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
-    comments: {
+    disLikes: {
         type: [mongoose.Schema.Types.ObjectId],
-        ref: 'Comment',
+        ref: 'disLike',
     },
     likes: {
         type: [mongoose.Schema.Types.ObjectId],

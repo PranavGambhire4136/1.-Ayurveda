@@ -108,8 +108,8 @@ exports.isOwner = async (req, res, next) => {
 exports.isThere = async(req, res, next) => {
     try {
         const token = req.cookies?.token;
-        console.log('cookie: ', req.cookies);
-        console.log('token: ', req.cookies?.token);
+        // console.log('cookie: ', req.cookies);
+        // console.log('token: ', req.cookies?.token);
         
         if (token) {
             // console.log('main there start');
@@ -119,7 +119,7 @@ exports.isThere = async(req, res, next) => {
             // console.log("isThere over here");
             next();
         } else {
-            console.log('not there');
+            // console.log('not there');
             return res.status(400).json({
                 success: false,
                 message: "Your are not loged in", 

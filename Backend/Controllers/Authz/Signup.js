@@ -81,6 +81,7 @@ exports.SignUp = async (req, res) => {
         // Generate OTP and send email
         const otpGenerated = await generateOTP();
         const mailSent = await sendMail(otpGenerated, email);
+        console.log("mailSent", mailSent);
         if (!mailSent) {
             return res.status(500).json({
                 success: false,

@@ -119,18 +119,6 @@ exports.deletePost = async(req, res) => {
     }
 }
 
-
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * Retrieves all posts from the database, populates the user field in each post,
- * and removes the password field from the user object before sending a response.
- * 
- * @param {Object} req - The request object.
- * @param {Object} res - The response object.
- * @returns {void} - Sends a JSON response with the list of posts or an error message.
- */
-
-/******  7fbff035-86b2-4811-85ab-ebb4e730b41d  *******/
 exports.getAllPost = async (req, res) => {
     try {
         const data = await Post.find({}).populate('user');

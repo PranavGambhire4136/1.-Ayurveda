@@ -3,7 +3,10 @@ const Post = require('../../Models/Post');
 
 exports.addLike = async (req, res) => {
     try {
+        // console.log(req.body);
         const { post } = req.body;
+
+        // console.log(post);
 
         if (!post) {
             return res.status(400).json({
@@ -20,7 +23,11 @@ exports.addLike = async (req, res) => {
             });
         }
 
-        const existingLike = await Like.findOne({ post, user });
+        // console.log("user", user);
+
+        const existingLike = await Like.findOne({ post, user:user.id });
+
+        // console.log("already", existingLike)
         if (existingLike) {
             return res.status(400).json({
                 success: false,
@@ -36,7 +43,9 @@ exports.addLike = async (req, res) => {
             });
         }
 
-        const newLike = await Like.create({ post, user });
+        // console.log("postDocument", postDocument);
+
+        const newLike = await Like.create({ post, user: user.id });
         if (!newLike) {
             return res.status(500).json({
                 success: false,
@@ -50,6 +59,7 @@ exports.addLike = async (req, res) => {
 
         return res.status(200).json({
             success: true,
+            likeid: newLike._id,
             message: "Like added successfully",
         });
     } catch (err) {
@@ -63,6 +73,7 @@ exports.addLike = async (req, res) => {
 
 exports.removeLike = async (req, res) => {
     try {
+        // console.log(req.body);
         const { likeId, postId } = req.body;
 
         if (!likeId || !postId) {
@@ -88,7 +99,7 @@ exports.removeLike = async (req, res) => {
             });
         }
 
-        if (like.user.toString() !== user._id.toString()) {
+        if (like.user.toString() !== user.id.toString()) {
             return res.status(400).json({
                 success: false,
                 message: "You can't remove this like",
@@ -109,6 +120,57 @@ exports.removeLike = async (req, res) => {
         });
     } catch (err) {
         console.error(err);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+        });
+    }
+};
+
+exports.isLike = async (req, res) => {
+    try {
+        // console.log(req.query);
+        const { postId } = req.query;
+
+        if (!postId) {
+            return res.status(400).json({
+                success: false,
+                message: "Post ID is required",
+            });
+        }
+
+        const user = req.user;
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Please log in or sign up first",
+            });
+        }
+
+        const existingLike = await Like.findOne({ post: postId, user: user.id });
+        // console.log("existingLike", existingLike);
+
+        
+        const allLikes = await Like.countDocuments({ post: postId });
+
+        if (existingLike) {
+            return res.status(200).json({
+                success: true,
+                isLiked: true,
+                likeId: existingLike._id,
+                likeCount: allLikes,
+                message: "You have liked this post",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            isLiked: false,
+            likeCount: allLikes,
+            message: "You have not liked this post",
+        });
+    } catch (err) {
+        console.error("Error:", err.stack || err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

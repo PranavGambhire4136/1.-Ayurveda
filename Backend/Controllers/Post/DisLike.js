@@ -1,5 +1,6 @@
-import DisLike from "../../Models/DisLike.js";
-import Post from "../../Models/Post.js";
+const DisLike = require("../../Models/DisLike");
+const Post = require("../../Models/Post");
+
 
 exports.addDisLike = async (req, res) => {
     try {
@@ -83,6 +84,58 @@ exports.removeDisLike = async (req, res) => {
         return res.status(200).json({
             success: true,
             message: "Dislike removed successfully",
+        });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            success: false,
+            message: "Something went wrong",
+        });
+    }
+};
+
+exports.isDisLiked = async (req, res) => {
+    try {
+        const { postId } = req.query;
+
+        if (!postId) {
+            return res.status(400).json({
+                success: false,
+                message: "Post ID is required",
+            });
+        }
+
+        const user = req.user;
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Please log in or sign up first",
+            });
+        }
+
+        const existingDisLike = await DisLike.findOne({ post: postId, user: user.id });
+        // console.log("existingDisLike", existingDisLike); 
+
+
+        const allDisLikes = await DisLike.countDocuments({ post: postId });
+
+        if (existingDisLike) {
+            return res.status(200).json({
+                success: true,
+                isDisliked: true,
+                dislikeId: existingDisLike._id,
+                totalDisLikes: allDisLikes,
+                message: "You have disliked this post",
+            });
+        }
+
+
+        return res.status(200).json({
+            success: true,
+            isDisliked: false,
+            totalDisLikes: allDisLikes,
+            // dislikeId: existingDisLike._id,
+            message: "You have not disliked this post",
         });
     } catch (error) {
         console.error(error);

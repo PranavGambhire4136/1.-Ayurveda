@@ -7,10 +7,13 @@ const { Login, logout } = require("../Controllers/Authz/Login");
 const { getAllPlants } = require("../Controllers/GetAllPlant");
 const { addPlant } = require("../Controllers/AddPlant");
 const { addPost, deletePost, getAllPost } = require("../Controllers/Post/Post");
-const { addLike, removeLike } = require("../Controllers/Post/Like");
+const { addLike, removeLike, isLike } = require("../Controllers/Post/Like");
+const { addDisLike, removeDisLike, isDisLiked } = require("../Controllers/Post/DisLike");
 const { isAdmin, isThere, isOwner } = require("../Middleware/auth");
 const { changePasskey } = require("../Controllers/changePasskey");
 const { getUser } = require("../Controllers/GetUserData");
+const { getPlantDetail } = require("../Controllers/getPlant");
+const { getPost } = require("../Controllers/Authz/GetPost");
 
 router.get("/", (req, res) => {
     res.send("Hello World");
@@ -20,16 +23,26 @@ router.post("/SignUpInit", SignUp); //verify once
 router.post("/SignUpComplete", verifyOtpAndCreateUser);
 router.get("/login", Login);
 router.get("/getUser", isThere, getUser);
+router.get("/logOut", isThere, logout); //add isThere midddleware
+router.post("/changePasskey", isOwner, changePasskey);
+
 
 router.get("/getAllPlant", getAllPlants);
 router.post("/addPlant", isAdmin, addPlant);  // Route for adding a plant
+router.get("/getPlantDetail", getPlantDetail);
+
+
 router.post("/addPost", isThere, addPost);
 router.post("/removePost", deletePost);
 router.get("/getAllPost", getAllPost);
-router.post("/giveLike", addLike);
-router.post("/removeLike", removeLike);
-router.get("/logOut", isThere, logout); //add isThere midddleware
+router.get("/getUserPost", isThere, getPost);
 
-router.post("/changePasskey", isOwner, changePasskey);
+router.post("/giveLike",isThere, addLike);
+router.post("/removeLike",isThere, removeLike);
+router.get('/isLike', isThere, isLike);
+
+router.post('/addDisLike', isThere, addDisLike);
+router.post('/removeDisLike', isThere, removeDisLike);
+router.get('/isDisLike', isThere, isDisLiked);
 
 module.exports = router;

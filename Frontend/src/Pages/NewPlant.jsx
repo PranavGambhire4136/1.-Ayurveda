@@ -52,7 +52,7 @@ function AddPlant() {
       Disease: plantData.diseases,
       HowItWorks: plantData.howItWorks,
       SideEffects: plantData.sideEffects,
-      Exception: plantData.exceptions,
+      Exceptions: plantData.exceptions,
       Availability: plantData.availability,
     };
   
