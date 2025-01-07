@@ -1,33 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import loader from '../Assects/loader';
+import Loader from '../Components/Loader';
 
 function DetailPlantInfo() {
   const { id } = useParams();
-  const [plantInfo, setPlantInfo] = useState(null); // Default to null to handle loading state
+  const [plantInfo, setPlantInfo] = useState(null);
+  const [error, setError] = useState(null);
 
   const getPlant = async () => {
     try {
       console.log("Fetching plant details for ID:", id);
-      const res = await axios.get('http://localhost:4000/api/v1/getPlantDetail', { withCredentials: true, params: { id } });
+      const res = await axios.get('/api/getPlantDetail', { withCredentials: true, params: { id } });
       setPlantInfo(res.data.data);
       console.log(res.data.data);
-    } catch (error) {
-      console.error("Error fetching plant details:", error);
+    } catch (err) {
+      console.error("Error fetching plant details:", err);
+      setError("Failed to fetch plant details.");
     }
   };
 
   useEffect(() => {
-    getPlant();
+    if (id) getPlant();
   }, [id]);
 
-  if (!plantInfo) {
-    return <div>Loading...</div>; // Render loading state while data is being fetched
+  if (error) {
+    return <div>Error: {error}</div>;
   }
 
-  // Compute values dynamically after data is fetched
-  const commasepareatedDiseases = plantInfo.Diseases?.join(", ") || "Not Available";
+  if (!plantInfo) {
+    return <div><Loader /></div>;
+  }
+
+  const commasepareatedDiseases = plantInfo.Disease?.join(", ") || "Not Available";
   const commasepareatedSideEffects = plantInfo.SideEffects?.join(", ") || "Not Available";
   const commaSepareatedExceptions = plantInfo.Exceptions?.join(", ") || "Not Available";
 
@@ -38,10 +43,15 @@ function DetailPlantInfo() {
       </div>
 
       <div className='md:flex flex-row-reverse items-center mx-4'>
-        <div className='md:w-[50vw] md:h-[50vh] m-10 md:mr-20'>
+
+        <div className='md:w-[50vw] md:h-[50vh] m-10 md:mr-20 flex justify-center items-center'>
           {plantInfo.Image && (
-            <div>
-              <img src={plantInfo.Image} alt="Plant" className='rounded-2xl' />
+            <div className='w-full h-full overflow-hidden'>
+              <img
+                src={plantInfo.Image}
+                alt="Plant"
+                className='rounded-2xl w-full h-full object-contain'
+              />
             </div>
           )}
         </div>

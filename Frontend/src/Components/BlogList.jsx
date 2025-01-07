@@ -11,7 +11,7 @@ function BlogList2() {
 
     const getAllBlogs = async () => {
         setIsLoding(true);
-        const blog = await axios.get('http://localhost:4000/api/v1/getAllPost', { withCredentials: true });
+        const blog = await axios.get('api/getAllPost', { withCredentials: true });
         setBlogs(blog.data.data);
         setIsLoding(false);
     }

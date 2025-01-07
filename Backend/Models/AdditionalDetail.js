@@ -10,10 +10,6 @@ const AdditionalDetailSchema = new mongoose.Schema({
     address: {
         type: String,
     },
-    dateOfJoin: {
-        type: Date,
-        default: Date.now,
-    },
 })
 
 module.exports = mongoose.model("AdditionalDetail", AdditionalDetailSchema);

@@ -16,7 +16,7 @@ function PlantInformation() {
 
   const getPlants = () => {
     setIsLoding(true);
-    axios.get('http://localhost:4000/api/v1/getAllPlant', { withCredentials: true })
+    axios.get('api/getAllPlant', { withCredentials: true })
       .then((Response) => {
         console.log(Response.data.data);
         setFilteredData(Response.data.data);

@@ -3,8 +3,7 @@ import image from "../../Assects/Chiapas_Rainforest_crop.jpg";
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import Loader from '../../Components/Loader';
-
+import Loader from '../../Components/Loader.jsx';
 
 function SignUp() {
   const [selectAdmin, setSelectAdmin] = useState(false);
@@ -12,7 +11,6 @@ function SignUp() {
   const [reotp, setReOtp] = useState(false);
   const navigate = useNavigate();
   const [isLoding, setIsLoding] = useState(false);
-
 
   const [formData, setFormData] = useState({
     name: '',
@@ -27,29 +25,33 @@ function SignUp() {
 
   function sendOtp() {
     setIsLoding(true);
-    console.log(isLoding);
-    toast('sending OTP Please Wait')
+    toast('Sending OTP, please wait...');
     if (!otpSend) {
+      const type = formData.isAdmin ? "Admin" : "User";
 
-      let type;
-      if (formData.isAdmin) {
-        type = "Admin";
-      } else {
-        type = "User"
-      }
-
-      axios.post('http://localhost:4000/api/v1/SignUpInit', { name: formData.name, userName: formData.userName, password: formData.password, confirmPassword: formData.confirmPassword, email: formData.email, profile: formData.profile, type: type, passkey: formData.passkey })
-        .then((response) => {
+      axios
+        .post('api/SignUpInit', {
+          name: formData.name,
+          userName: formData.userName,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          email: formData.email,
+          profile: formData.profile,
+          type: type,
+          passkey: formData.passkey,
+        })
+        .then(() => {
           setOptSend(true);
           setReOtp(false);
           setTimeout(() => {
             setOptSend(false);
             setReOtp(true);
           }, 5 * 60 * 1000);
-          toast.success("OTP Send successfully");
-        }).catch(error => {
-          toast.error(error.response.data.message);
+          toast.success("OTP sent successfully");
         })
+        .catch((error) => {
+          toast.error(error.response?.data?.message || "Error sending OTP");
+        });
     } else {
       toast.error("OTP has already been sent.");
     }
@@ -76,192 +78,186 @@ function SignUp() {
   const handleSubmit = async (e) => {
     setIsLoding(true);
     e.preventDefault();
-    console.log(formData);
-    //email and otp
 
     if (otpSend) {
-      axios.post('http://localhost:4000/api/v1/SignUpComplete', { otp: formData.otp, email: formData.email })
+      axios
+        .post('api/SignUpComplete', {
+          otp: formData.otp,
+          email: formData.email,
+        })
         .then((response) => {
           toast.success(response.data.message);
           navigate("/login");
-        }).catch(error => {
-          toast.error(error.response.data.message);
         })
+        .catch((error) => {
+          toast.error(error.response?.data?.message || "Error completing signup");
+        });
     } else {
-      toast.error("Enter otp first");
+      toast.error("Please enter the OTP first.");
     }
     setIsLoding(false);
   };
 
   return (
     <div>
+      {isLoding && <Loader />}
 
-      {isLoding &&
-        <Loader />
-      }
+      {!isLoding && (
+        <div className="min-h-screen flex flex-col items-center bg-gradient-to-r from-green-100 to-green-200">
+          <div className="text-4xl font-extrabold text-green-700 mt-8 mb-5">Sign Up</div>
+          <div className="flex flex-col md:flex-row w-full max-w-5xl bg-white shadow-lg rounded-lg overflow-hidden">
+            {/* Form Section */}
+            <div className="w-full md:w-1/2 p-6">
+              <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
+                <label className="flex flex-col">
+                  <span className="text-green-800 font-medium">Name</span>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                  />
+                </label>
 
+                <label className="flex flex-col">
+                  <span className="text-green-800 font-medium">Email</span>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                  />
+                </label>
 
-      {!isLoding &&
+                <label className="flex flex-col">
+                  <span className="text-green-800 font-medium">Choose Username</span>
+                  <input
+                    type="text"
+                    name="userName"
+                    value={formData.userName}
+                    onChange={handleChange}
+                    className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                  />
+                </label>
 
+                <label className="flex flex-col">
+                  <span className="text-green-800 font-medium">Password</span>
+                  <input
+                    type="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                  />
+                </label>
 
-        <div>
-          <div>Sign UP</div>
-          <div className="flex flex-col md:flex-row">
-            <div className="w-full md:w-1/2 flex justify-center p-5">
-              <div className="w-full max-w-sm bg-green-500 p-5 rounded-md shadow-lg">
-                <form onSubmit={handleSubmit} className="flex flex-col space-y-5">
-                  <label className="flex flex-col">
-                    <span>Name</span>
-                    <input
-                      type="text"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="border-2 border-black rounded-md p-2"
-                    />
-                  </label>
+                <label className="flex flex-col">
+                  <span className="text-green-800 font-medium">Confirm Password</span>
+                  <input
+                    type="password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleChange}
+                    className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                  />
+                </label>
 
-                  <label className="flex flex-col">
-                    <span>Email</span>
-                    <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="border-2 border-black rounded-md p-2"
-                    />
-                  </label>
-
-                  <label className="flex flex-col">
-                    <span>Chose UserName</span>
-                    <input
-                      type="text"
-                      name="userName"
-                      value={formData.userName}
-                      onChange={handleChange}
-                      className="border-2 border-black rounded-md p-2"
-                    />
-                  </label>
-
-                  <label className="flex flex-col">
-                    <span>Password</span>
-                    <input
-                      type="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      className="border-2 border-black rounded-md p-2"
-                    />
-                  </label>
-
-                  <label className="flex flex-col">
-                    <span>Confirm Password</span>
-                    <input
-                      type="password"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleChange}
-                      className="border-2 border-black rounded-md p-2"
-                    />
-                  </label>
-
-                  <div className="flex flex-col">
-                    <span>Role</span>
-                    <div className="flex space-x-3">
-                      <label>
-                        <input
-                          type="radio"
-                          name="role"
-                          value="User"
-                          required
-                          onChange={handleRoleChange}
-                        />
-                        User
-                      </label>
-                      <label>
-                        <input
-                          type="radio"
-                          name="role"
-                          value="Admin"
-                          required
-                          onChange={handleRoleChange}
-                        />
-                        Admin
-                      </label>
-                    </div>
-                  </div>
-
-                  {selectAdmin && (
-                    <label className="flex flex-col">
-                      <span>Enter the access code:</span>
+                <div className="flex flex-col">
+                  <span className="text-green-800 font-medium">Role</span>
+                  <div className="flex space-x-3">
+                    <label>
                       <input
-                        type="text"
-                        name="accessCode"
-                        value={formData.accessCode}
-                        onChange={handleChange}
-                        className="border-2 border-black rounded-md p-2"
+                        type="radio"
+                        name="role"
+                        value="User"
                         required
+                        onChange={handleRoleChange}
                       />
+                      User
                     </label>
-                  )}
-
-                  <div>
-                    {!otpSend && !reotp && (
-                      <div
-                        className="border-2 border-black rounded-md p-2 bg-blue-300 hover:scale-105 w-11/12 cursor-pointer"
-                        onClick={sendOtp}
-                      >
-                        Send OTP
-                      </div>
-                    )}
+                    <label>
+                      <input
+                        type="radio"
+                        name="role"
+                        value="Admin"
+                        required
+                        onChange={handleRoleChange}
+                      />
+                      Admin
+                    </label>
                   </div>
+                </div>
 
-                  <div>
-                    {reotp && (
-                      <div
-                        className="border-2 border-black rounded-md p-2 bg-blue-300 hover:scale-105 w-11/12 cursor-pointer"
-                        onClick={sendOtp}
-                      >
-                        ReSend OTP
-                      </div>
-                    )}
+                {selectAdmin && (
+                  <label className="flex flex-col">
+                    <span className="text-green-800 font-medium">Enter Access Code</span>
+                    <input
+                      type="text"
+                      name="accessCode"
+                      value={formData.accessCode}
+                      onChange={handleChange}
+                      className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
+                    />
+                  </label>
+                )}
+
+                {!otpSend && !reotp && (
+                  <div
+                    className="text-center border-2 border-green-300 bg-green-600 text-white rounded-md p-2 hover:bg-green-700 cursor-pointer transition"
+                    onClick={sendOtp}
+                  >
+                    Send OTP
                   </div>
+                )}
 
-                  {(otpSend || reotp) && (
-                    <div className="w-11/12">
-                      <div>
-                        <input
-                          type="text"
-                          placeholder="Enter the OTP"
-                          className="border-2 border-black rounded-md p-2 w-full"
-                          name="otp"
-                          onChange={handleChange}
-                        />
-                      </div>
-                      <button
-                        type="submit"
-                        className="border-2 border-black rounded-md p-2 bg-blue-300 hover:scale-105 mt-3 w-full"
-                      >
-                        Submit
-                      </button>
-                    </div>
-                  )}
-                </form>
+                {reotp && (
+                  <div
+                    className="text-center border-2 border-green-300 bg-green-600 text-white rounded-md p-2 hover:bg-green-700 cursor-pointer transition"
+                    onClick={sendOtp}
+                  >
+                    Resend OTP
+                  </div>
+                )}
 
-                <button className="border-2 border-black rounded-md p-2 bg-blue-300 hover:scale-105 mt-3 w-full" onClick={() => navigate("/login")}>Already have an account?</button>
-              </div>
+                {(otpSend || reotp) && (
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Enter the OTP"
+                      className="border-2 border-green-300 rounded-md p-2 w-full focus:outline-none focus:border-green-500"
+                      name="otp"
+                      onChange={handleChange}
+                    />
+                    <button
+                      type="submit"
+                      className="w-full text-center border-2 border-green-300 bg-green-600 text-white rounded-md p-2 hover:bg-green-700 mt-3 transition"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                )}
+              </form>
+
+              <button
+                className="w-full text-center border-2 border-green-300 bg-green-600 text-white rounded-md p-2 hover:bg-green-700 mt-3 transition"
+                onClick={() => navigate("/login")}
+              >
+                Already have an account?
+              </button>
             </div>
-
+            {/* Image Section */}
             <div className="hidden md:block md:w-1/2">
               <img
                 src={image}
-                className="h-[80vh] w-full object-cover"
+                className="h-full w-full object-cover"
                 alt="Chiapas Rainforest"
               />
             </div>
           </div>
         </div>
-      }
+      )}
     </div>
   );
 }

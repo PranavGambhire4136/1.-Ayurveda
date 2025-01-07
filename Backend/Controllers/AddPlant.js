@@ -4,7 +4,7 @@ const { uploadFilePlant } = require("./Utility/AddImage");
 exports.addPlant = async (req, res) => {
     try {
         // console.log("Received data:", req.body);
-        const { Name, Info, Tags, Disease, HowItWorks, SideEffects, Exception, Availability } = req.body;
+        const { Name, Info, Tags, Disease, HowItWorks, SideEffects, Exceptions, Availability } = req.body;
         const Image = req.files?.Image;
 
         // console.log("Name:", Name);
@@ -27,11 +27,13 @@ exports.addPlant = async (req, res) => {
                 message: "Plant already exists.",
             });
         }
+
+        // console.log("isPlantExists", isPlantExists);
         
         const tagArray = Tags?.toString().split(",") || [];
         const diseaseArray = Disease?.toString().split(",") || [];
         const sideEffectsArray = SideEffects?.toString().split(",") || [];
-        const exceptionArray = Exception?.toString().split(",") || [];
+        const exceptionArray = Exceptions?.toString().split(",") || [];
 
         
         const imageUrl = await uploadFilePlant(Image, Name);
@@ -49,6 +51,8 @@ exports.addPlant = async (req, res) => {
             Exceptions: exceptionArray, 
             Availability
         };
+
+        // console.log("plant", plant);
 
         // Save the plant to the database
         await PlantInfo.create(plant);

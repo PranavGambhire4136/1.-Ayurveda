@@ -8,9 +8,9 @@ import Login from './Pages/Auth/Login';
 import DetailPlantInfo from './Pages/DetailPlantInfo';
 import Footer from './Components/Footer';
 import Profile from './Pages/Auth/Profile';
+import AdditionalInformation from './Pages/Auth/AdditionalInformation';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <div className='bg-[#97afba]'>
@@ -26,6 +26,7 @@ function App() {
           <Route path = "/signup" element = {<SignUp/>} />
           <Route path = '/login' element = {<Login />} />
           <Route path = '/viewProfile' element = {<Profile />} />
+          <Route path = '/additionalInformation' element = {<AdditionalInformation />} />
         </Routes>
         <Footer />
       </div>

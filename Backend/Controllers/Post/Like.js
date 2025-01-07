@@ -147,7 +147,7 @@ exports.isLike = async (req, res) => {
             });
         }
 
-        const existingLike = await Like.findOne({ post: postId, user: user.id });
+        const existingLike = await Like.findOne({ post: postId, user: user.id })
         // console.log("existingLike", existingLike);
 
         

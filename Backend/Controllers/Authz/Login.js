@@ -41,6 +41,7 @@ exports.Login = async (req, res) => {
                 userName: UserDetail.userName,
                 name: UserDetail.name,
                 type: UserDetail.type,
+                profile: UserDetail.profile,
             },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' } // Token expiration time

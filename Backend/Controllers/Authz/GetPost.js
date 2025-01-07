@@ -10,7 +10,7 @@ exports.getPost = async (req, res) => {
             });
         }
 
-        const posts = await Post.find({ user: user.id });
+        const posts = await Post.find({ user: user.id }).populate('user');
 
         return res.status(200).json({
             success: true,

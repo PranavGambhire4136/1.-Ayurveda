@@ -13,7 +13,7 @@ exports.changePasskey = async (req, res) => {
             })
         }
 
-        const user = req.session.user;
+        const user = req.user;
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -21,7 +21,7 @@ exports.changePasskey = async (req, res) => {
             })
         }
 
-        const userDetail = await User.findById(user._id);
+        const userDetail = await User.findById(user.id);
         if (!userDetail) {
             return res.status(400).json({
                 success: false,

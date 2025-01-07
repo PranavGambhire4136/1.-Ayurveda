@@ -10,7 +10,7 @@ function Home() {
 
   const fetchAndSetRandomPlants = async () => {
     try {
-      const response = await axios.get('http://localhost:4000/api/v1/getAllPlant', { withCredentials: true });
+      const response = await axios.get('api/getAllPlant', { withCredentials: true });
       const allPlants = response.data.data;
       let selectPlants = []; 
   

@@ -11,6 +11,7 @@ function Navbar() {
     const [isLogin, setIsLogin] = useState(!!localStorage.getItem('token')); // Convert to boolean
     const [name, setName] = useState(localStorage.getItem('name'));
     const location = useLocation();
+    const [user, setUser] = useState({});
 
     useEffect(() => {
         let id;
@@ -19,6 +20,9 @@ function Navbar() {
             const token = localStorage.getItem('token');
             if (token) {
                 const decodedToken = jwtDecode(token);
+                // console.log('token', decodedToken);
+                // console.log("profile", decodedToken.profile);
+                setUser(decodedToken);
 
                 if (decodedToken.exp * 1000 < Date.now()) {
                     localStorage.removeItem('token');
@@ -50,11 +54,11 @@ function Navbar() {
 
         axios.get('http://localhost:4000/api/v1/logout', { withCredentials: true })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 toast.success(res.data.message);
             })
             .catch(err => {
-                console.log(err);
+                // console.log(err);
                 toast.error(err.response.data.message);
             })
 
@@ -88,7 +92,16 @@ function Navbar() {
                 </div>
             ) : (
                 <div className="hidden md:flex space-x-10 mr-[10vw]">
-                    <NavLink to="/viewProfile" className="hover:scale-105 mt-2 bg"><Avatar name={name} size={35} /></NavLink>
+                    <NavLink to="/viewProfile" className="hover:scale-105 mt-2 bg">
+                    {
+                        user.profile ? (
+                            <img src={user.profile} alt="Profile" className="h-10 w-10 rounded-full" />
+                        ) : (
+                            <Avatar name={name} size={35} />
+                        )
+                    }
+                    
+                    </NavLink>
                     <button onClick={logout} className="text-white hover:text-red-300">Log Out</button>
                 </div>
             )}
@@ -99,7 +112,7 @@ function Navbar() {
             </div>
 
             {isMobileMenuOpen && (
-                <div className="absolute top-[10vh] left-0 w-full bg-black text-white flex flex-col items-center space-y-5 py-5">
+                <div className="absolute top-[10vh] left-0 w-full bg-black text-white flex flex-col items-center space-y-5 py-5 z-10">
                     <NavLink to="/plantInformation" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Plant Information</NavLink>
                     <NavLink to="/newPlant" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Add Plant Information</NavLink>
                     <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Blog</NavLink>
@@ -110,8 +123,19 @@ function Navbar() {
                             <NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Log In</NavLink>
                         </div>
                     ) : (
+
+
                         <div className="flex flex-col items-center space-y-2">
-                            <NavLink to="/viewProfile" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300"><Avatar name={name} /></NavLink>
+                            <NavLink to="/viewProfile" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">
+
+                                {!user.profile &&
+                                    <Avatar name={name} />
+                                }
+
+                                {user.profile &&
+                                    <img src={user.profile} alt="Profile" className="w-10 h-10 rounded-full" />
+                                }
+                            </NavLink>
                             <button onClick={logout} className="text-red-300 hover:underline">Log Out</button>
                         </div>
                     )}

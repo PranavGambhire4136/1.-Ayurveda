@@ -14,21 +14,27 @@ const { changePasskey } = require("../Controllers/changePasskey");
 const { getUser } = require("../Controllers/GetUserData");
 const { getPlantDetail } = require("../Controllers/getPlant");
 const { getPost } = require("../Controllers/Authz/GetPost");
+const { addProfile } = require("../Controllers/Authz/AddProfile");
+const { getAddDetails, AddDetail } = require("../Controllers/Authz/AdditionalDetail");
 
 router.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-router.post("/SignUpInit", SignUp); //verify once
+router.post("/addProfile", isThere, addProfile);
+router.get("/getAddDetial", isThere, getAddDetails);
+router.post("/addDetails", isThere, AddDetail);
+
+router.post("/SignUpInit", SignUp)
 router.post("/SignUpComplete", verifyOtpAndCreateUser);
 router.get("/login", Login);
 router.get("/getUser", isThere, getUser);
-router.get("/logOut", isThere, logout); //add isThere midddleware
+router.get("/logOut", isThere, logout)
 router.post("/changePasskey", isOwner, changePasskey);
 
 
 router.get("/getAllPlant", getAllPlants);
-router.post("/addPlant", isAdmin, addPlant);  // Route for adding a plant
+router.post("/addPlant", isAdmin, addPlant);
 router.get("/getPlantDetail", getPlantDetail);
 
 
