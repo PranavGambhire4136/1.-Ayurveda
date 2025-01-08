@@ -114,7 +114,7 @@ exports.isDisLiked = async (req, res) => {
         }
 
         const existingDisLike = await DisLike.findOne({ post: postId, user: user.id });
-        // console.log("existingDisLike", existingDisLike); 
+        // //console.log("existingDisLike", existingDisLike); 
 
 
         const allDisLikes = await DisLike.countDocuments({ post: postId });

@@ -4,10 +4,10 @@ const { uploadPost } = require("../Utility/AddImage");
 
 exports.addProfile = async (req, res) => {
     try {
-        console.log('Starting');
+        //console.log('Starting');
         const {file} = req.files;
 
-        console.log(file);
+        //console.log(file);
         if (!file) {
             return res.status(400).json({
                 success: false,
@@ -31,12 +31,12 @@ exports.addProfile = async (req, res) => {
             });
         }
 
-        console.log('stated');
+        //console.log('stated');
 
         const profileUrl = await uploadPost(file, "Profile");
 
 
-        console.log('ended');
+        //console.log('ended');
         if (!profileUrl) {
             return res.status(400).json({
                 success: false,
@@ -52,7 +52,7 @@ exports.addProfile = async (req, res) => {
             message: "Profile pic added successfully",
         });
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

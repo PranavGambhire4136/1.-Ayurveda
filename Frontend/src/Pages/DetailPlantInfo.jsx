@@ -10,12 +10,12 @@ function DetailPlantInfo() {
 
   const getPlant = async () => {
     try {
-      console.log("Fetching plant details for ID:", id);
-      const res = await axios.get('/api/getPlantDetail', { withCredentials: true, params: { id } });
+      //consolelog("Fetching plant details for ID:", id);
+      const res = await axios.get('api/v1/getPlantDetail', { withCredentials: true, params: { id } });
       setPlantInfo(res.data.data);
-      console.log(res.data.data);
+      //consolelog(res.data.data);
     } catch (err) {
-      console.error("Error fetching plant details:", err);
+      //consoleerror("Error fetching plant details:", err);
       setError("Failed to fetch plant details.");
     }
   };

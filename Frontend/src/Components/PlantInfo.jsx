@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function PlantInfo({ data }) {
-  console.log("data: ", data);
+  //consolelog("data: ", data);
 
   const [info, setInfo] = useState(
     data.Info?.length > 50 ? data.Info.slice(0, 50) + "..." : data.Info

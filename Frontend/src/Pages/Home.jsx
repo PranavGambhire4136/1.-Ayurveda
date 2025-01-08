@@ -24,9 +24,9 @@ function Home() {
       }
   
       setRandomPlant(selectPlants);
-      console.log("Random Plants:", selectPlants);
+      //consolelog("Random Plants:", selectPlants);
     } catch (error) {
-      console.error("Error fetching plants:", error);
+      //consoleerror("Error fetching plants:", error);
     }
   };
   

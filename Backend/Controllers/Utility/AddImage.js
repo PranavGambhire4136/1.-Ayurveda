@@ -24,18 +24,11 @@ exports.uploadFilePlant = async (file, name) => {
         
         // Delete the file from the server
         if (file.tempFilePath) {
-            fs.unlink(file.tempFilePath, (err) => {
-                if (err) {
-                    console.error("Error deleting temp file:", err);
-                } else {
-                    console.log("Temp file deleted:", file.tempFilePath);
-                }
-            });
+            fs.unlink(file.tempFilePath);
         }
 
         return upload.secure_url;
     } catch (err) {
-        console.error("Error in uploadFilePlant:", err);
     }
 };
 
@@ -47,17 +40,10 @@ exports.uploadPost = async (file, name) => {
 
         // Delete the file from the server
         if (file.tempFilePath) {
-            fs.unlink(file.tempFilePath, (err) => {
-                if (err) {
-                    console.error("Error deleting temp file:", err);
-                } else {
-                    console.log("Temp file deleted:", file.tempFilePath);
-                }
-            });
+            fs.unlink(file.tempFilePath);
         }
 
         return upload.secure_url;
     } catch (err) {
-        console.error("Error in uploadPost:", err);
     }
 };

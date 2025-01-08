@@ -15,7 +15,7 @@ function BlogList({ blog }) {
 
     useEffect(() => {
         const fetchLikesAndDislikes = async () => {
-            console.log("blog", blog);
+            //consolelog("blog", blog);
             try {
                 const likeResponse = await axios.get(`api/isLike`, {
                     withCredentials: true,
@@ -33,7 +33,7 @@ function BlogList({ blog }) {
                 setDislikeId(dislikeResponse.data.dislikeId);
                 setDislikeCount(dislikeResponse.data.totalDisLikes);
             } catch (error) {
-                console.error(error);
+                //consoleerror(error);
             }
         };
 
@@ -63,7 +63,7 @@ function BlogList({ blog }) {
                 toast.success("Liked successsfully");
             }
         } catch (error) {
-            console.error(error);
+            //consoleerror(error);
             if (isLike) toast.error("can't Remove like");
             else toast.error("can't add Like");
         }
@@ -89,7 +89,7 @@ function BlogList({ blog }) {
                 toast.success("Dislike added successfully");
             }
         } catch (error) {
-            console.error(error);
+            //consoleerror(error);
             if (isDislike) toast.error("Dislike can't removed");
             else toast.error("Dislike can't add");
         }

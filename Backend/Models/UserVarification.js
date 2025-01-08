@@ -30,6 +30,8 @@ const UserVerificationSchema = new mongoose.Schema({
     },
     otpExpiresAt: {
         type: Date,
+        required: true,
+        index: { expireAfterSeconds: 0 },
     },
     additionalDetail: {
         type: mongoose.Schema.Types.ObjectId,

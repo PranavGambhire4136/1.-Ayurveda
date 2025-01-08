@@ -18,12 +18,12 @@ function PlantInformation() {
     setIsLoding(true);
     axios.get('api/getAllPlant', { withCredentials: true })
       .then((Response) => {
-        console.log(Response.data.data);
+        //consolelog(Response.data.data);
         setFilteredData(Response.data.data);
-        console.log(filteredData);
+        //consolelog(filteredData);
       })
       .catch((error) => {
-        console.log(error);
+        //consolelog(error);
       })
     setIsLoding(false);
   }
@@ -33,7 +33,7 @@ function PlantInformation() {
     if (token) {
       const decodedToken = jwtDecode(token);
       setUser(decodedToken);
-      console.log(user);
+      //consolelog(user);
     }
 
     getPlants();

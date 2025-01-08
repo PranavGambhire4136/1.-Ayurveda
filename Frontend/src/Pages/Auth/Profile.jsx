@@ -37,21 +37,21 @@ function Profile() {
           withCredentials: true,
         })
         .then((response) => {
-          // console.log(response.data);
+          // //consolelog(response.data);
           setData(response.data.data);
         })
         .catch((error) => {
-          console.error(error);
+          //consoleerror(error);
         });
 
       axios
         .get(`api/getUserPost`, { withCredentials: true })
         .then((response) => {
-          // console.log("Posts", response.data.data);
+          // //consolelog("Posts", response.data.data);
           setPost(response.data.data);
         })
         .catch((error) => {
-          console.error(error);
+          //consoleerror(error);
         })
         .finally(() => {
           // Hide the loader after all API calls are complete
@@ -85,12 +85,12 @@ function Profile() {
           withCredentials: true,
         })
         .then((response) => {
-          // console.log(response.data);
+          // //consolelog(response.data);
           toast.success(response.data.message);
           getData();
         })
         .catch((error) => {
-          // console.error(error);
+          // //consoleerror(error);
           toast.error(error.response.data.message);
         })
         .finally(() => {

@@ -6,13 +6,13 @@ const DisLike = require('../../Models/DisLike');
 
 exports.addPost = async(req, res) => {
     try {
-        // console.log("Checking", req.user);
+        // //console.log("Checking", req.user);
         const {postHeading, postContent} = req.body;
-        console.log("PostHeading and content",postHeading, postContent);
-        console.log("files: ", req.files);
+        //console.log("PostHeading and content",postHeading, postContent);
+        //console.log("files: ", req.files);
          const postImage = req.files?.postImage;
-        //  console.log(req.files);
-         console.log("PostImage: ", postImage);
+        //  //console.log(req.files);
+         //console.log("PostImage: ", postImage);
 
         
         if (!postContent || !postHeading || !postImage) {
@@ -22,9 +22,9 @@ exports.addPost = async(req, res) => {
             })
         }
         
-        // console.log("controller", req.user);
+        // //console.log("controller", req.user);
         const user = req.user;
-        // console.log("user", user);
+        // //console.log("user", user);
         if (!user) {
             return res.status(400).json({
                 success: false,
@@ -45,7 +45,7 @@ exports.addPost = async(req, res) => {
         UserDetail.post.push(post._id);
 
         await UserDetail.save();
-        // console.log("User: ", UserDetail);
+        // //console.log("User: ", UserDetail);
         return res.status(200).json({
             success: true,
             message: "Post created successfully", 
@@ -84,8 +84,8 @@ exports.deletePost = async(req, res) => {
                 message: "Login or signup first", 
             })
         }
-        // console.log("user",user._id);
-        // console.log("post", post.user);
+        // //console.log("user",user._id);
+        // //console.log("post", post.user);
 
         if (!(post.user.toString() == user._id.toString())) {
             return res.status(400).json({
@@ -95,7 +95,7 @@ exports.deletePost = async(req, res) => {
         }
     
         const deletePost = await Post.findByIdAndDelete(postId);
-        console.log("delete", deletePost);
+        //console.log("delete", deletePost);
 
         await DisLike.deleteMany({ post: postId }, { session });
 

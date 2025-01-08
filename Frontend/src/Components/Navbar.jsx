@@ -20,8 +20,8 @@ function Navbar() {
             const token = localStorage.getItem('token');
             if (token) {
                 const decodedToken = jwtDecode(token);
-                // console.log('token', decodedToken);
-                // console.log("profile", decodedToken.profile);
+                // //consolelog('token', decodedToken);
+                // //consolelog("profile", decodedToken.profile);
                 setUser(decodedToken);
 
                 if (decodedToken.exp * 1000 < Date.now()) {
@@ -48,17 +48,17 @@ function Navbar() {
 
     const logout = () => {
 
-        // console.log(document.cookie);
+        // //consolelog(document.cookie);
         // const change = " ";
         // document.cookie = `token=${change}; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
 
         axios.get('http://localhost:4000/api/v1/logout', { withCredentials: true })
             .then(res => {
-                // console.log(res.data);
+                // //consolelog(res.data);
                 toast.success(res.data.message);
             })
             .catch(err => {
-                // console.log(err);
+                // //consolelog(err);
                 toast.error(err.response.data.message);
             })
 

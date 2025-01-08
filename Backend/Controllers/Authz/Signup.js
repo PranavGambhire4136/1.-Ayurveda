@@ -101,7 +101,7 @@ exports.SignUp = async (req, res) => {
             profile,
             type,
             otp: otpGenerated,
-            otpExpiresAt: Date.now() + 5 * 60 * 1000, // 5 minutes
+            otpExpiresAt: Date.now() + 5 * 60 * 1000, 
         });
 
         return res.status(200).json({

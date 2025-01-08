@@ -59,8 +59,7 @@ function AddPlant() {
       Availability: plantData.availability,
     };
   
-    // Log the data being sent for debugging
-    console.log("Data to send:", dataToSend);
+
   
     try {
       const response = await axios.post('api/addPlant', dataToSend, {

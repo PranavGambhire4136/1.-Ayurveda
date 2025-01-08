@@ -3,13 +3,13 @@ const { uploadFilePlant } = require("./Utility/AddImage");
 
 exports.addPlant = async (req, res) => {
     try {
-        // console.log("Received data:", req.body);
+        // //console.log("Received data:", req.body);
         const { Name, Info, Tags, Disease, HowItWorks, SideEffects, Exceptions, Availability } = req.body;
         const Image = req.files?.Image;
 
-        // console.log("Name:", Name);
-        // console.log("Info:", Info);
-        // console.log("Image:", Image);
+        // //console.log("Name:", Name);
+        // //console.log("Info:", Info);
+        // //console.log("Image:", Image);
 
 
         if (!Name || !Info || !Image) {
@@ -28,7 +28,7 @@ exports.addPlant = async (req, res) => {
             });
         }
 
-        // console.log("isPlantExists", isPlantExists);
+        // //console.log("isPlantExists", isPlantExists);
         
         const tagArray = Tags?.toString().split(",") || [];
         const diseaseArray = Disease?.toString().split(",") || [];
@@ -52,7 +52,7 @@ exports.addPlant = async (req, res) => {
             Availability
         };
 
-        // console.log("plant", plant);
+        // //console.log("plant", plant);
 
         // Save the plant to the database
         await PlantInfo.create(plant);

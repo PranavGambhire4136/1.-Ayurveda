@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
             })
         }
 
-        console.log(email);
+        //console.log(email);
         
         const UserDetail = await User.findOne({email});
 

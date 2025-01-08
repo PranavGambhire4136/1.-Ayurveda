@@ -19,7 +19,7 @@ exports.getAddDetails = async (req, res) => {
                 message: "Invalid User", 
             })
         }
-        console.log("id", userDetail);
+        //console.log("id", userDetail);
 
         const addDetial = await AdditionalDetail.findById(userDetail.additionalDetail);
 
@@ -37,7 +37,7 @@ exports.getAddDetails = async (req, res) => {
         })
 
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         return res.status(500).json({
             success: "false",
             message: "Something Went Wrong", 
@@ -101,7 +101,7 @@ exports.AddDetail = async (req, res) => {
             data: addDetail,
         });
     } catch (err) {
-        console.log(err);
+        //console.log(err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

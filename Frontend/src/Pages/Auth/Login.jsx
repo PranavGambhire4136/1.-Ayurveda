@@ -35,7 +35,7 @@ function Login() {
       const expiryTime = Date.now() + expiryTimeInSeconds * 1000;
       const tokenData = { token, expiry: expiryTime };
       localStorage.setItem(key, JSON.stringify(tokenData));
-      console.log("The token will expire in time", new Date(expiryTime));
+      //consolelog("The token will expire in time", new Date(expiryTime));
     };
 
     e.preventDefault();
@@ -45,19 +45,19 @@ function Login() {
         withCredentials: true,
       })
       .then((response) => {
-        console.log(response.data);
-        console.log('Login successful');
-        console.log(response.data.token);
+        //consolelog(response.data);
+        //consolelog('Login successful');
+        //consolelog(response.data.token);
         setToken('token', response.data.token, 60 * 60 * 24 - 1.5 * 60);
 
         toast.success('Login successful');
-        console.log(localStorage);
+        //consolelog(localStorage);
         navigate('/');
       })
       .catch((error) => {
-        console.log(error.response.data);
+        //consolelog(error.response.data);
         toast.error(error.response.data.message);
-        console.log('Login failed');
+        //consolelog('Login failed');
       });
 
     setIsLoding(false);

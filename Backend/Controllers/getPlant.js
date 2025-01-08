@@ -3,9 +3,9 @@ const PlantInfo = require("../Models/PlantInfo");
 exports.getPlantDetail = async (req, res) => {
 
     try {
-        console.log('stated');
+        //console.log('stated');
         const id = req.query;
-        console.log("id", id.id);
+        //console.log("id", id.id);
         if (!id) {
             return res.status(400).json({
                 success: false,

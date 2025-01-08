@@ -4,10 +4,10 @@ const bcrypt = require('bcrypt');
 
 exports.verifyOtpAndCreateUser = async (req, res) => {
     try {
-        console.log('started');
+        //console.log('started');
         const { email, otp} = req.body;
 
-        console.log(email, otp);
+        //console.log(email, otp);
         if (!email || !otp) {
             return res.status(400).json({
                 success: false,

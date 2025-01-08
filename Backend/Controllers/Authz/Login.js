@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 
 exports.Login = async (req, res) => {
     try {
-        // console.log("body", req.body);
+        // //console.log("body", req.body);
         // const { email, password } = req.body;
         const { email, password } = req.query;
 
         if (!email || !password) {
-            console.log(email, " ", password);
+            //console.log(email, " ", password);
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
@@ -49,7 +49,7 @@ exports.Login = async (req, res) => {
 
         res.cookie('token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, sameSite: 'lax' });
 
-        // console.log("cookie", res.getHeader('Set-Cookie'));
+        // //console.log("cookie", res.getHeader('Set-Cookie'));
 
         return res.status(200).json({
             success: true,

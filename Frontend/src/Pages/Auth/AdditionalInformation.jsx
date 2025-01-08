@@ -27,7 +27,7 @@ function AdditionalInformation() {
         setFormData(payload);
       })
       .catch((err) => {
-        console.log(err);
+        //consolelog(err);
       });
   };
 
@@ -38,13 +38,13 @@ function AdditionalInformation() {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post('api/addDetails', formData, { withCredentials: true })
+      .post('/api/addDetails', formData, { withCredentials: true })
       .then((res) => {
-        console.log(res.data);
+        //consolelog(res.data);
         toast.success(res.data.message);
       })
       .catch((err) => {
-        console.log(err);
+        //consolelog(err);
         toast.error(err.response.data.message);
       });
   };
