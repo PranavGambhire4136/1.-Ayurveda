@@ -17,7 +17,7 @@ function AdditionalInformation() {
 
   const getData = () => {
     axios
-      .get('api/getAddDetial', { withCredentials: true })
+      .get('/api/getAddDetial', { withCredentials: true })
       .then((res) => {
         const payload = {
           phoneNo: res.data.data.phone,

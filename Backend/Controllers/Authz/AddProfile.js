@@ -4,7 +4,6 @@ const { uploadPost } = require("../Utility/AddImage");
 
 exports.addProfile = async (req, res) => {
     try {
-        //console.log('Starting');
         const {file} = req.files;
 
         //console.log(file);
@@ -35,8 +34,6 @@ exports.addProfile = async (req, res) => {
 
         const profileUrl = await uploadPost(file, "Profile");
 
-
-        //console.log('ended');
         if (!profileUrl) {
             return res.status(400).json({
                 success: false,

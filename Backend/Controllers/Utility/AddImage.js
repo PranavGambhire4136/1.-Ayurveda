@@ -1,5 +1,5 @@
 const cloudinary = require("cloudinary").v2;
-const fs = require("fs"); // Node.js built-in module
+const fs = require('fs').promises;
 
 // Configure Cloudinary
 cloudinary.config({
@@ -19,15 +19,16 @@ async function uploadToCloud(file, folders) {
 // Exported function to upload a plant file
 exports.uploadFilePlant = async (file, name) => {
     try {
-        // Upload file to Cloudinary
-        const upload = await uploadToCloud(file, 'Plants');
-        
-        // Delete the file from the server
-        if (file.tempFilePath) {
-            fs.unlink(file.tempFilePath);
+        const upload = await uploadToCloud(file, 'Post');
+
+        const toDelete = file.tempFilePath;
+        const toSend = upload.secure_url;
+
+        if (toDelete) {
+            await fs.rm(toDelete);
         }
 
-        return upload.secure_url;
+        return toSend;
     } catch (err) {
     }
 };
@@ -35,15 +36,18 @@ exports.uploadFilePlant = async (file, name) => {
 // Exported function to upload a post file
 exports.uploadPost = async (file, name) => {
     try {
+
         // Upload file to Cloudinary
         const upload = await uploadToCloud(file, 'Post');
 
-        // Delete the file from the server
-        if (file.tempFilePath) {
-            fs.unlink(file.tempFilePath);
+        const toDelete = file.tempFilePath;
+        const toSend = upload.secure_url;
+
+        if (toDelete) {
+            await fs.rm(toDelete);
         }
 
-        return upload.secure_url;
+        return toSend;
     } catch (err) {
     }
 };

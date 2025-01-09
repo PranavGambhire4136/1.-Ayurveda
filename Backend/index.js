@@ -27,15 +27,8 @@ app.use(fileupload({
 app.use(cookieParser());
 
 // CORS configuration
-const allowedOrigins = ["http://localhost:5137", "http://localhost:5173"];
 app.use(cors({
-    origin: (origin, callback) => {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true);
-        } else {
-            callback(new Error("Not allowed by CORS"));
-        }
-    },
+    origin: "http://localhost:4173/",
     credentials: true, // Allows cookies to be sent
 }));
 

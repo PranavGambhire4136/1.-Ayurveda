@@ -10,13 +10,12 @@ function DetailPlantInfo() {
 
   const getPlant = async () => {
     try {
-      //consolelog("Fetching plant details for ID:", id);
-      const res = await axios.get('api/v1/getPlantDetail', { withCredentials: true, params: { id } });
+      const res = await axios.get('/api/getPlantDetail', { withCredentials: true, params: { id } });
       setPlantInfo(res.data.data);
-      //consolelog(res.data.data);
+      console.log(res);
     } catch (err) {
-      //consoleerror("Error fetching plant details:", err);
-      setError("Failed to fetch plant details.");
+      console.error("Error fetching plant details:", err);
+      setError(err.response?.data?.message || "Failed to fetch plant details.");
     }
   };
 
@@ -29,7 +28,7 @@ function DetailPlantInfo() {
   }
 
   if (!plantInfo) {
-    return <div><Loader /></div>;
+    return <Loader />;
   }
 
   const commasepareatedDiseases = plantInfo.Disease?.join(", ") || "Not Available";
