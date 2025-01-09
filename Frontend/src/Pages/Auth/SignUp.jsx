@@ -21,6 +21,7 @@ function SignUp() {
     isAdmin: false,
     accessCode: '',
     otp: '',
+    passkey: '',
   });
 
   function sendOtp() {
@@ -28,6 +29,8 @@ function SignUp() {
     toast('Sending OTP, please wait...');
     if (!otpSend) {
       const type = formData.isAdmin ? "Admin" : "User";
+
+      // console.log("Passkey", formData.passkey);
 
       axios
         .post('api/SignUpInit', {
@@ -195,8 +198,8 @@ function SignUp() {
                     <span className="text-green-800 font-medium">Enter Access Code</span>
                     <input
                       type="text"
-                      name="accessCode"
-                      value={formData.accessCode}
+                      name="passkey"
+                      value={formData.passkey}
                       onChange={handleChange}
                       className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                     />

@@ -30,7 +30,7 @@ router.post("/SignUpComplete", verifyOtpAndCreateUser);
 router.get("/login", Login);
 router.get("/getUser", isThere, getUser);
 router.get("/logOut", isThere, logout)
-router.post("/changePasskey", isOwner, changePasskey);
+router.post("/changePasskey", changePasskey);
 
 
 router.get("/getAllPlant", getAllPlants);

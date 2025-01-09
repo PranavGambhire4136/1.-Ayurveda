@@ -21,6 +21,9 @@ exports.SignUp = async (req, res) => {
 
         // Validate required fields
         // console.log('Validation 1')
+
+        // console.log("Passkey: ", passkey);
+
         if (!name || !userName || !password || !confirmPassword || !email || !type || (type === "Admin" && !passkey)) {
             return res.status(400).json({
                 success: false,
@@ -63,6 +66,7 @@ exports.SignUp = async (req, res) => {
         // Validate Admin passkey
         if (type === "Admin") {
             const passkeyDB = await AdminSettings.findOne({});
+            console.log("passkeyDB", passkeyDB.passkey);
             if (!passkeyDB) {
                 return res.status(400).json({
                     success: false,
@@ -70,6 +74,7 @@ exports.SignUp = async (req, res) => {
                 });
             }
             const isMatch = await bcrypt.compare(passkey, passkeyDB.passkey); // Match schema field name
+            console.log("isMatch", isMatch);
             if (!isMatch) {
                 return res.status(400).json({
                     success: false,
@@ -81,7 +86,7 @@ exports.SignUp = async (req, res) => {
         // Generate OTP and send email
         const otpGenerated = await generateOTP();
         const mailSent = await sendMail(otpGenerated, email);
-        console.log("mailSent", mailSent);
+        // console.log("mailSent", mailSent);
         if (!mailSent) {
             return res.status(500).json({
                 success: false,

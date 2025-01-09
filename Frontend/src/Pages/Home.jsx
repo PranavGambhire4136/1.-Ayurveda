@@ -12,8 +12,8 @@ function Home() {
     try {
       const response = await axios.get('api/getAllPlant', { withCredentials: true });
       const allPlants = response.data.data;
-      let selectPlants = []; 
-  
+      let selectPlants = [];
+
       if (allPlants.length < 4) {
         selectPlants = allPlants;
       } else {
@@ -22,14 +22,14 @@ function Home() {
           selectPlants.push(allPlants[index]);
         }
       }
-  
+
       setRandomPlant(selectPlants);
       //consolelog("Random Plants:", selectPlants);
     } catch (error) {
       //consoleerror("Error fetching plants:", error);
     }
   };
-  
+
 
   const goToPlant = () => {
     navigate('/plantInformation');
@@ -51,10 +51,16 @@ function Home() {
         }}
       >
         <div className="font-extrabold text-blue-600 text-6xl flex justify-center">
-          This is the information about Ayurveda, my name is Pranv
+          The Ancient Science of Ayurveda
         </div>
         <div className="font-bold text-blue-600 flex justify-center mt-5 text-3xl">
-          Sub-information about Ayurveda
+          A Holistic Approach to Health and Well-being
+        </div>
+        <div className="flex justify-center mt-5 text-xl text-center text-orange-700 px-4 md:px-20">
+          Ayurveda, the timeless system of natural healing, originated in India over 5,000 years ago.
+          It emphasizes harmony between body, mind, and spirit through balanced living. Explore the
+          principles of Ayurveda, learn about powerful herbs, and discover time-tested practices for
+          achieving holistic wellness in today's world.
         </div>
       </div>
 
