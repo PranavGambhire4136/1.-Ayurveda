@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173/",
+    origin: "http://localhost:5173",
     credentials: true, // Allows cookies to be sent
 }));
 
@@ -56,12 +56,12 @@ connectDB();
 cloudinaryConnect();
 
 
-app.use((req, res, next) => {
-    console.log(`Incoming Request: ${req.method} ${req.url}`);
-    console.log("Headers:", req.headers);
-    console.log("Body:", req.body);
-    next();
-});
+// app.use((req, res, next) => {
+//     console.log(`Incoming Request: ${req.method} ${req.url}`);
+//     console.log("Headers:", req.headers);
+//     console.log("Body:", req.body);
+//     next();
+// });
 
 // API Routes
 app.use("/api/v1", user);
