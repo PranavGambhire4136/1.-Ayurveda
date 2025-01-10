@@ -56,12 +56,12 @@ connectDB();
 cloudinaryConnect();
 
 
-// app.use((req, res, next) => {
-//     console.log(`Incoming Request: ${req.method} ${req.url}`);
-//     console.log("Headers:", req.headers);
-//     console.log("Body:", req.body);
-//     next();
-// });
+app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url}`);
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    next();
+});
 
 // API Routes
 app.use("/api/v1", user);
