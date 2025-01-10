@@ -137,7 +137,7 @@ exports.getAllPost = async (req, res) => {
     } catch(err) {
         return res.status(500).json({
             success: false,
-            message: "something went wrong",
+            message: "something went wrong from getAllPost",
         })
     }
 }
