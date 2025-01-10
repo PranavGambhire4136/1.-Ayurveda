@@ -122,6 +122,13 @@ exports.deletePost = async(req, res) => {
 exports.getAllPost = async (req, res) => {
     try {
         const data = await Post.find({}).populate('user');
+
+        if (!data) {
+            return res.status(400).json({
+                success: false,
+                message: "No post found",
+            })
+        }
         
         data.forEach(post => {
             if (post.user) {
