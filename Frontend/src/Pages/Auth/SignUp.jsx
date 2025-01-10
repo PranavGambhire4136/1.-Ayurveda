@@ -33,7 +33,7 @@ function SignUp() {
       // console.log("Passkey", formData.passkey);
 
       axios
-        .post('api/SignUpInit', {
+        .post('https://ayurveda-backend.onrender.com/api/v1/SignUpInit', {
           name: formData.name,
           userName: formData.userName,
           password: formData.password,

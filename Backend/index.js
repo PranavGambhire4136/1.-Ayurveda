@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:4173/",
+    origin: "http://localhost:5173/",
     credentials: true, // Allows cookies to be sent
 }));
 
@@ -40,15 +40,15 @@ if (!fs.existsSync(tempDir)) {
 
 
 // Session setup
-app.use(session({
-    secret: process.env.PRIVATE_KEY,
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-        secure: false, // Set to true for HTTPS
-        maxAge: 1000 * 60 * 60 * 24, // 1 day
-    }
-}));
+// app.use(session({
+//     secret: process.env.PRIVATE_KEY,
+//     resave: true,
+//     saveUninitialized: false,
+//     cookie: {
+//         secure: false, // Set to true for HTTPS
+//         maxAge: 1000 * 60 * 60 * 24, // 1 day
+//     }
+// }));
 
 
 // Your other routes and middleware...
@@ -56,12 +56,12 @@ connectDB();
 cloudinaryConnect();
 
 
-// app.use((req, res, next) => {
-//     console.log(`Incoming Request: ${req.method} ${req.url}`);
-//     console.log("Headers:", req.headers);
-//     console.log("Body:", req.body);
-//     next();
-// });
+app.use((req, res, next) => {
+    console.log(`Incoming Request: ${req.method} ${req.url}`);
+    console.log("Headers:", req.headers);
+    console.log("Body:", req.body);
+    next();
+});
 
 // API Routes
 app.use("/api/v1", user);
