@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:4173",
+    origin: "https://root-of-ayurveda.netlify.app",
     credentials: true, // Allows cookies to be sent
 }));
 
