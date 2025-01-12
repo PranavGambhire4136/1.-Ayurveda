@@ -27,7 +27,7 @@ function NewBlog() {
 
     setIsLoading(true);
     axios
-      .post('api/addPost', formData, {
+      .post('https://ayurveda-backend.onrender.com/api/v1/addPost', formData, {
         withCredentials: true,
         headers: {
           'Content-Type': 'multipart/form-data',

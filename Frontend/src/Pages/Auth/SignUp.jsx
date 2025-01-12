@@ -84,7 +84,7 @@ function SignUp() {
 
     if (otpSend) {
       axios
-        .post('api/SignUpComplete', {
+        .post('https://ayurveda-backend.onrender.com/api/v1/SignUpComplete', {
           otp: formData.otp,
           email: formData.email,
         })

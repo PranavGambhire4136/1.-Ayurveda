@@ -17,7 +17,7 @@ function BlogList({ blog }) {
         const fetchLikesAndDislikes = async () => {
             //consolelog("blog", blog);
             try {
-                const likeResponse = await axios.get(`/api/isLike`, {
+                const likeResponse = await axios.get(`https://ayurveda-backend.onrender.com/api/v1/isLike`, {
                     withCredentials: true,
                     params: { postId: blog._id },
                 });
@@ -25,7 +25,7 @@ function BlogList({ blog }) {
                 setLikeId(likeResponse.data.likeId);
                 setLikeCount(likeResponse.data.likeCount);
 
-                const dislikeResponse = await axios.get(`/api/isDisLike`, {
+                const dislikeResponse = await axios.get(`https://ayurveda-backend.onrender.com/api/v1/isDisLike`, {
                     withCredentials: true,
                     params: { postId: blog._id },
                 });
@@ -45,7 +45,7 @@ function BlogList({ blog }) {
     const handleLike = async () => {
         try {
             if (isLike) {
-                await axios.post(`/api/removeLike`, {
+                await axios.post(`https://ayurveda-backend.onrender.com/api/v1/removeLike`, {
                     postId: blog._id,
                     likeId,
                 }, { withCredentials: true });
@@ -54,7 +54,7 @@ function BlogList({ blog }) {
                 toast.success("Liked Removed SuccessFully");
             } else {
                 if (isDislike) await handleDislike(); 
-                const response = await axios.post(`/api/giveLike`, {
+                const response = await axios.post(`https://ayurveda-backend.onrender.com/api/v1/giveLike`, {
                     post: blog._id,
                 }, { withCredentials: true });
                 setIsLike(true);
@@ -72,7 +72,7 @@ function BlogList({ blog }) {
     const handleDislike = async () => {
         try {
             if (isDislike) {
-                await axios.post(`/api/removeDisLike`, {
+                await axios.post(`https://ayurveda-backend.onrender.com/api/v1/removeDisLike`, {
                     postId: blog._id,
                 }, { withCredentials: true });
                 setIsDislike(false);
@@ -80,7 +80,7 @@ function BlogList({ blog }) {
                 toast.success("Dislike removed successfully");
             } else {
                 if (isLike) await handleLike(); // Remove like if already liked
-                const response = await axios.post(`/api/addDisLike`, {
+                const response = await axios.post(`https://ayurveda-backend.onrender.com/api/v1/addDisLike`, {
                     postId: blog._id,
                 }, { withCredentials: true });
                 setIsDislike(true);

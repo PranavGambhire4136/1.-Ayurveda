@@ -52,7 +52,7 @@ function Navbar() {
         // const change = " ";
         // document.cookie = `token=${change}; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
 
-        axios.get('api/logout', { withCredentials: true })
+        axios.get('https://ayurveda-backend.onrender.com/api/v1/logout', { withCredentials: true })
             .then(res => {
                 // //consolelog(res.data);
                 toast.success(res.data.message);

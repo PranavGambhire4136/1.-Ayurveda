@@ -62,7 +62,7 @@ function AddPlant() {
 
   
     try {
-      const response = await axios.post('api/addPlant', dataToSend, {
+      const response = await axios.post('https://ayurveda-backend.onrender.com/api/v1/addPlant', dataToSend, {
         headers: { 'Content-Type': 'multipart/form-data' }, withCredentials: true
       });
   

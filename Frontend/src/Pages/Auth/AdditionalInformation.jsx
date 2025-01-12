@@ -17,7 +17,7 @@ function AdditionalInformation() {
 
   const getData = () => {
     axios
-      .get('/api/getAddDetial', { withCredentials: true })
+      .get('https://ayurveda-backend.onrender.com/api/v1/getAddDetial', { withCredentials: true })
       .then((res) => {
         const payload = {
           phoneNo: res.data.data.phone,
@@ -38,7 +38,7 @@ function AdditionalInformation() {
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .post('/api/addDetails', formData, { withCredentials: true })
+      .post('https://ayurveda-backend.onrender.com/api/v1/addDetails', formData, { withCredentials: true })
       .then((res) => {
         //consolelog(res.data);
         toast.success(res.data.message);
