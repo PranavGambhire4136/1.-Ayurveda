@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://ayur-lens-p5glcvecp-pranavgambhire4136s-projects.vercel.app",
     credentials: true, // Allows cookies to be sent
 }));
 
