@@ -46,8 +46,12 @@ exports.Login = async (req, res) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' } // Token expiration time
         );
-
-        res.cookie('token', accessToken, { httpOnly: true, maxAge: 24 * 60 * 60 * 1000, sameSite: 'lax' });
+        res.cookie('token', accessToken, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === 'production', // Ensure cookies are only sent over HTTPS in production
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+            sameSite: 'strict', // Prevent CSRF attacks
+        });
 
         // //console.log("cookie", res.getHeader('Set-Cookie'));
 
