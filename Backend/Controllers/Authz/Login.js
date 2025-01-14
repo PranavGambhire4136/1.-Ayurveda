@@ -47,6 +47,8 @@ exports.Login = async (req, res) => {
             { expiresIn: '1d' } // Token expiration time
         );
         res.cookie('token', accessToken, {
+            httpOnly: true,
+            sameSite: 'none',
             maxAge: 24 * 60 * 60 * 1000, // 1 day
         });
 
