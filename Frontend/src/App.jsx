@@ -12,7 +12,7 @@ import AdditionalInformation from './Pages/Auth/AdditionalInformation';
 
 function App() {
 
-  return (
+  return ( 
     <div className='bg-[#97afba]'>
       <Navbar />
       <div className='border-t-4'>

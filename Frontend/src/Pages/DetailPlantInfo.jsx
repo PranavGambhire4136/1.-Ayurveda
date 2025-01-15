@@ -10,7 +10,7 @@ function DetailPlantInfo() {
 
   const getPlant = async () => {
     try {
-      const res = await axios.get('https://ayurveda-backend.onrender.com/api/v1/getPlantDetail', { withCredentials: true, params: { id } });
+      const res = await axios.get('http://localhost:5000/api/v1/getPlantDetail', { withCredentials: true, params: { id } });
       setPlantInfo(res.data.data);
       console.log(res);
     } catch (err) {

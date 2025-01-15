@@ -108,6 +108,7 @@ exports.isOwner = async (req, res, next) => {
 exports.isThere = async(req, res, next) => {
     try {
         const token = req.cookies?.token;
+        console.log("isThere middleware");
         // //console.log('cookie: ', req.cookies);
         // //console.log('token: ', req.cookies?.token);
         

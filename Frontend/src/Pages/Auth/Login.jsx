@@ -40,7 +40,7 @@ function Login() {
 
     e.preventDefault();
     axios
-      .get('https://ayurveda-backend.onrender.com/api/v1/login', {
+      .get('http://localhost:5000/api/v1/login', {
         params: { email: formData.email, password: formData.password },
         withCredentials: true,
       })

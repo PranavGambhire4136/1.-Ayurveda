@@ -4,7 +4,6 @@ const cookieParser = require("cookie-parser");
 const { connectDB } = require("./config/DBconnect");
 const { cloudinaryConnect } = require("./config/cloudinary");
 const user = require("./Routes/Blog");
-const session = require("express-session");
 const fileupload = require("express-fileupload");
 const cors = require("cors");
 const fs = require("fs");

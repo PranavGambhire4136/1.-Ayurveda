@@ -16,7 +16,7 @@ function PlantInformation() {
 
   const getPlants = () => {
     setIsLoding(true);
-    axios.get('https://ayurveda-backend.onrender.com/api/v1/getAllPlant', { withCredentials: true })
+    axios.get('http://localhost:5000/api/v1/getAllPlant', { withCredentials: true })
       .then((Response) => {
         //consolelog(Response.data.data);
         setFilteredData(Response.data.data);
