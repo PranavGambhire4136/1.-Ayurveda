@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { jwtDecode } from "jwt-decode";
 import axios from 'axios';
 import Loader from '../Components/Loader';
+import toast from 'react-hot-toast';
 
 function PlantInformation() {
   const [search, setSearch] = useState("Search a plant");
@@ -59,15 +60,27 @@ function PlantInformation() {
   function submitHandler(event) {
     event.preventDefault();
     if (search === "Search a plant" || search.trim() === "") {
-      setFilteredData(plant);
+      // setFilteredData(plant);
+      console.log("Search a plant");
       return;
     };
 
-    const filtered = plant.filter((item) =>
-      item.Tags && item.Tags.some(tag => tag.toLowerCase() === search.toLowerCase().trim())
-    );
+    // const filtered = plant.filter((item) =>
+    //   item.Tags && item.Tags.some(tag => tag.toLowerCase() === search.toLowerCase().trim())
+    // );
 
-    setFilteredData(filtered);
+    // setFilteredData(filtered);
+
+    axios.get(`http://localhost:5000/api/v1/getPlantDetail`, { withCredentials: true, params: {id: search} })
+      .then((Response) => {
+        // console.log(Response.data.data);
+        setFilteredData([Response.data.data]);
+        //consolelog(filteredData);
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+        // console.log(error);
+      })
   }
 
   const handleNavigation = () => {
