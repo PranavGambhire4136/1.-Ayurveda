@@ -32,7 +32,7 @@ function Profile() {
       const email = decodedToken.email;
 
       axios
-        .get(`http://localhost:5000/api/v1/getUser`, {
+        .get(`https://ayurveda-backend.onrender.com/api/v1/getUser`, {
           params: { email: email.toString() },
           withCredentials: true,
         })
@@ -45,7 +45,7 @@ function Profile() {
         });
 
       axios
-        .get(`http://localhost:5000/api/v1/getUserPost`, { withCredentials: true })
+        .get(`https://ayurveda-backend.onrender.com/api/v1/getUserPost`, { withCredentials: true })
         .then((response) => {
           // //consolelog("Posts", response.data.data);
           setPost(response.data.data);
@@ -78,7 +78,7 @@ function Profile() {
       setIsLoding(true);
       toast('updating profile please wait');
       axios
-        .post('http://localhost:5000/api/v1/addProfile', formData, {
+        .post('https://ayurveda-backend.onrender.com/api/v1/addProfile', formData, {
           headers: {
             'Content-Type': 'multipart/form-data',
           },

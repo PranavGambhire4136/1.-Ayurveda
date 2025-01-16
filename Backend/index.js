@@ -27,7 +27,7 @@ app.use(cookieParser());
 
 // CORS configuration
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: "https://pranavgambhire.vercel.app",
     credentials: true, // Allows cookies to be sent
 }));
 

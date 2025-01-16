@@ -17,7 +17,7 @@ function PlantInformation() {
 
   const getPlants = () => {
     setIsLoding(true);
-    axios.get('http://localhost:5000/api/v1/getAllPlant', { withCredentials: true })
+    axios.get('https://ayurveda-backend.onrender.com/api/v1/getAllPlant', { withCredentials: true })
       .then((Response) => {
         //consolelog(Response.data.data);
         setFilteredData(Response.data.data);
@@ -71,7 +71,7 @@ function PlantInformation() {
 
     // setFilteredData(filtered);
 
-    axios.get(`http://localhost:5000/api/v1/getPlantDetail`, { withCredentials: true, params: {id: search} })
+    axios.get(`https://ayurveda-backend.onrender.com/api/v1/getPlantDetail`, { withCredentials: true, params: {id: search} })
       .then((Response) => {
         // console.log(Response.data.data);
         setFilteredData([Response.data.data]);
