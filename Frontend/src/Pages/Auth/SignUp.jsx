@@ -33,7 +33,7 @@ function SignUp() {
       // console.log("Passkey", formData.passkey);
 
       axios
-        .post('https://ayurveda-backend.onrender.com/api/v1/SignUpInit', {
+        .post('http://localhost:5000/api/v1/SignUpInit', {
           name: formData.name,
           userName: formData.userName,
           password: formData.password,
@@ -84,7 +84,7 @@ function SignUp() {
 
     if (otpSend) {
       axios
-        .post('https://ayurveda-backend.onrender.com/api/v1/SignUpComplete', {
+        .post('http://localhost:5000/api/v1/SignUpComplete', {
           otp: formData.otp,
           email: formData.email,
         })
