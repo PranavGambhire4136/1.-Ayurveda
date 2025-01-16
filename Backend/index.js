@@ -42,19 +42,19 @@ app.use(fileupload({
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Configure secure cookie settings
-app.use((req, res, next) => {
-    res.cookie = function(name, value, options = {}) {
-        options = {
-            ...options,
-            httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
-            sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000 // 24 hours
-        };
-        return res.cookie.call(this, name, value, options);
-    };
-    next();
-});
+// app.use((req, res, next) => {
+//     res.cookie = function(name, value, options = {}) {
+//         options = {
+//             ...options,
+//             httpOnly: true,
+//             secure: process.env.NODE_ENV === 'production',
+//             sameSite: 'strict',
+//             maxAge: 24 * 60 * 60 * 1000 // 24 hours
+//         };
+//         return res.cookie.call(this, name, value, options);
+//     };
+//     next();
+// });
 
 // CORS configuration
 app.use(cors({
