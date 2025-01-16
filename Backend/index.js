@@ -36,6 +36,8 @@ app.use(fileupload({
     tempFileDir: tempDir
 }));
 
+
+
 // Cookie parser with security options
 app.use(cookieParser(process.env.COOKIE_SECRET));
 

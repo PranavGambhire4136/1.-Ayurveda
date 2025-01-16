@@ -10,7 +10,7 @@ function Home() {
 
   const fetchAndSetRandomPlants = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/v1/getAllPlant', { withCredentials: true });
+      const response = await axios.get('https://ayurveda-backend.onrender.com/api/v1/getAllPlant', { withCredentials: true });
       const allPlants = response.data.data;
       let selectPlants = [];
 
