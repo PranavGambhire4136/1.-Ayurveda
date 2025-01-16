@@ -46,13 +46,15 @@ exports.Login = async (req, res) => {
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: '1d' } // Token expiration time
         );
+
+        // Set cookie with proper cross-site settings
         res.cookie('token', accessToken, {
             httpOnly: true,
-            sameSite: true,
+            secure: true,  // Required for cross-site cookies
+            sameSite: 'none',  // Required for cross-site cookies
             maxAge: 24 * 60 * 60 * 1000, // 1 day
+            path: '/'
         });
-
-        // //console.log("cookie", res.getHeader('Set-Cookie'));
 
         return res.status(200).json({
             success: true,
@@ -70,7 +72,11 @@ exports.Login = async (req, res) => {
 
 exports.logout = async (req, res) => {
     try {
-        res.clearCookie('token', { path: '/' })
+        res.clearCookie('token', { 
+            path: '/',
+            secure: true,
+            sameSite: 'none'
+        });
 
         return res.status(200).json({
             success: true,
