@@ -36,33 +36,33 @@ app.use(fileupload({
     tempFileDir: tempDir
 }));
 
-
+// CORS configuration
+app.use(cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    exposedHeaders: ['Set-Cookie']
+}));
 
 // Cookie parser with security options
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // Configure secure cookie settings
-// app.use((req, res, next) => {
-//     res.cookie = function(name, value, options = {}) {
-//         options = {
-//             ...options,
-//             httpOnly: true,
-//             secure: process.env.NODE_ENV === 'production',
-//             sameSite: 'strict',
-//             maxAge: 24 * 60 * 60 * 1000 // 24 hours
-//         };
-//         return res.cookie.call(this, name, value, options);
-//     };
-//     next();
-// });
-
-// CORS configuration
-app.use(cors({
-    origin: process.env.FRONTEND_URL || "http://localhost:5173",
-    credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use((req, res, next) => {
+    const originalCookie = res.cookie;
+    res.cookie = function(name, value, options = {}) {
+        const defaultOptions = {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'none',
+            path: '/',
+            maxAge: 24 * 60 * 60 * 1000 // 24 hours
+        };
+        return originalCookie.call(this, name, value, { ...defaultOptions, ...options });
+    };
+    next();
+});
 
 // Ensure the temporary file upload directory exists
 if (!fs.existsSync(tempDir)) {
