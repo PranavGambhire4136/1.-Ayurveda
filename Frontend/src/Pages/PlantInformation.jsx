@@ -58,23 +58,24 @@ function PlantInformation() {
   }
 
   function submitHandler(event) {
-    event.preventDefault();
-    if (search === "Search a plant" || search.trim() === "") {
-      setFilteredData(plant);  // If no search term, show all plants
-      return;
-    }
-  
-    const filtered = filteredData.filter((item) =>
-      item && item.name && item.name.toLowerCase().includes(search.toLowerCase().trim()) // Ensure 'name' exists
-    );
-  
-    if (filtered.length > 0) {
-      setFilteredData(filtered); // Set filtered results
-    } else {
-      setFilteredData([]); // No results found, clear the filteredData
-      toast.error("No plants found matching the search term.");
-    }
+  event.preventDefault();
+  if (search === "Search a plant" || search.trim() === "") {
+    setFilteredData(plant);  // If no search term, show all plants
+    return;
   }
+
+  const filtered = filteredData.filter((item) =>
+    item && item.Tags && item.Tags.some(tag => tag.toLowerCase().includes(search.toLowerCase().trim())) // Check if any tag matches
+  );
+
+  if (filtered.length > 0) {
+    setFilteredData(filtered); // Set filtered results
+  } else {
+    setFilteredData([]); // No results found, clear the filteredData
+    toast.error("No plants found matching the search term.");
+  }
+}
+
 
 
 
