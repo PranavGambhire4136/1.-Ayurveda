@@ -15,7 +15,6 @@ function BlogList({ blog }) {
 
     useEffect(() => {
         const fetchLikesAndDislikes = async () => {
-            //consolelog("blog", blog);
             try {
                 const likeResponse = await axios.get(`https://ayurveda-backend.onrender.com/api/v1/isLike`, {
                     withCredentials: true,
@@ -32,9 +31,7 @@ function BlogList({ blog }) {
                 setIsDislike(dislikeResponse.data.isDisliked);
                 setDislikeId(dislikeResponse.data.dislikeId);
                 setDislikeCount(dislikeResponse.data.totalDisLikes);
-            } catch (error) {
-                //consoleerror(error);
-            }
+            } catch (error) {}
         };
 
         fetchLikesAndDislikes();
@@ -51,21 +48,20 @@ function BlogList({ blog }) {
                 }, { withCredentials: true });
                 setIsLike(false);
                 setLikeCount((prev) => prev - 1);
-                toast.success("Liked Removed SuccessFully");
+                toast.success("Liked Removed Successfully");
             } else {
-                if (isDislike) await handleDislike(); 
+                if (isDislike) await handleDislike();
                 const response = await axios.post(`https://ayurveda-backend.onrender.com/api/v1/giveLike`, {
                     post: blog._id,
                 }, { withCredentials: true });
                 setIsLike(true);
                 setLikeId(response.data.likeid);
                 setLikeCount((prev) => prev + 1);
-                toast.success("Liked successsfully");
+                toast.success("Liked successfully");
             }
         } catch (error) {
-            //consoleerror(error);
-            if (isLike) toast.error("can't Remove like");
-            else toast.error("can't add Like");
+            if (isLike) toast.error("Can't remove like");
+            else toast.error("Can't add Like");
         }
     };
 
@@ -79,7 +75,7 @@ function BlogList({ blog }) {
                 setDislikeCount((prev) => prev - 1);
                 toast.success("Dislike removed successfully");
             } else {
-                if (isLike) await handleLike(); // Remove like if already liked
+                if (isLike) await handleLike();
                 const response = await axios.post(`https://ayurveda-backend.onrender.com/api/v1/addDisLike`, {
                     postId: blog._id,
                 }, { withCredentials: true });
@@ -89,15 +85,14 @@ function BlogList({ blog }) {
                 toast.success("Dislike added successfully");
             }
         } catch (error) {
-            //consoleerror(error);
-            if (isDislike) toast.error("Dislike can't removed");
-            else toast.error("Dislike can't add");
+            if (isDislike) toast.error("Dislike can't be removed");
+            else toast.error("Dislike can't be added");
         }
     };
 
     return (
-        <div className="justify-center w-full flex flex-wrap gap-6 bg-gradient-to-b from-green-200 to-green-100 p-10 m-5">
-            <div className="bg-gray-100 rounded-xl shadow-xl overflow-hidden w-[300px] transform hover:scale-105 transition-transform duration-300 ease-in-out">
+        <div className="flex flex-wrap justify-center gap-6 bg-gradient-to-b from-green-200 to-green-100 p-5 sm:p-10">
+            <div className="bg-gray-100 rounded-xl shadow-lg overflow-hidden w-full max-w-sm sm:max-w-md transform hover:scale-105 transition-transform duration-300">
                 <div className="w-full h-[200px] overflow-hidden">
                     <img
                         src={blog.postImage}
@@ -105,12 +100,10 @@ function BlogList({ blog }) {
                         className="w-full h-full object-cover"
                     />
                 </div>
-                <div className="flex flex-col justify-between items-start p-6 min-h-[250px]">
-                    <h4 className="font-bold text-lg mt-2 text-gray-800">{blog.postHeading}</h4>
-                    <p className="text-sm text-gray-600 mb-6 line-clamp-3">
-                        {blog.postContent}
-                    </p>
-                    {blog.user.profile &&
+                <div className="flex flex-col justify-between p-4 sm:p-6 min-h-[250px]">
+                    <h4 className="font-bold text-lg text-gray-800">{blog.postHeading}</h4>
+                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">{blog.postContent}</p>
+                    {blog.user.profile ? (
                         <div className="flex items-center mt-auto">
                             <img
                                 src={blog.user.profile}
@@ -119,17 +112,14 @@ function BlogList({ blog }) {
                             />
                             <span className="text-gray-700 text-sm">{blog.user.userName}</span>
                         </div>
-                    }
-
-                    {!blog.user.profile &&
+                    ) : (
                         <div className="flex items-center mt-auto">
-                            <Avatar name = {blog.user.name} size = {40}/>
+                            <Avatar name={blog.user.name} size={40} />
                             <span className="text-gray-700 text-sm">{blog.user.userName}</span>
-                        </div>}
+                        </div>
+                    )}
                 </div>
-
-                {
-                    token &&
+                {token && (
                     <div className="flex justify-between p-4 bg-gray-100 border-t">
                         <div className="flex items-center">
                             <button
@@ -150,11 +140,10 @@ function BlogList({ blog }) {
                             <div className="ml-2 text-gray-700">{dislikeCount}</div>
                         </div>
                     </div>
-                }
+                )}
             </div>
         </div>
     );
-    
 }
 
 export default BlogList;
