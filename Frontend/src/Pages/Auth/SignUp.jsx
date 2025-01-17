@@ -30,7 +30,7 @@ function SignUp() {
     if (!otpSend) {
       const type = formData.isAdmin ? "Admin" : "User";
 
-      // console.log("Passkey", formData.passkey);
+      // // //console..log("Passkey", formData.passkey);
 
       axios
         .post('https://ayurveda-backend.onrender.com/api/v1/SignUpInit', {

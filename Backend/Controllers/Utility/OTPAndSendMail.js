@@ -4,7 +4,7 @@ const User = require("../../Models/User");
 
 exports.generateOTP = async () => {
     const otp = otpGenerator.generate(6, { upperCase: false, specialChars: false });
-    //console.log(otp);
+    //// //console..log(otp);
     return otp;
 }
 
@@ -34,6 +34,6 @@ exports.sendMail = async (otp, email) => {
         })
         return info;
     } catch (err) {
-        console.error('Error sending OTP email:', err);
+        // //console..errror('Error sending OTP email:', err);
     }
 }

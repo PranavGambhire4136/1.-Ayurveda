@@ -85,9 +85,9 @@ connectDB();
 cloudinaryConnect();
 
 app.use((req, res, next) => {
-    console.log(`Incoming Request: ${req.method} ${req.url}`);
-    console.log("Headers:", req.headers);
-    console.log("cookies:", req.cookies);
+    // //console..log(`Incoming Request: ${req.method} ${req.url}`);
+    // //console..log("Headers:", req.headers);
+    // //console..log("cookies:", req.cookies);
     next();
 });
 
@@ -96,5 +96,5 @@ app.use("/api/v1", user);
 
 // Start the server
 app.listen(port, () => {
-    console.log(`App is listening on port number ${port}`);
+    // //console..log(`App is listening on port number ${port}`);
 });

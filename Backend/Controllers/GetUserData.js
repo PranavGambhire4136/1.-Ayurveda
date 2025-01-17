@@ -11,7 +11,7 @@ exports.getUser = async (req, res) => {
             })
         }
 
-        //console.log(email);
+        //// //console..log(email);
         
         const UserDetail = await User.findOne({email});
 
@@ -31,7 +31,7 @@ exports.getUser = async (req, res) => {
             data: user,
         })
     } catch(err) {
-        console.error(err);
+        // //console..errror(err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

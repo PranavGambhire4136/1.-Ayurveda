@@ -5,12 +5,12 @@ const jwt = require('jsonwebtoken');
 
 exports.Login = async (req, res) => {
     try {
-        // console.log("body", req.body);
+        // // //console..log("body", req.body);
         // const { email, password } = req.body;
         const { email, password } = req.query;
 
         if (!email || !password) {
-            //console.log(email, " ", password);
+            //// //console..log(email, " ", password);
             return res.status(400).json({
                 success: false,
                 message: "All fields are required",
@@ -62,7 +62,7 @@ exports.Login = async (req, res) => {
             token: accessToken,
         });
     } catch (err) {
-        console.error("Error during login:", err);
+        // //console..errror("Error during login:", err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",
@@ -83,7 +83,7 @@ exports.logout = async (req, res) => {
             message: "Logged out successfully",
         });
     } catch (err) {
-        console.error("Error during logout:", err);
+        // //console..errror("Error during logout:", err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong. Please try again.",

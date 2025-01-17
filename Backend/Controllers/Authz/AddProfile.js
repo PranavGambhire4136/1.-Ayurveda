@@ -6,7 +6,7 @@ exports.addProfile = async (req, res) => {
     try {
         const {file} = req.files;
 
-        //console.log(file);
+        //// //console..log(file);
         if (!file) {
             return res.status(400).json({
                 success: false,
@@ -30,7 +30,7 @@ exports.addProfile = async (req, res) => {
             });
         }
 
-        //console.log('stated');
+        //// //console..log('stated');
 
         const profileUrl = await uploadPost(file, "Profile");
 
@@ -49,7 +49,7 @@ exports.addProfile = async (req, res) => {
             message: "Profile pic added successfully",
         });
     } catch (err) {
-        //console.log(err);
+        //// //console..log(err);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

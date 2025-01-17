@@ -55,7 +55,7 @@ exports.changePasskey = async (req, res) => {
         data.passkey = encrpitedPasskey;
         await data.save();
 
-        console.log(data.passkey);
+        // //console..log(data.passkey);
 
         return res.status(200).json({
             success: true,

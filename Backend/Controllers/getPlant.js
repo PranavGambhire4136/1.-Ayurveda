@@ -2,7 +2,7 @@ const PlantInfo = require("../Models/PlantInfo");
 
 exports.getPlantDetail = async (req, res) => {
     try {
-        console.log('Started processing plant detail request');
+        // //console..log('Started processing plant detail request');
         
         const { id } = req.query; // Extract 'id' from the query parameters
 
@@ -13,7 +13,7 @@ exports.getPlantDetail = async (req, res) => {
             });
         }
 
-        console.log("id ", id);
+        // //console..log("id ", id);
         id = id.trim();
         
         // Query to check if Name matches or tag array contains the id
@@ -38,7 +38,7 @@ exports.getPlantDetail = async (req, res) => {
             data: plant,
         });
     } catch (err) {
-        console.error('Error while fetching plant details:', err);
+        // //console..errror('Error while fetching plant details:', err);
         return res.status(500).json({
             success: false,
             message: "An error occurred while processing the request", 

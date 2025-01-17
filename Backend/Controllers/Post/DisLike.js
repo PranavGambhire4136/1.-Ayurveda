@@ -37,7 +37,7 @@ exports.addDisLike = async (req, res) => {
             message: "Dislike added successfully",
         });
     } catch (error) {
-        console.error(error);
+        // //console..errror(error);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",
@@ -86,7 +86,7 @@ exports.removeDisLike = async (req, res) => {
             message: "Dislike removed successfully",
         });
     } catch (error) {
-        console.error(error);
+        // //console..errror(error);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",
@@ -114,7 +114,7 @@ exports.isDisLiked = async (req, res) => {
         }
 
         const existingDisLike = await DisLike.findOne({ post: postId, user: user.id });
-        // //console.log("existingDisLike", existingDisLike); 
+        // //// //console..log("existingDisLike", existingDisLike); 
 
 
         const allDisLikes = await DisLike.countDocuments({ post: postId });
@@ -138,7 +138,7 @@ exports.isDisLiked = async (req, res) => {
             message: "You have not disliked this post",
         });
     } catch (error) {
-        console.error(error);
+        // //console..errror(error);
         return res.status(500).json({
             success: false,
             message: "Something went wrong",

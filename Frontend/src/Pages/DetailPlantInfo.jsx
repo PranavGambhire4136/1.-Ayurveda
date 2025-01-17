@@ -12,9 +12,9 @@ function DetailPlantInfo() {
     try {
       const res = await axios.get('https://ayurveda-backend.onrender.com/api/v1/getPlantDetail', { withCredentials: true, params: { id } });
       setPlantInfo(res.data.data);
-      console.log(res);
+      // //console..log(res);
     } catch (err) {
-      console.error("Error fetching plant details:", err);
+      // //console..errror("Error fetching plant details:", err);
       setError(err.response?.data?.message || "Failed to fetch plant details.");
     }
   };
