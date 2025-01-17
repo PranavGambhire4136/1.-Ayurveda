@@ -60,28 +60,22 @@ function PlantInformation() {
   function submitHandler(event) {
     event.preventDefault();
     if (search === "Search a plant" || search.trim() === "") {
-      // setFilteredData(plant);
-      console.log("Search a plant");
+      setFilteredData(plant);  // If no search term, show all plants
       return;
     };
-
-    // const filtered = plant.filter((item) =>
-    //   item.Tags && item.Tags.some(tag => tag.toLowerCase() === search.toLowerCase().trim())
-    // );
-
-    // setFilteredData(filtered);
-
-    axios.get(`https://ayurveda-backend.onrender.com/api/v1/getPlantDetail`, { withCredentials: true, params: {id: search} })
-      .then((Response) => {
-        // console.log(Response.data.data);
-        setFilteredData([Response.data.data]);
-        //consolelog(filteredData);
-      })
-      .catch((error) => {
-        toast.error(error.response.data.message);
-        // console.log(error);
-      })
+  
+    const filtered = filteredData.filter((item) =>
+      item.name.toLowerCase().includes(search.toLowerCase().trim()) // Modify 'name' to match the property you are searching
+    );
+  
+    if (filtered.length > 0) {
+      setFilteredData(filtered); // Set filtered results
+    } else {
+      setFilteredData([]); // No results found, clear the filteredData
+      toast.error("No plants found matching the search term.");
+    }
   }
+
 
   const handleNavigation = () => {
     navigate('/newPlant')
