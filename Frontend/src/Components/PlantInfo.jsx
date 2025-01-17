@@ -17,7 +17,7 @@ function PlantInfo({ data }) {
   }
 
   return (
-    <form className="bg-green-300 md:w-[20vw] m-10 shadow-lg rounded-lg p-4 hover:scale-105 transition-transform">
+    <form className="bg-green-300 md:w-[20vw] w-[70vw] m-10 shadow-lg rounded-lg p-4 hover:scale-105 transition-transform">
       <div className="font-extrabold px-8 mb-5 overflow-scroll scrollbar-hide">
         {data.Name}
       </div>
