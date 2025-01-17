@@ -13,11 +13,14 @@ exports.getPlantDetail = async (req, res) => {
             });
         }
 
+        console.log("id ", id);
+        id = id.trim();
+        
         // Query to check if Name matches or tag array contains the id
         const plant = await PlantInfo.findOne({
             $or: [
-                { Name: id },
-                { tag: { $elemMatch: { $regex: id, $options: 'i' } } } // Case-insensitive match for substring
+                { Name: id }, // Case-sensitive match for Name (can be updated if needed)
+                { tag: { $elemMatch: { $regex: id, $options: 'i' } } } // Case-insensitive match for tag array
             ]
         });
 
