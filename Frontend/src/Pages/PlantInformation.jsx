@@ -62,10 +62,10 @@ function PlantInformation() {
     if (search === "Search a plant" || search.trim() === "") {
       setFilteredData(plant);  // If no search term, show all plants
       return;
-    };
+    }
   
     const filtered = filteredData.filter((item) =>
-      item.name.toLowerCase().includes(search.toLowerCase().trim()) // Modify 'name' to match the property you are searching
+      item && item.name && item.name.toLowerCase().includes(search.toLowerCase().trim()) // Ensure 'name' exists
     );
   
     if (filtered.length > 0) {
@@ -75,6 +75,7 @@ function PlantInformation() {
       toast.error("No plants found matching the search term.");
     }
   }
+
 
 
   const handleNavigation = () => {
