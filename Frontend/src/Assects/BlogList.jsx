@@ -11,6 +11,7 @@ function BlogList({ blog }) {
     const [dislikeId, setDislikeId] = useState(null);
     const [likeCount, setLikeCount] = useState(0);
     const [dislikeCount, setDislikeCount] = useState(0);
+    const [isExpanded, setIsExpanded] = useState(false);
     const [token, setToken] = useState(null);
 
     useEffect(() => {
@@ -90,6 +91,10 @@ function BlogList({ blog }) {
         }
     };
 
+    const toggleContent = () => {
+        setIsExpanded(!isExpanded);
+    };
+
     return (
         <div className="flex flex-wrap justify-center gap-6 bg-gradient-to-b from-green-200 to-green-100 p-5 sm:p-10">
             <div className="bg-gray-100 rounded-xl shadow-lg overflow-hidden w-full max-w-sm sm:max-w-md transform hover:scale-105 transition-transform duration-300">
@@ -102,7 +107,15 @@ function BlogList({ blog }) {
                 </div>
                 <div className="flex flex-col justify-between p-4 sm:p-6 min-h-[250px]">
                     <h4 className="font-bold text-lg text-gray-800">{blog.postHeading}</h4>
-                    <p className="text-sm text-gray-600 mb-4 line-clamp-3">{blog.postContent}</p>
+                    <p className="text-sm text-gray-600 mb-4">
+                        {isExpanded ? blog.postContent : `${blog.postContent.slice(0, 100)}...`}
+                    </p>
+                    <button
+                        onClick={toggleContent}
+                        className="text-blue-500 text-sm font-semibold underline"
+                    >
+                        {isExpanded ? "Read Less" : "Read More"}
+                    </button>
                     {blog.user.profile ? (
                         <div className="flex items-center mt-auto">
                             <img
