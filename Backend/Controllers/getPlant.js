@@ -2,33 +2,23 @@ const PlantInfo = require("../Models/PlantInfo");
 
 exports.getPlantDetail = async (req, res) => {
     try {
-        // //console..log('Started processing plant detail request');
-        
-        const { id } = req.query; // Extract 'id' from the query parameters
+        const { id } = req.query; 
 
         if (!id) {
             return res.status(400).json({
                 success: false,
-                message: "Id is required", 
+                message: "Id is required",
             });
         }
 
-        // //console..log("id ", id);
-        id = id.trim();
-        
-        // Query to check if Name matches or tag array contains the id
-        const plant = await PlantInfo.findOne({
-            $or: [
-                { Name: id }, // Case-sensitive match for Name (can be updated if needed)
-                { tag: { $elemMatch: { $regex: id, $options: 'i' } } } // Case-insensitive match for tag array
-            ]
-        });
+        const trimmedId = id.trim();
 
+        const plant = await PlantInfo.findOne({ Name: trimmedId });
 
         if (!plant) {
             return res.status(404).json({
                 success: false,
-                message: "Plant not found", 
+                message: "Plant not found",
             });
         }
 
@@ -38,10 +28,9 @@ exports.getPlantDetail = async (req, res) => {
             data: plant,
         });
     } catch (err) {
-        // //console..errror('Error while fetching plant details:', err);
         return res.status(500).json({
             success: false,
-            message: "An error occurred while processing the request", 
+            message: "An error occurred while processing the request",
         });
     }
 };
