@@ -3,6 +3,7 @@ const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require("bcrypt");
 const User = require("../../Models/User");
 const AdminSettings = require("../../Models/adminSetting");
+const emailExistence = require('email-existence');
 
 exports.SignUp = async (req, res) => {
     try {
@@ -82,6 +83,15 @@ exports.SignUp = async (req, res) => {
                 });
             }
         }
+
+        emailExistence.check('example@gmail.com', (error, response) => {
+            if (error) {
+                return res.status(400).json({
+                    success: false,
+                    message: "Invalid email",
+                })
+            }
+        });
 
         // Generate OTP and send email
         const otpGenerated = await generateOTP();
