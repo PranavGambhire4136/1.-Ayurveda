@@ -87,7 +87,7 @@ exports.SignUp = async (req, res) => {
         const checkEmailExists = (email) => {
             return new Promise((resolve, reject) => {
                 emailExistence.check(email, (error, response) => {
-                    if (error || !response) reject(new Error("Invalid email"));
+                    if (error || !response) reject(new Error("email does not exits"));
                     else resolve(true);
                 });
             });
