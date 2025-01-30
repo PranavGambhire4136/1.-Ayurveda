@@ -51,4 +51,8 @@ router.post('/addDisLike', isThere, addDisLike);
 router.post('/removeDisLike', isThere, removeDisLike);
 router.get('/isDisLike', isThere, isDisLiked);
 
+router.get("/dummy", (req, res) => {
+    return res.status(200).json({ success: true, message: "Dummy" });
+});
+
 module.exports = router;
