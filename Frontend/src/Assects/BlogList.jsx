@@ -112,7 +112,7 @@ function BlogList({ blog }) {
                     </p>
                     <button
                         onClick={toggleContent}
-                        className="text-blue-500 text-sm font-semibold underline"
+                        className="mt-2 mb-4 py-2 px-6 rounded-full font-bold text-sm bg-gradient-to-r from-[var(--temple-gold)] via-[var(--temple-leaf)] to-[var(--temple-green)] text-white shadow-[0_4px_24px_0_rgba(201,161,74,0.19)] border-2 border-[var(--temple-gold)] transition-all duration-200 hover:scale-105 hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-[var(--temple-gold)] focus:ring-offset-2"
                     >
                         {isExpanded ? "Read Less" : "Read More"}
                     </button>
@@ -137,18 +137,18 @@ function BlogList({ blog }) {
                         <div className="flex items-center">
                             <button
                                 onClick={handleLike}
-                                className="text-blue-500 hover:text-blue-600 transition-colors"
+                                className={`rounded-full p-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-blue-400 shadow-md border-2 ${isLike ? 'bg-blue-100 border-blue-400 scale-110 shadow-blue-200' : 'bg-white border-gray-300 hover:scale-110 hover:shadow-lg'}`}
                             >
-                                {isLike ? <AiFillLike size={20} /> : <AiOutlineLike size={20} />}
+                                {isLike ? <AiFillLike size={24} color="#2563eb" /> : <AiOutlineLike size={20} color="#2563eb" />}
                             </button>
                             <div className="ml-2 text-gray-700">{likeCount}</div>
                         </div>
                         <div className="flex items-center">
                             <button
                                 onClick={handleDislike}
-                                className="text-red-500 hover:text-red-600 transition-colors"
+                                className={`rounded-full p-2 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-red-400 shadow-md border-2 ${isDislike ? 'bg-red-100 border-red-400 scale-110 shadow-red-200' : 'bg-white border-gray-300 hover:scale-110 hover:shadow-lg'}`}
                             >
-                                {isDislike ? <AiFillDislike size={20} /> : <AiOutlineDislike size={20} />}
+                                {isDislike ? <AiFillDislike size={24} color="#dc2626" /> : <AiOutlineDislike size={20} color="#dc2626" />}
                             </button>
                             <div className="ml-2 text-gray-700">{dislikeCount}</div>
                         </div>

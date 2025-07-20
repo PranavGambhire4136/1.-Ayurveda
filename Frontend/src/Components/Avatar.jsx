@@ -15,9 +15,11 @@ function Avatar({ name, size = 50 }) {
     fontSize: size / 2.5,
     fontWeight: "bold",
     textTransform: "uppercase",
+    boxShadow: '0 2px 12px 0 rgba(201,161,74,0.09)',
+    border: `2.5px solid #c9a14a`,
   };
 
-  return <div style={styles}>{getInitials(name || "Unknown")}</div>;
+  return <div style={styles} className="temple-shadow temple-border">{getInitials(name || "Unknown")}</div>;
 }
 
 function getBackgroundColor(name) {

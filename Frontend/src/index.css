@@ -2,16 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  margin: 0px;
+.navbar-text-shadow {
+  text-shadow: 0 2px 8px rgba(0,0,0,0.18), 0 0 1px #fff;
+}
+
+
+:root {
+  --temple-green: #1b5e20;
+  --temple-dark-green: #14532d;
+  --temple-leaf: #4caf50;
+  --temple-brown: #8d6748;
+  --temple-offwhite: #f8f5f0;
+  --temple-gold: #c9a14a;
+  --temple-shadow: 0 4px 24px 0 rgba(34, 49, 34, 0.07);
+  --temple-font: 'Merriweather', 'Georgia', serif;
+  --temple-heading: 'Noto Serif', 'Merriweather', serif;
+}
+
+body {
+  background: var(--temple-offwhite) url('../Assects/Chiapas_Rainforest_crop.jpg') repeat-y center top/cover;
+  min-height: 100vh;
+  color: var(--temple-dark-green);
+  font-family: var(--temple-font);
+  letter-spacing: 0.01em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--temple-heading);
+  color: var(--temple-green);
+  letter-spacing: 0.03em;
 }
 
 .active {
-  color: yellow;
+  color: var(--temple-gold);
+  font-weight: bold;
 }
 
-.contianer {
-  place-items: center ;
+a {
+  color: var(--temple-leaf);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+a:hover {
+  color: var(--temple-gold);
+}
+
+button {
+  border-radius: 16px;
+  border: none;
+  padding: 0.7em 1.6em;
+  font-size: 1.1em;
+  font-family: var(--temple-font);
+  background: linear-gradient(90deg, var(--temple-leaf), var(--temple-gold));
+  color: var(--temple-offwhite);
+  box-shadow: var(--temple-shadow);
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
+}
+button:hover {
+  background: linear-gradient(90deg, var(--temple-gold), var(--temple-leaf));
+  transform: scale(1.04);
+}
+
+.container, .contianer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
 .scrollbar-hide {
@@ -19,78 +75,50 @@
   scrollbar-width: none;
 }
 
-.background-images {
-  background-image: url("../Assects/Home_background.jpg");
-  background-size: cover;
-
-  background-repeat: no-repeat;
+::-webkit-scrollbar {
+  width: 8px;
+  background: var(--temple-offwhite);
 }
-
-/* :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
-}
-
-body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
-}
-
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
-}
-
-button {
+::-webkit-scrollbar-thumb {
+  background: var(--temple-leaf);
   border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
+.card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: var(--temple-shadow);
+  padding: 2em;
+  margin: 1.5em 0;
+}
+
+.temple-border {
+  border: 2px solid var(--temple-gold);
+  border-radius: 24px;
+  box-shadow: 0 2px 12px 0 rgba(201,161,74,0.07);
+}
+
+.temple-bg {
+  background: linear-gradient(135deg, var(--temple-offwhite) 80%, var(--temple-leaf) 100%);
+}
+
+.temple-heading {
+  font-family: var(--temple-heading);
+  color: var(--temple-gold);
+  text-shadow: 0 2px 8px rgba(27,94,32,0.08);
+}
+
+.temple-shadow {
+  box-shadow: var(--temple-shadow);
+}
+
+@media (max-width: 768px) {
+  .container, .contianer {
+    padding: 1rem 0.5rem;
   }
-  a:hover {
-    color: #747bff;
+  h1 {
+    font-size: 2em;
   }
-  button {
-    background-color: #f9f9f9;
-  }
-} */
+}
+
+/* Add spiritual/temple motif SVGs or background overlays via components for more depth */

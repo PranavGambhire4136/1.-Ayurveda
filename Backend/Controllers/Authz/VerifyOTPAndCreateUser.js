@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 
 exports.verifyOtpAndCreateUser = async (req, res) => {
     try {
-        //// //console..log('started');
+        console.log('started');
         const { email, otp} = req.body;
 
         //// //console..log(email, otp);

@@ -7,48 +7,33 @@ import { SiLeetcode } from "react-icons/si";
 
 function Footer() {
     return (
-        <div className='bg-gray-100 py-4'>
-            <div className='h-[2px] bg-black w-full'></div>
-
-            <div className='flex flex-col items-center'>
-                <div className='md:text-xl text-xs'>
-                    <div className='flex'>
-                        Design and Developed by <div className='md:ml-1 text-green-700 underline font-bold px-1'> {import.meta.env.VITE_NAME} </div> 
-                    </div>
-                    {/* <div className='ml-1 text-green-700 underline font-bold'>
-                        {import.meta.env.VITE_NAME}
-                    </div> */}
+        <footer className="bg-[var(--temple-offwhite)] pt-8 pb-4 px-4 temple-border rounded-t-3xl shadow temple-shadow mt-8 relative">
+            {/* Subtle mandala SVG or leafy border on top */}
+            <div className="w-full flex justify-center mb-4">
+                <svg width="80" height="24" viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="40" cy="12" rx="38" ry="10" fill="#c9a14a" fillOpacity="0.09"/>
+                </svg>
+            </div>
+            <div className="flex flex-col items-center space-y-2">
+                <div className="temple-heading text-xl md:text-2xl text-center mb-2" style={{fontFamily: 'Noto Serif, Merriweather, serif'}}>
+                    "स्वस्थस्य स्वास्थ्य रक्षणं, आतुरस्य विकार प्रशमनं।"
                 </div>
-
-                <div className='flex justify-center flex-wrap mt-4'>
-                    <div className='text-blue-700 m-2 hover:scale-150 transition-transform'>
-                        <a href="https://www.linkedin.com/in/pranav-gambhire/" target='_blank' rel="noopener noreferrer">
-                            <FaLinkedin />
-                        </a>
-                    </div>
-                    <div className='text-orange-500 m-2 hover:scale-150 transition-transform'>
-                        <a href="https://leetcode.com/u/Pranav_Gambhire/" target='_blank' rel="noopener noreferrer">
-                            <SiLeetcode />
-                        </a>
-                    </div>
-                    <div className='text-red-700 m-2 hover:scale-150 transition-transform'>
-                        <a href="https://www.instagram.com/pranav_gambhire_3965/" target='_blank' rel="noopener noreferrer">
-                            <FaInstagram />
-                        </a>
-                    </div>
-                    <div className='text-green-700 m-2 hover:scale-150 transition-transform'>
-                        <a href="https://wa.me/+917757931561" target='_blank' rel="noopener noreferrer">
-                            <FaWhatsappSquare />
-                        </a>
-                    </div>
-                    <div className='text-blue-700 m-2 hover:scale-150 transition-transform'>
-                        <a href="https://www.facebook.com/" target='_blank' rel="noopener noreferrer">
-                            <FaFacebook />
-                        </a>
-                    </div>
+                <div className="text-sm md:text-base text-[var(--temple-brown)] text-center italic mb-2">
+                    "Preserving the health of the healthy and alleviating the suffering of the sick."
+                </div>
+                <div className="md:text-xl text-xs text-[var(--temple-dark-green)]">
+                    <span className="font-semibold">Design & Developed by</span>
+                    <span className="md:ml-1 text-[var(--temple-green)] underline font-bold px-1">{import.meta.env.VITE_NAME}</span>
+                </div>
+                <div className="flex justify-center flex-wrap mt-4 gap-2">
+                    <a href="https://www.linkedin.com/in/pranav-gambhire/" target='_blank' rel="noopener noreferrer" className="text-[#1b5e20] bg-[#c9a14a]/10 rounded-full p-2 hover:bg-[#c9a14a]/40 hover:text-[#c9a14a] transition-colors duration-200"><FaLinkedin size={28} /></a>
+                    <a href="https://leetcode.com/u/Pranav_Gambhire/" target='_blank' rel="noopener noreferrer" className="text-[#4caf50] bg-[#c9a14a]/10 rounded-full p-2 hover:bg-[#c9a14a]/40 hover:text-[#c9a14a] transition-colors duration-200"><SiLeetcode size={28} /></a>
+                    <a href="https://www.instagram.com/pranav_gambhire_3965/" target='_blank' rel="noopener noreferrer" className="text-[#c0392b] bg-[#c9a14a]/10 rounded-full p-2 hover:bg-[#c9a14a]/40 hover:text-[#c9a14a] transition-colors duration-200"><FaInstagram size={28} /></a>
+                    <a href="https://wa.me/+917757931561" target='_blank' rel="noopener noreferrer" className="text-[#388e3c] bg-[#c9a14a]/10 rounded-full p-2 hover:bg-[#c9a14a]/40 hover:text-[#c9a14a] transition-colors duration-200"><FaWhatsappSquare size={28} /></a>
+                    <a href="https://www.facebook.com/" target='_blank' rel="noopener noreferrer" className="text-[#1976d2] bg-[#c9a14a]/10 rounded-full p-2 hover:bg-[#c9a14a]/40 hover:text-[#c9a14a] transition-colors duration-200"><FaFacebook size={28} /></a>
                 </div>
             </div>
-        </div>
+        </footer>
     )
 }
 

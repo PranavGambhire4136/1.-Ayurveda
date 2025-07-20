@@ -69,79 +69,71 @@ function Navbar() {
     };
 
     return (
-        <div className="flex justify-between items-center bg-[#1b8e53] text-white h-[10vh] w-full px-5 md:px-10">
+        <nav className="flex justify-between items-center bg-gradient-to-r from-[#1b5e20] via-[#4caf50] to-[#c9a14a] shadow-lg temple-border h-[10vh] w-full px-5 md:px-16 rounded-b-2xl" style={{fontFamily: 'Noto Serif, Merriweather, serif', minHeight: '70px'}}>
             {/* Logo Section */}
-            <div className="h-[40px] w-auto mt-2 ml-[5vw] md:ml-0 mb-2">
-                <NavLink to="/">
-                    <img src={logo} alt="Logo of Ayurlens" className="h-full object-contain" />
+            <div className="flex items-center h-[55px] w-auto mt-2 ml-[5vw] md:ml-0 mb-2">
+                <NavLink to="/" className="flex items-center gap-2">
+                    <img src={logo} alt="Root of Ayurveda Logo" className="h-12 w-12 rounded-full border-4 border-[#c9a14a] shadow temple-shadow bg-white p-1" />
+                    <span className="text-3xl font-bold temple-heading tracking-wide text-white navbar-text-shadow" style={{letterSpacing: '0.04em'}}>Root of Ayurveda</span>
                 </NavLink>
             </div>
 
             {/* Desktop Menu */}
-            <div className="hidden md:flex space-x-8">
-                <NavLink to="/plantInformation" className="hover:text-red-300">Plant Information</NavLink>
-                <NavLink to="/blog" className="hover:text-red-300">Blog</NavLink>
-                <NavLink to="/newBlog" className="hover:text-red-300">Add New Blog</NavLink>
+            <div className="hidden md:flex space-x-10 items-center">
+                <NavLink to="/plantInformation" className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Plant Information</NavLink>
+                <NavLink to="/blog" className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Blog</NavLink>
+                <NavLink to="/newBlog" className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Add New Blog</NavLink>
             </div>
 
             {/* Login/Logout Buttons */}
             {!isLogin ? (
-                <div className="hidden md:flex space-x-10 mr-[10vw]">
-                    <NavLink to="/signUp" className="hover:text-red-300">Sign Up</NavLink>
-                    <NavLink to="/login" className="hover:text-red-300">Log In</NavLink>
+                <div className="hidden md:flex space-x-10 mr-[10vw] items-center">
+                    <NavLink to="/signUp" className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Sign Up</NavLink>
+                    <NavLink to="/login" className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Log In</NavLink>
                 </div>
             ) : (
-                <div className="hidden md:flex space-x-10 mr-[10vw]">
-                    <NavLink to="/viewProfile" className="hover:scale-105 mt-2 bg">
+                <div className="hidden md:flex space-x-10 mr-[10vw] items-center">
+                    <NavLink to="/viewProfile" className="hover:scale-105 mt-2">
                     {
                         user.profile ? (
-                            <img src={user.profile} alt="Profile" className="h-10 w-10 rounded-full" />
+                            <img src={user.profile} alt="Profile" className="h-10 w-10 rounded-full border-2 border-[#c9a14a]" />
                         ) : (
                             <Avatar name={name} size={35} />
                         )
                     }
-                    
                     </NavLink>
-                    <button onClick={logout} className="text-white hover:text-red-300">Log Out</button>
+                    <button onClick={logout} className="bg-[#c9a14a] text-[#1b5e20] px-4 py-1 rounded-lg font-semibold shadow temple-shadow hover:bg-[#4caf50] hover:text-white transition-colors duration-200 navbar-text-shadow">Log Out</button>
                 </div>
             )}
 
             {/* Mobile Menu Toggle */}
             <div className="flex md:hidden mr-5" onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                <button className="text-white text-2xl">☰</button>
+                <button className="text-white text-3xl p-2 rounded-full bg-[#1b5e20] shadow temple-shadow navbar-text-shadow">☰</button>
             </div>
 
             {isMobileMenuOpen && (
-                <div className="absolute top-[10vh] left-0 w-full bg-black text-white flex flex-col items-center space-y-5 py-5 z-10">
-                    <NavLink to="/plantInformation" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Plant Information</NavLink>
-                    <NavLink to="/newPlant" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Add Plant Information</NavLink>
-                    <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Blog</NavLink>
+                <div className="absolute top-[10vh] left-0 w-full bg-[#1b5e20] text-white flex flex-col items-center space-y-5 py-5 z-20 rounded-b-2xl shadow temple-shadow navbar-text-shadow">
+                    <NavLink to="/plantInformation" onClick={() => setIsMobileMenuOpen(false)} className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Plant Information</NavLink>
+                    <NavLink to="/newPlant" onClick={() => setIsMobileMenuOpen(false)} className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Add Plant Information</NavLink>
+                    <NavLink to="/blog" onClick={() => setIsMobileMenuOpen(false)} className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Blog</NavLink>
 
                     {!isLogin ? (
                         <div className="flex flex-col items-center space-y-2">
-                            <NavLink to="/signUp" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Sign Up</NavLink>
-                            <NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">Log In</NavLink>
+                            <NavLink to="/signUp" onClick={() => setIsMobileMenuOpen(false)} className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Sign Up</NavLink>
+                            <NavLink to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-white navbar-text-shadow text-lg font-semibold transition-colors duration-200 hover:text-[#b8891b] focus:text-[#b8891b]">Log In</NavLink>
                         </div>
                     ) : (
-
-
                         <div className="flex flex-col items-center space-y-2">
-                            <NavLink to="/viewProfile" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-red-300">
-
-                                {!user.profile &&
-                                    <Avatar name={name} />
-                                }
-
-                                {user.profile &&
-                                    <img src={user.profile} alt="Profile" className="w-10 h-10 rounded-full" />
-                                }
+                            <NavLink to="/viewProfile" onClick={() => setIsMobileMenuOpen(false)} className="hover:text-[#c9a14a]">
+                                {!user.profile && <Avatar name={name} />}
+                                {user.profile && <img src={user.profile} alt="Profile" className="w-10 h-10 rounded-full border-2 border-[#c9a14a]" />}
                             </NavLink>
-                            <button onClick={logout} className="text-red-300 hover:underline">Log Out</button>
+                            <button onClick={logout} className="bg-[#c9a14a] text-[#1b5e20] px-4 py-1 rounded-lg font-semibold shadow temple-shadow hover:bg-[#4caf50] hover:text-white transition-colors duration-200 navbar-text-shadow">Log Out</button>
                         </div>
                     )}
                 </div>
             )}
-        </div>
+        </nav>
     );
 }
 

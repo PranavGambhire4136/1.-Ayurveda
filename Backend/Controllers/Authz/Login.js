@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken');
 
 exports.Login = async (req, res) => {
     try {
-        // // //console..log("body", req.body);
+        console.log("body", req.body);
         // const { email, password } = req.body;
         const { email, password } = req.query;
 

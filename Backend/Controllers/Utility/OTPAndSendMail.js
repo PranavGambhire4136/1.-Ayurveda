@@ -19,7 +19,7 @@ exports.sendMail = async (otp, email) => {
         })
 
         let info = await transporter.sendMail({
-            from: 'Aurveda || PranavGambhire',
+            from: 'ayurveda || PranavGambhire',
             to: `${email}`,
             subject: `OTP for Ayurveda Platform`,
             html: `

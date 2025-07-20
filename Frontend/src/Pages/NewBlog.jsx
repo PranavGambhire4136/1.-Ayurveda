@@ -54,14 +54,14 @@ function NewBlog() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen flex items-center justify-center p-4 temple-bg">
       {isLoading && <Loader />}
       {!isLoading && (
-        <div className="w-full max-w-lg bg-green-200 shadow-lg rounded-lg p-6">
-          <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">New Blog</h1>
+        <div className="w-full max-w-lg temple-card temple-border temple-shadow">
+          <h1 className="temple-heading text-2xl md:text-3xl mb-6 text-center">New Blog</h1>
           <form onSubmit={submitHandler} className="space-y-4">
             <label className="block">
-              <div className="text-gray-700 font-medium mb-2">Enter the Blog Title</div>
+              <div className="text-[var(--temple-brown)] font-medium mb-2">Enter the Blog Title</div>
               <input
                 type="text"
                 name="postHeading"
@@ -69,12 +69,12 @@ function NewBlog() {
                 required
                 value={formData.postHeading}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
               />
             </label>
 
             <label className="block">
-              <div className="text-gray-700 font-medium mb-2">Blog Image</div>
+              <div className="text-[var(--temple-brown)] font-medium mb-2">Blog Image</div>
               <input
                 type="file"
                 accept="image/*"
@@ -85,25 +85,25 @@ function NewBlog() {
                     postImage: e.target.files[0],
                   }))
                 }
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                className="w-full temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
               />
             </label>
 
             <label className="block">
-              <div className="text-gray-700 font-medium mb-2">Enter the Blog Content</div>
+              <div className="text-[var(--temple-brown)] font-medium mb-2">Enter the Blog Content</div>
               <textarea
                 name="postContent"
                 placeholder="Blog Content"
                 required
                 value={formData.postContent}
                 onChange={handleChange}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-400 h-32 resize-none"
+                className="w-full temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)] h-32 resize-none"
               ></textarea>
             </label>
 
             <button
               type="submit"
-              className="w-full bg-blue-500 text-white font-medium py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400"
+              className="w-full temple-btn py-2 text-lg font-semibold"
             >
               Submit
             </button>

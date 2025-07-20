@@ -91,132 +91,133 @@ function AddPlant() {
 
       {!isLoading &&
 
-      <div className="flex flex-col items-center m-4 gap-4 p-4 justify-center bg-white rounded-lg shadow-lg md:p-10">
-        <h1 className="text-3xl font-bold text-green-500 mb-4 text-center">Add New Plant</h1>
-        <form className="bg-white p-3 md:p-10 flex flex-col gap-4 ml-0 mr-0" onSubmit={handleSubmit}>
+      <div className="flex flex-col items-center m-4 gap-4 p-4 justify-center temple-bg">
+        <div className="w-full max-w-2xl temple-card temple-border temple-shadow">
+          <h1 className="temple-heading text-2xl md:text-3xl mb-6 text-center">Add New Plant</h1>
+          <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            {/* Plant Name Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Plant Name</div>
+              <input
+                type="text"
+                required
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="name"
+                value={plantData.name}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Plant Name Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Plant Name</div>
-            <input
-              type="text"
-              required
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="name"
-              value={plantData.name}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Plant Image Upload */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Plant Image</div>
+              <input
+                type="file"
+                accept="image/*"
+                required
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                onChange={handleFileChange}
+              />
+            </label>
 
-          {/* Plant Image Upload */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Plant Image</div>
-            <input
-              type="file"
-              accept="image/*"
-              required
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              onChange={handleFileChange}
-            />
-          </label>
+            {/* Plant Information Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Plant Information</div>
+              <textarea
+                type="text"
+                required
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="info"
+                value={plantData.info}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Plant Information Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Plant Information</div>
-            <textarea
-              type="text"
-              required
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="info"
-              value={plantData.info}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Tags Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Tags (e.g., medicinal, decorative)</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="tags"
+                value={plantData.tags}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Tags Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Tags (e.g., medicinal, decorative)</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="tags"
-              value={plantData.tags}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Diseases Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Diseases Cured</div>
+              <div className='text-sm text-[var(--temple-gold)]'>Enter values separated by commas</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="diseases"
+                value={plantData.diseases}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Diseases Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Diseases Cured</div>
-            <div className='text-sm text-red-500'>Enter values separated by commas</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="diseases"
-              value={plantData.diseases}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* How It Works Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">How It Works</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="howItWorks"
+                value={plantData.howItWorks}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* How It Works Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">How It Works</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="howItWorks"
-              value={plantData.howItWorks}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Side Effects Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Side Effects</div>
+              <div className='text-sm text-[var(--temple-gold)]'>Enter values separated by commas</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="sideEffects"
+                value={plantData.sideEffects}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Side Effects Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Side Effects</div>
-            <div className='text-sm text-red-500'>Enter values separated by commas</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="sideEffects"
-              value={plantData.sideEffects}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Exceptions Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Exceptions</div>
+              <div className='text-sm text-[var(--temple-gold)]'>Enter values separated by commas</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="exceptions"
+                value={plantData.exceptions}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Exceptions Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Exceptions</div>
-            <div className='text-sm text-red-500'>Enter values separated by commas</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="exceptions"
-              value={plantData.exceptions}
-              onChange={handleInputChange}
-            />
-          </label>
+            {/* Availability Input */}
+            <label className="flex flex-col gap-2">
+              <div className="text-lg font-bold text-[var(--temple-brown)]">Availability</div>
+              <div className='text-sm text-[var(--temple-gold)]'>Enter values separated by commas</div>
+              <input
+                type="text"
+                className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
+                name="availability"
+                value={plantData.availability}
+                onChange={handleInputChange}
+              />
+            </label>
 
-          {/* Availability Input */}
-          <label className="flex flex-col gap-2">
-            <div className="text-lg font-bold text-gray-600">Availability</div>
-            <div className='text-sm text-red-500'>Enter values separated by commas</div>
-            <input
-              type="text"
-              className="p-2 border border-gray-300 rounded-lg w-full"
-              name="availability"
-              value={plantData.availability}
-              onChange={handleInputChange}
-            />
-          </label>
-
-          {/* Submit Button */}
-          <button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg w-full mt-4">
-            Submit
-          </button>
-        </form>
+            {/* Submit Button */}
+            <button className="temple-btn w-full mt-4 py-2 text-lg font-semibold">
+              Submit
+            </button>
+          </form>
+        </div>
       </div>
 }
-    </div>
+</div>
 
       
 

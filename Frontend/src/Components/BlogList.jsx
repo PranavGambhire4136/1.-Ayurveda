@@ -20,17 +20,19 @@ function BlogList2() {
         getAllBlogs();
     }, [])
 
-
     return (
-        <div className='md:grid md:grid-cols-4 md:gap-4'>
-            { !isLoding && 
+        <div className="w-full flex flex-wrap justify-center gap-12 md:gap-16 z-10">
+            {!isLoding &&
                 blogs.map((blog) => (
-                    <BlogList key={blog._id} blog={blog} />
+                    <div key={blog._id} className="rounded-3xl border-2 border-[var(--temple-gold)] shadow-2xl bg-gradient-to-br from-[var(--temple-green)] via-[var(--temple-leaf)] to-[var(--temple-gold)] bg-opacity-95 max-w-md w-full p-0 md:p-2 mb-8 transition-transform hover:scale-105">
+                        <BlogList blog={blog} />
+                    </div>
                 ))
             }
-
             {isLoding &&
-                <Loader />
+                <div className="w-full flex justify-center items-center py-10">
+                    <Loader />
+                </div>
             }
         </div>
     )
