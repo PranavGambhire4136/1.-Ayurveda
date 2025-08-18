@@ -57,7 +57,7 @@ function NewBlog() {
     <div className="min-h-screen flex items-center justify-center p-4 temple-bg">
       {isLoading && <Loader />}
       {!isLoading && (
-        <div className="w-full max-w-lg temple-card temple-border temple-shadow">
+        <div className="w-full max-w-lg temple-card temple-border temple-shadow p-8">
           <h1 className="temple-heading text-2xl md:text-3xl mb-6 text-center">New Blog</h1>
           <form onSubmit={submitHandler} className="space-y-4">
             <label className="block">

@@ -15,7 +15,7 @@ exports.addPlant = async (req, res) => {
         if (!Name || !Info || !Image) {
             return res.status(400).json({
                 success: false,
-                message: "Name, Image, and Info are required fields.",
+                message: Name ? Info ? "Image is required" : "Info is required" : "Name is required",
             });
         }
 

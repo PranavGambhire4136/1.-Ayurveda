@@ -13,7 +13,7 @@ exports.Login = async (req, res) => {
             //// //console..log(email, " ", password);
             return res.status(400).json({
                 success: false,
-                message: "All fields are required",
+                message: email ? "Password is required" : "Email is required",
             });
         }
 
@@ -21,7 +21,7 @@ exports.Login = async (req, res) => {
         if (!UserDetail) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid user, try signing up",
+                message: "Email doesn't exits, try signing up",
             });
         }
 
@@ -29,7 +29,7 @@ exports.Login = async (req, res) => {
         if (!isPasswordValid) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid credentials",
+                message: "Invalid password",
             });
         }
 

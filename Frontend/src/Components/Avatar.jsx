@@ -1,4 +1,26 @@
-import React from "react";
+
+function getBackgroundColor(name) {
+  if (!name || name.length === 0) {
+    return "#cccccc"; // Default background color
+  }
+
+  const colors = ["#d64e44", "#0082f6", "#1d1d35", "#8762b7", "#f39c12"];
+  let hash = 0;
+
+  for (let i = 0; i < name.length; i++) {
+    hash = name.charCodeAt(i) + ((hash << 5) - hash); //hash << 5 is equivalent to hash * 31
+  }
+
+  return colors[Math.abs(hash) % colors.length];
+}
+
+function getInitials(name) {
+  if (!name) return "";
+  const words = name.split(" ");
+  return words.length === 1
+    ? words[0][0].toUpperCase()
+    : (words[0][0] + words[words.length - 1][0]).toUpperCase();
+}
 
 function Avatar({ name, size = 50 }) {
   const bgColor = getBackgroundColor(name || "Unknown");
@@ -22,28 +44,6 @@ function Avatar({ name, size = 50 }) {
   return <div style={styles} className="temple-shadow temple-border">{getInitials(name || "Unknown")}</div>;
 }
 
-function getBackgroundColor(name) {
-  if (!name || name.length === 0) {
-    return "#cccccc"; // Default background color
-  }
-
-  const colors = ["#d64e44", "#0082f6", "#1d1d35", "#8762b7", "#f39c12"];
-  let hash = 0;
-
-  for (let i = 0; i < name.length; i++) {
-    hash = name.charCodeAt(i) + ((hash << 5) - hash);
-  }
-
-  return colors[Math.abs(hash) % colors.length];
-}
-
-function getInitials(name) {
-  if (!name) return "";
-  const words = name.split(" ");
-  return words.length === 1
-    ? words[0][0].toUpperCase()
-    : (words[0][0] + words[words.length - 1][0]).toUpperCase();
-}
 
 export default Avatar;
 

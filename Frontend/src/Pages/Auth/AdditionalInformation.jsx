@@ -85,7 +85,7 @@ function AdditionalInformation() {
               <button
                 type="button"
                 onClick={() => toggleEdit('phoneNo')}
-                className="ml-3 text-green-500 hover:text-green-700"
+                className="ml-3"
               >
                 {editMode.phoneNo ? 'Save' : 'Edit'}
               </button>
@@ -108,7 +108,7 @@ function AdditionalInformation() {
               <button
                 type="button"
                 onClick={() => toggleEdit('DOB')}
-                className="ml-3 text-green-500 hover:text-green-700"
+                className="ml-3"
               >
                 {editMode.DOB ? 'Save' : 'Edit'}
               </button>
@@ -131,7 +131,7 @@ function AdditionalInformation() {
               <button
                 type="button"
                 onClick={() => toggleEdit('Address')}
-                className="ml-3 text-green-500 hover:text-green-700"
+                className="ml-3"
               >
                 {editMode.Address ? 'Save' : 'Edit'}
               </button>

@@ -31,7 +31,7 @@ function DetailPlantInfo() {
     return <Loader />;
   }
 
-  const commasepareatedDiseases = plantInfo.Disease?.join(", ") || "Not Available";
+  const commasepareatedDiseases = plantInfo.Diseases?.join(", ") || "Not Available";
   const commasepareatedSideEffects = plantInfo.SideEffects?.join(", ") || "Not Available";
   const commaSepareatedExceptions = plantInfo.Exceptions?.join(", ") || "Not Available";
 
@@ -55,7 +55,7 @@ function DetailPlantInfo() {
             )}
           </div>
 
-          <div className="temple-card temple-border temple-shadow bg-[var(--temple-offwhite)] max-w-2xl mx-auto">
+          <div className="temple-card temple-border temple-shadow bg-[var(--temple-offwhite)] max-w-2xl mx-auto p-8">
             <div className='md:font-bold font-medium md:text-2xl text-lg text-[var(--temple-brown)]'>{plantInfo.Info}</div>
 
             <div className='mt-4'>

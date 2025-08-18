@@ -119,6 +119,7 @@ function SignUp() {
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
+                    placeholder='Enter your name'
                     className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                   />
                 </label>
@@ -130,6 +131,7 @@ function SignUp() {
                     name="email"
                     value={formData.email}
                     onChange={handleChange}
+                    placeholder='Enter your email'
                     className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                   />
                 </label>
@@ -141,6 +143,7 @@ function SignUp() {
                     name="userName"
                     value={formData.userName}
                     onChange={handleChange}
+                    placeholder='Choose your username'
                     className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                   />
                 </label>
@@ -152,6 +155,7 @@ function SignUp() {
                     name="password"
                     value={formData.password}
                     onChange={handleChange}
+                    placeholder='Choose your password'
                     className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                   />
                 </label>
@@ -163,6 +167,7 @@ function SignUp() {
                     name="confirmPassword"
                     value={formData.confirmPassword}
                     onChange={handleChange}
+                    placeholder='Confirm Password'
                     className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                   />
                 </label>
@@ -175,6 +180,7 @@ function SignUp() {
                         type="radio"
                         name="role"
                         value="User"
+                        defaultChecked
                         required
                         onChange={handleRoleChange}
                       />
@@ -201,6 +207,7 @@ function SignUp() {
                       name="passkey"
                       value={formData.passkey}
                       onChange={handleChange}
+                      placeholder='Enter Access Code'
                       className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                     />
                   </label>

@@ -24,6 +24,14 @@ exports.addLike = async (req, res) => {
         }
 
         // //// //console..log("user", user);
+        
+        const postDocument = await Post.findById(post);
+        if (!postDocument) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
 
         const existingLike = await Like.findOne({ post, user:user.id });
 
@@ -32,14 +40,6 @@ exports.addLike = async (req, res) => {
             return res.status(400).json({
                 success: false,
                 message: "You have already liked this post",
-            });
-        }
-
-        const postDocument = await Post.findById(post);
-        if (!postDocument) {
-            return res.status(404).json({
-                success: false,
-                message: "Post not found",
             });
         }
 
@@ -79,7 +79,7 @@ exports.removeLike = async (req, res) => {
         if (!likeId || !postId) {
             return res.status(400).json({
                 success: false,
-                message: "Like ID and Post ID are required",
+                message: likeId ? "Post ID is required" : "Like ID is required",
             });
         }
 

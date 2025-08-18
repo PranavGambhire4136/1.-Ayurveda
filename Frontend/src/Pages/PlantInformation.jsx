@@ -22,11 +22,12 @@ function PlantInformation() {
         //consolelog(Response.data.data);
         setFilteredData(Response.data.data);
         //consolelog(filteredData);
+        setIsLoding(false);
       })
       .catch((error) => {
         //consolelog(error);
+        setIsLoding(false);
       })
-    setIsLoding(false);
   }
 
   useEffect(() => {
@@ -85,9 +86,8 @@ function PlantInformation() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-[var(--temple-green)] via-[var(--temple-leaf)] to-[var(--temple-gold)] pb-12">
-      {isLoding && <Loader />}
+      
 
-      {!isLoding && (
         <>
           {/* Hero Section */}
           <section className="relative w-full flex flex-col items-center justify-center pt-12 pb-8 mb-8">
@@ -112,18 +112,20 @@ function PlantInformation() {
           {/* Plant Grid Section - Cohesive with Home Featured Section */}
           <section className="mb-20 px-2 w-full flex flex-col items-center">
             <div className="relative max-w-7xl w-full mx-auto rounded-3xl shadow-2xl temple-border bg-[var(--temple-offwhite)] bg-opacity-95 px-4 md:px-16 py-16 flex flex-col items-center overflow-hidden">
-              {/* Leafy SVG background motif */}
-              <svg className="absolute left-0 top-0 opacity-10 z-0" width="260" height="120" viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="130" cy="60" rx="120" ry="38" fill="#4caf50" fillOpacity="0.10"/><ellipse cx="180" cy="80" rx="70" ry="20" fill="#c9a14a" fillOpacity="0.08"/></svg>
-              <svg className="absolute right-0 bottom-0 opacity-10 z-0" width="180" height="90" viewBox="0 0 180 90" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="90" cy="45" rx="88" ry="22" fill="#4caf50" fillOpacity="0.09"/></svg>
+              
               <h2 className="temple-heading text-4xl md:text-5xl text-center mb-3 font-extrabold tracking-wide navbar-text-shadow" style={{letterSpacing:'0.06em'}}>All Ayurvedic Plants</h2>
               <div className="text-xl md:text-2xl text-[var(--temple-green)] mb-10 text-center font-semibold navbar-text-shadow" style={{fontFamily: 'Noto Serif, Merriweather, serif'}}>Explore the sacred green wisdom of Ayurveda</div>
-              <div className='w-full flex flex-wrap justify-center gap-12 md:gap-16 z-10'>
-                {
-                  filteredData.map((item, index) => (
-                    <PlantInfo key={index} data={item} />
-                  ))
-                }
-              </div>
+              {isLoding && <Loader />}
+              {!isLoding &&
+              
+                <div className='w-full flex flex-wrap justify-center gap-12 md:gap-16 z-10'>
+                  {
+                    filteredData.map((item, index) => (
+                      <PlantInfo key={index} data={item} />
+                    ))
+                  }
+                </div>
+              }
             </div>
           </section>
 
@@ -134,7 +136,6 @@ function PlantInformation() {
             </div>
           )}
         </>
-      )}
     </div>
   );
 }

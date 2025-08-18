@@ -1,5 +1,4 @@
 const express = require("express");
-require('dotenv').config();
 const cookieParser = require("cookie-parser");
 const { connectDB } = require("./config/DBconnect");
 const { cloudinaryConnect } = require("./config/cloudinary");
@@ -12,6 +11,8 @@ const helmet = require('helmet');
 const mongoSanitize = require('express-mongo-sanitize');
 const rateLimit = require('express-rate-limit');
 
+require('dotenv').config();
+
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -22,13 +23,11 @@ app.use(mongoSanitize());
 // Rate limiting
 const limiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 100 // limit each IP to 100 requests per windowMs
+    max: 1000 // limit each IP to 1000 requests per windowMs
 });
 app.use(limiter);
 
 app.use(express.json({ limit: '50mb' }));  // Increase as necessary
-
-app.use(express.urlencoded({ limit: '100mb', extended: true }));
 
 const tempDir = path.join(__dirname, "tmp");
 app.use(fileupload({

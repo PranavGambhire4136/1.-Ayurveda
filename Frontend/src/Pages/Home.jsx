@@ -86,9 +86,6 @@ function Home() {
 
       <section className="mb-20 px-2">
         <div className="relative max-w-7xl mx-auto rounded-3xl shadow-2xl temple-border bg-[var(--temple-offwhite)] bg-opacity-95 px-4 md:px-16 py-16 flex flex-col items-center overflow-hidden">
-          {/* Leafy SVG background motif */}
-          <svg className="absolute left-0 top-0 opacity-10 z-0" width="260" height="120" viewBox="0 0 260 120" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="130" cy="60" rx="120" ry="38" fill="#4caf50" fillOpacity="0.10"/><ellipse cx="180" cy="80" rx="70" ry="20" fill="#c9a14a" fillOpacity="0.08"/></svg>
-          <svg className="absolute right-0 bottom-0 opacity-10 z-0" width="180" height="90" viewBox="0 0 180 90" fill="none" xmlns="http://www.w3.org/2000/svg"><ellipse cx="90" cy="45" rx="88" ry="22" fill="#4caf50" fillOpacity="0.09"/></svg>
 
           <h2 className="temple-heading text-4xl md:text-5xl text-center mb-3 font-extrabold tracking-wide navbar-text-shadow" style={{letterSpacing:'0.06em'}}>Featured Ayurvedic Plants</h2>
           <div className="text-xl md:text-2xl text-[var(--temple-green)] mb-10 text-center font-semibold navbar-text-shadow" style={{fontFamily: 'Noto Serif, Merriweather, serif'}}>Sacred herbs for health, healing, and spiritual balance</div>

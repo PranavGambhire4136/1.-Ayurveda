@@ -21,35 +21,35 @@ router.get("/", (req, res) => {
     res.send("Hello World");
 });
 
-router.post("/addProfile", isThere, addProfile);
-router.get("/getAddDetial", isThere, getAddDetails);
-router.post("/addDetails", isThere, AddDetail);
+router.post("/addProfile", isThere, addProfile); //
+router.get("/getAddDetial", isThere, getAddDetails); //
+router.post("/addDetails", isThere, AddDetail); //
 
-router.post("/SignUpInit", SignUp)
-router.post("/SignUpComplete", verifyOtpAndCreateUser);
-router.get("/login", Login);
-router.get("/getUser", isThere, getUser);
-router.get("/logOut", isThere, logout)
-router.post("/changePasskey", changePasskey);
-
-
-router.get("/getAllPlant", getAllPlants);
-router.post("/addPlant", isAdmin, addPlant);
-router.get("/getPlantDetail", getPlantDetail);
+router.post("/SignUpInit", SignUp) //
+router.post("/SignUpComplete", verifyOtpAndCreateUser); //
+router.get("/login", Login); //
+router.get("/getUser", isThere, getUser); //
+router.get("/logOut", isThere, logout) //
+router.post("/changePasskey", isAdmin, changePasskey); //
 
 
-router.post("/addPost", isThere, addPost);
-router.post("/removePost", deletePost);
-router.get("/getAllPost", getAllPost);
-router.get("/getUserPost", isThere, getPost);
+router.get("/getAllPlant", getAllPlants); //
+router.post("/addPlant", isAdmin, addPlant); //
+router.get("/getPlantDetail", getPlantDetail); //
 
-router.post("/giveLike",isThere, addLike);
-router.post("/removeLike",isThere, removeLike);
-router.get('/isLike', isThere, isLike);
 
-router.post('/addDisLike', isThere, addDisLike);
-router.post('/removeDisLike', isThere, removeDisLike);
-router.get('/isDisLike', isThere, isDisLiked);
+router.post("/addPost", isThere, addPost); //
+router.post("/removePost", deletePost); //
+router.get("/getAllPost", getAllPost); //
+router.get("/getUserPost", isThere, getPost); //
+
+router.post("/giveLike",isThere, addLike); //
+router.post("/removeLike",isThere, removeLike); //
+router.get('/isLike', isThere, isLike); //
+
+router.post('/addDisLike', isThere, addDisLike); //
+router.post('/removeDisLike', isThere, removeDisLike); //
+router.get('/isDisLike', isThere, isDisLiked); //
 
 router.get("/dummy", (req, res) => {
     return res.status(200).json({ success: true, message: "Dummy" });

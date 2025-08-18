@@ -55,7 +55,7 @@ function Login() {
       .then((response) => {
         const { token } = response.data;
         // Store in both cookie and localStorage for redundancy
-        setToken('token', token, 60 * 60 * 24 - 1.5 * 60);
+        setToken('token', token, 60 * 60 * 24 - 1.5 * 60); //in sec
         
         // Set axios defaults for future requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -89,6 +89,7 @@ function Login() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                placeholder='email'
                 className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                 required
               />
@@ -103,6 +104,7 @@ function Login() {
                 onChange={handleChange}
                 className="border-2 border-green-300 rounded-md p-2 focus:outline-none focus:border-green-500"
                 required
+                placeholder='password'
               />
             </label>
 

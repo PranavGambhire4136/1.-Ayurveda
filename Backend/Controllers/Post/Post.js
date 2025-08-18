@@ -18,7 +18,7 @@ exports.addPost = async(req, res) => {
         if (!postContent || !postHeading || !postImage) {
             return res.status(400).json({
                 success: false,
-                message: "All The fields are required", 
+                message: postContent ? postHeading ? "Post Image is required" : "Post heading is required" : "Post content is required", 
             })
         }
         
@@ -65,7 +65,7 @@ exports.deletePost = async(req, res) => {
         if (!postId) {
             return res.status(400).json({
                 success: false,
-                message: "All fields are required", 
+                message: "Invalid postId", 
             })
         }
     

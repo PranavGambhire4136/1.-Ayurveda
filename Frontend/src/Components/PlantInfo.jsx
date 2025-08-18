@@ -16,30 +16,7 @@ function PlantInfo({ data }) {
 
   return (
     <div className="relative flex flex-col items-center w-full max-w-xs m-6 group min-h-[480px]">
-      {/* Leafy SVG background motif */}
-      <svg
-        className="absolute -top-4 -left-4 w-[110%] h-[110%] opacity-20 pointer-events-none z-0"
-        viewBox="0 0 220 220"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <ellipse
-          cx="110"
-          cy="110"
-          rx="100"
-          ry="45"
-          fill="#4caf50"
-          fillOpacity="0.13"
-        />
-        <ellipse
-          cx="110"
-          cy="130"
-          rx="90"
-          ry="32"
-          fill="#c9a14a"
-          fillOpacity="0.10"
-        />
-      </svg>
+
 
       {/* Card container */}
       <div className="relative z-10 w-full rounded-3xl border-2 border-[var(--temple-gold)] shadow-2xl bg-gradient-to-br from-[var(--temple-green)] via-[var(--temple-leaf)] to-[var(--temple-gold)] bg-opacity-95 px-7 pt-20 pb-10 flex flex-col items-center overflow-visible min-h-[420px]">

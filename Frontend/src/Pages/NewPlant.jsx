@@ -92,7 +92,7 @@ function AddPlant() {
       {!isLoading &&
 
       <div className="flex flex-col items-center m-4 gap-4 p-4 justify-center temple-bg">
-        <div className="w-full max-w-2xl temple-card temple-border temple-shadow">
+        <div className="w-full max-w-2xl temple-card temple-border temple-shadow p-8">
           <h1 className="temple-heading text-2xl md:text-3xl mb-6 text-center">Add New Plant</h1>
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             {/* Plant Name Input */}
@@ -103,6 +103,7 @@ function AddPlant() {
                 required
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="name"
+                placeholder='name'
                 value={plantData.name}
                 onChange={handleInputChange}
               />
@@ -129,6 +130,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="info"
                 value={plantData.info}
+                placeholder='Informationn'
                 onChange={handleInputChange}
               />
             </label>
@@ -142,6 +144,7 @@ function AddPlant() {
                 name="tags"
                 value={plantData.tags}
                 onChange={handleInputChange}
+                placeholder='tags (helps to search plant)'
               />
             </label>
 
@@ -154,6 +157,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="diseases"
                 value={plantData.diseases}
+                placeholder='diseases can cured'
                 onChange={handleInputChange}
               />
             </label>
@@ -166,6 +170,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="howItWorks"
                 value={plantData.howItWorks}
+                placeholder='working'
                 onChange={handleInputChange}
               />
             </label>
@@ -179,6 +184,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="sideEffects"
                 value={plantData.sideEffects}
+                placeholder='side effects'
                 onChange={handleInputChange}
               />
             </label>
@@ -192,6 +198,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="exceptions"
                 value={plantData.exceptions}
+                placeholder='exceptions'
                 onChange={handleInputChange}
               />
             </label>
@@ -205,6 +212,7 @@ function AddPlant() {
                 className="temple-border rounded-lg px-3 py-2 text-[var(--temple-dark-green)] focus:outline-none focus:border-[var(--temple-gold)] focus:ring-2 focus:ring-[var(--temple-gold)]"
                 name="availability"
                 value={plantData.availability}
+                placeholder='where it is available'
                 onChange={handleInputChange}
               />
             </label>

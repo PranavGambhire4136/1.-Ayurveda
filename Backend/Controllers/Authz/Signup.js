@@ -32,6 +32,31 @@ exports.SignUp = async (req, res) => {
             });
         }
 
+        // Check password match
+        if (password !== confirmPassword) {
+            return res.status(400).json({
+                success: false,
+                message: "Password and Confirm Password do not match",
+            });
+        }
+
+        
+        const checkEmailExists = (email) => {
+            return new Promise((resolve, reject) => {
+                emailExistence.check(email, (error, response) => {
+                    if (error || !response) reject(new Error("email does not exits"));
+                    else resolve(true);
+                });
+            });
+        };
+
+
+        try {
+            await checkEmailExists(email);
+        } catch (err) {
+            return res.status(400).json({ success: false, message: err.message });
+        }
+
         // Check if email or username already exists
         const existingUser = await User.findOne({
             $or: [{ email }, { userName }],
@@ -45,13 +70,6 @@ exports.SignUp = async (req, res) => {
             });
         }
 
-        // Check password match
-        if (password !== confirmPassword) {
-            return res.status(400).json({
-                success: false,
-                message: "Password and Confirm Password do not match",
-            });
-        }
 
         // Check for ongoing OTP verification
         const userVerification = await UserVerification.findOne({
@@ -84,21 +102,6 @@ exports.SignUp = async (req, res) => {
             }
         }
 
-        const checkEmailExists = (email) => {
-            return new Promise((resolve, reject) => {
-                emailExistence.check(email, (error, response) => {
-                    if (error || !response) reject(new Error("email does not exits"));
-                    else resolve(true);
-                });
-            });
-        };
-
-
-        try {
-            await checkEmailExists(email);
-        } catch (err) {
-            return res.status(400).json({ success: false, message: err.message });
-        }
 
         // Generate OTP and send email
         const otpGenerated = await generateOTP();
