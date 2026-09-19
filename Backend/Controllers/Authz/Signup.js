@@ -3,7 +3,6 @@ const UserVerification = require("../../Models/UserVarification");
 const bcrypt = require("bcrypt");
 const User = require("../../Models/User");
 const AdminSettings = require("../../Models/adminSetting");
-const emailExistence = require('email-existence');
 
 exports.SignUp = async (req, res) => {
     try {
@@ -38,23 +37,6 @@ exports.SignUp = async (req, res) => {
                 success: false,
                 message: "Password and Confirm Password do not match",
             });
-        }
-
-        
-        const checkEmailExists = (email) => {
-            return new Promise((resolve, reject) => {
-                emailExistence.check(email, (error, response) => {
-                    if (error || !response) reject(new Error("email does not exits"));
-                    else resolve(true);
-                });
-            });
-        };
-
-
-        try {
-            await checkEmailExists(email);
-        } catch (err) {
-            return res.status(400).json({ success: false, message: err.message });
         }
 
         // Check if email or username already exists
